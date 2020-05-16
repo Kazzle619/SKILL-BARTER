@@ -1,24 +1,21 @@
-# README
+# SKILL-BARTAR
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+登録者同士でスキルを物々交換できるサイト。
+また、交換後にレビューをしてもらうことができ、それらの蓄積がその人の信頼へと繋がっていく。
 
-Things you may want to cover:
+### テーマを選んだ理由
+他人のスキルを借りたい(デザイン、コーチングなど)と思うことがあるが、思ったよりも値が張るので、今の自分のスキルと他人のスキルを物々交換できると良いな、と思ったことがあったため。
+一方で金額が低いと低いでその人のスキルに不信感を持つことがあるが、その人のスキルに対するレビューが有るとより安心して依頼することができると考えたため。
 
-* Ruby version
+### ターゲットユーザ
+20〜30代(まだ資金に十分な余裕がない)で、何らかのスキル、特技、技術を持っている人。
 
-* System dependencies
+### 主な利用シーン
+他人に借りたいスキルを、金銭ではなく自分のスキルと交換したいと思ったとき。
 
-* Configuration
+## 設計書
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 機能一覧
+<https://docs.google.com/spreadsheets/d/1XjbB5lF_9hvFqf1PenRr3yR3Fn6brCduQYDqwlXHT0o/edit#gid=0>
