@@ -1,4 +1,4 @@
-# SKILL-BARTAR
+# SKILL-BARTER
 
 ## サイト概要
 登録者同士でスキルを物々交換できるサイト。
