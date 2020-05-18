@@ -24,7 +24,7 @@
 <https://drive.google.com/file/d/17JqPEEykcJYkZngWkQBNlMwniXdGkfQN/view?usp=sharing>
 
 ### DB設計書
-
+<https://docs.google.com/spreadsheets/d/1lgahJzw4uwUWDRDxcONR_153nPLABkCLwe5igpG7_1w/edit?usp=sharing>
 
 ### 詳細設計書
 
