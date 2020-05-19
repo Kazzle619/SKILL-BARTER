@@ -27,7 +27,7 @@
 <https://docs.google.com/spreadsheets/d/1lgahJzw4uwUWDRDxcONR_153nPLABkCLwe5igpG7_1w/edit?usp=sharing>
 
 ### 詳細設計書
-
+<https://docs.google.com/spreadsheets/d/1JeHXmIbGIHml-djug-dDGDEXE9GxenEwLWyZIWuSTVs/edit?usp=sharing>
 
 ### 機能一覧
 <https://docs.google.com/spreadsheets/d/1XjbB5lF_9hvFqf1PenRr3yR3Fn6brCduQYDqwlXHT0o/edit#gid=0>
