@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_154157) do
+ActiveRecord::Schema.define(version: 2020_05_20_165957) do
+
+  create_table "background_jobs", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "company_name", null: false
+    t.string "department"
+    t.string "position"
+    t.date "joining_date", null: false
+    t.date "retirement_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_name"], name: "index_background_jobs_on_company_name"
+    t.index ["department"], name: "index_background_jobs_on_department"
+    t.index ["position"], name: "index_background_jobs_on_position"
+    t.index ["user_id"], name: "index_background_jobs_on_user_id"
+  end
 
   create_table "background_schools", force: :cascade do |t|
     t.integer "user_id", null: false
