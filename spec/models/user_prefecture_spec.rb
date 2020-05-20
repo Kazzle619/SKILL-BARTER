@@ -7,6 +7,7 @@ RSpec.describe UserPrefecture, type: :model do
     let(:user_prefecture) { UserPrefecture.new(user_id: user_id, prefecture_id: prefecture_id) }
     let(:user) { create(:user) }
     let(:prefecture) { create(:prefecture) }
+
     context '全ての項目にデータが入っている' do
       let(:user_id) { user.id }
       let(:prefecture_id) { prefecture.id }
@@ -35,7 +36,7 @@ RSpec.describe UserPrefecture, type: :model do
     end
 
     context 'user_id、prefecture_idカラム複合' do
-      let(:another_user_prefecture) { UserPrefecture.create(user_id: user.id, prefecture_id: prefecture.id) }
+      let(:another_UP) { UserPrefecture.create(user_id: user.id, prefecture_id: prefecture.id) }
       let(:user_id) { user.id }
       let(:prefecture_id) { prefecture.id }
 
