@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_132415) do
+ActiveRecord::Schema.define(version: 2020_05_20_154157) do
+
+  create_table "background_schools", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "school_name", null: false
+    t.integer "school_type", null: false
+    t.string "department"
+    t.integer "enrollment_status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_name"], name: "index_background_schools_on_school_name"
+    t.index ["user_id"], name: "index_background_schools_on_user_id"
+  end
 
   create_table "prefectures", force: :cascade do |t|
     t.integer "name"
