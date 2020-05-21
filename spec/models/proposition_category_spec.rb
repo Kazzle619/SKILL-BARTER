@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PropositionCategory, type: :model do
   describe 'バリデーションのテスト' do
-    subject { test_proposition_category.valid? }
+    # PC → proposition_category。長すぎてrubocopに弾かれるため短縮。
+    subject { test_PC.valid? }
 
-    let(:test_proposition_category) { PropositionCategory.new(proposition_id: proposition.id, tag_id: tag.id) }
+    let(:test_PC) { PropositionCategory.new(proposition_id: proposition.id, tag_id: tag.id) }
     let(:user) { create(:user) }
     let(:proposition) { create(:proposition, user_id: user.id) }
     let(:tag) { create(:tag) }
@@ -17,21 +18,21 @@ RSpec.describe PropositionCategory, type: :model do
 
     context 'proposition_idカラム' do
       it '空欄でないこと' do
-        test_proposition_category.proposition_id = ""
+        test_PC.proposition_id = ""
         is_expected.to eq false
       end
     end
 
     context 'tag_idカラム' do
       it '空欄でないこと' do
-        test_proposition_category.tag_id = ""
+        test_PC.tag_id = ""
         is_expected.to eq false
       end
     end
 
     context 'proposition_id, tag_idカラム複合' do
       # 重複のテストをするために、同じ値を持つデータを先に保存しておく。
-      let!(:another_proposition_category) { PropositionCategory.create(proposition_id: proposition.id, tag_id: tag.id) }
+      let!(:pre_PC) { PropositionCategory.create(proposition_id: proposition.id, tag_id: tag.id) }
 
       it 'DBに重複がないこと' do
         is_expected.to eq false
