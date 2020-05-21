@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_173629) do
+ActiveRecord::Schema.define(version: 2020_05_21_174450) do
+
+  create_table "achievement_categories", force: :cascade do |t|
+    t.integer "achievement_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id", "tag_id"], name: "index_achievement_categories_on_achievement_id_and_tag_id", unique: true
+    t.index ["achievement_id"], name: "index_achievement_categories_on_achievement_id"
+    t.index ["tag_id"], name: "index_achievement_categories_on_tag_id"
+  end
 
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
