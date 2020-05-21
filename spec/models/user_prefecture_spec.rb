@@ -36,12 +36,13 @@ RSpec.describe UserPrefecture, type: :model do
     end
 
     context 'user_id、prefecture_idカラム複合' do
-      let(:another_UP) { UserPrefecture.create(user_id: user.id, prefecture_id: prefecture.id) }
+      # 重複のテストをするために、同じ値を持つデータを先に保存しておく。
+      # UP → user_prefecture
+      let!(:another_UP) { UserPrefecture.create(user_id: user.id, prefecture_id: prefecture.id) }
       let(:user_id) { user.id }
       let(:prefecture_id) { prefecture.id }
 
       it 'DBに重複がないこと' do
-        pending '何故かtrueになる。'
         is_expected.to eq false
       end
     end
