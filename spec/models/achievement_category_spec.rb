@@ -41,7 +41,7 @@ RSpec.describe AchievementCategory, type: :model do
   end
 
   describe 'アソシエーションのテスト' do
-    context 'achievementモデルとの関係' do
+    context 'Achievementモデルとの関係' do
       it 'N:1となっている' do
         expect(AchievementCategory.reflect_on_association(:achievement).macro).to eq :belongs_to
       end
