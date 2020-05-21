@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_172429) do
+ActiveRecord::Schema.define(version: 2020_05_21_173629) do
 
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -129,6 +129,16 @@ ActiveRecord::Schema.define(version: 2020_05_21_172429) do
     t.index ["introduction"], name: "index_propositions_on_introduction"
     t.index ["title"], name: "index_propositions_on_title"
     t.index ["user_id"], name: "index_propositions_on_user_id"
+  end
+
+  create_table "request_categories", force: :cascade do |t|
+    t.integer "proposition_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id", "tag_id"], name: "index_request_categories_on_proposition_id_and_tag_id", unique: true
+    t.index ["proposition_id"], name: "index_request_categories_on_proposition_id"
+    t.index ["tag_id"], name: "index_request_categories_on_tag_id"
   end
 
   create_table "reviews", force: :cascade do |t|
