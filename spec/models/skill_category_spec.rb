@@ -33,7 +33,6 @@ RSpec.describe SkillCategory, type: :model do
       let!(:another_skill_category) { SkillCategory.create(user_id: user.id, tag_id: tag.id) }
 
       it 'DBに重複がないこと' do
-        test_skill_category.tag_id = ""
         is_expected.to eq false
       end
     end
