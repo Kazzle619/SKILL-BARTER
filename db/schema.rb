@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_105357) do
+ActiveRecord::Schema.define(version: 2020_05_21_110341) do
 
   create_table "background_jobs", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -63,6 +63,22 @@ ActiveRecord::Schema.define(version: 2020_05_21_105357) do
     t.integer "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "propositions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.text "introduction", null: false
+    t.date "deadline"
+    t.integer "barter_status", null: false
+    t.string "rendering_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["barter_status"], name: "index_propositions_on_barter_status"
+    t.index ["deadline"], name: "index_propositions_on_deadline"
+    t.index ["introduction"], name: "index_propositions_on_introduction"
+    t.index ["title"], name: "index_propositions_on_title"
+    t.index ["user_id"], name: "index_propositions_on_user_id"
   end
 
   create_table "user_prefectures", force: :cascade do |t|
