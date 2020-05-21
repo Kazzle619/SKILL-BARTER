@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_133347) do
+ActiveRecord::Schema.define(version: 2020_05_21_135827) do
 
   create_table "background_jobs", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 2020_05_21_133347) do
     t.index ["blocked_id"], name: "index_blocks_on_blocked_id"
     t.index ["blocker_id", "blocked_id"], name: "index_blocks_on_blocker_id_and_blocked_id", unique: true
     t.index ["blocker_id"], name: "index_blocks_on_blocker_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "proposition_id", null: false
+    t.text "content"
+    t.string "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_comments_on_proposition_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
