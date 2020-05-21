@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  company_name: MyString
+  department: MyString
+  position: MyString
+  joining_date: 2020-05-20
+  retirement_date: 2020-05-20
+
+two:
+  user: two
+  company_name: MyString
+  department: MyString
+  position: MyString
+  joining_date: 2020-05-20
+  retirement_date: 2020-05-20
