@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_150618) do
+ActiveRecord::Schema.define(version: 2020_05_21_160224) do
 
   create_table "background_jobs", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -109,6 +109,17 @@ ActiveRecord::Schema.define(version: 2020_05_21_150618) do
     t.index ["introduction"], name: "index_propositions_on_introduction"
     t.index ["title"], name: "index_propositions_on_title"
     t.index ["user_id"], name: "index_propositions_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "proposition_id", null: false
+    t.text "comment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_reviews_on_proposition_id"
+    t.index ["user_id", "proposition_id"], name: "index_reviews_on_user_id_and_proposition_id", unique: true
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "user_prefectures", force: :cascade do |t|
