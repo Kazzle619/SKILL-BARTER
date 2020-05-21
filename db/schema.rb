@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_135827) do
+ActiveRecord::Schema.define(version: 2020_05_21_150618) do
 
   create_table "background_jobs", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -58,6 +58,16 @@ ActiveRecord::Schema.define(version: 2020_05_21_135827) do
     t.datetime "updated_at", null: false
     t.index ["proposition_id"], name: "index_comments_on_proposition_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "proposition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_favorites_on_proposition_id"
+    t.index ["user_id", "proposition_id"], name: "index_favorites_on_user_id_and_proposition_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
