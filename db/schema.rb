@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_110341) do
+ActiveRecord::Schema.define(version: 2020_05_21_133347) do
 
   create_table "background_jobs", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 2020_05_21_110341) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "offers", force: :cascade do |t|
+    t.integer "offering_id", null: false
+    t.integer "offered_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offered_id"], name: "index_offers_on_offered_id"
+    t.index ["offering_id"], name: "index_offers_on_offering_id"
+  end
+
   create_table "prefectures", force: :cascade do |t|
     t.integer "name"
     t.datetime "created_at", null: false
@@ -70,7 +79,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_110341) do
     t.string "title", null: false
     t.text "introduction", null: false
     t.date "deadline"
-    t.integer "barter_status", null: false
+    t.integer "barter_status", default: 1, null: false
     t.string "rendering_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
