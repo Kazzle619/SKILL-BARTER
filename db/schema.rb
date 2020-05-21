@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_175243) do
+ActiveRecord::Schema.define(version: 2020_05_21_180259) do
 
   create_table "achievement_categories", force: :cascade do |t|
     t.integer "achievement_id", null: false
@@ -123,6 +123,16 @@ ActiveRecord::Schema.define(version: 2020_05_21_175243) do
     t.index ["proposition_id", "tag_id"], name: "index_proposition_categories_on_proposition_id_and_tag_id", unique: true
     t.index ["proposition_id"], name: "index_proposition_categories_on_proposition_id"
     t.index ["tag_id"], name: "index_proposition_categories_on_tag_id"
+  end
+
+  create_table "proposition_rooms", force: :cascade do |t|
+    t.integer "proposition_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id", "room_id"], name: "index_proposition_rooms_on_proposition_id_and_room_id", unique: true
+    t.index ["proposition_id"], name: "index_proposition_rooms_on_proposition_id"
+    t.index ["room_id"], name: "index_proposition_rooms_on_room_id"
   end
 
   create_table "propositions", force: :cascade do |t|
