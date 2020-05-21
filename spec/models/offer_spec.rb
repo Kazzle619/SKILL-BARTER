@@ -17,8 +17,14 @@ RSpec.describe Offer, type: :model do
     end
 
     context 'offering_idカラム' do
+      let(:proposition_3) { create(:proposition, user_id: user.id) }
+      let!(:pre_offer) { Offer.create(offering_id: proposition_1.id, offered_id: proposition_3.id) }
+
       it '空欄でないこと' do
         test_offer.offering_id = ""
+        is_expected.to eq false
+      end
+      it 'DB内に重複がないこと' do
         is_expected.to eq false
       end
     end
@@ -44,5 +50,4 @@ RSpec.describe Offer, type: :model do
       end
     end
   end
-
 end
