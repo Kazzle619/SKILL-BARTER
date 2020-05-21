@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proposition: one
+  tag: one
+
+two:
+  proposition: two
+  tag: two

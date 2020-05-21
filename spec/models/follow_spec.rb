@@ -28,6 +28,15 @@ RSpec.describe Follow, type: :model do
         is_expected.to eq false
       end
     end
+
+    context 'follower_id, followed_idカラム複合' do
+      # 重複のテストをするために、同じ値を持つデータを先に保存しておく。
+      let!(:another_follow) { Follow.create(follower_id: user1.id, followed_id: user2.id) }
+
+      it 'DBに重複がないこと' do
+        is_expected.to eq false
+      end
+    end
   end
 
   describe 'アソシエーションのテスト' do

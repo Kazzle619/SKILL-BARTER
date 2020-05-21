@@ -28,13 +28,16 @@ RSpec.describe User, type: :model do
     end
 
     context 'birthdayカラム' do
-      it '空欄でも可' do
+      it '空欄でも良い' do
         test_user.birthday = ""
         is_expected.to eq true
       end
     end
 
     context 'phone_numberカラム' do
+      # 重複のテストをするために、先に指定した電話番号のデータを保存しておく。
+      let!(:another_user) { create(:user, phone_number: "09012345678") }
+
       it '空欄でないこと' do
         test_user.phone_number = ""
         is_expected.to eq false
@@ -47,7 +50,7 @@ RSpec.describe User, type: :model do
         test_user.phone_number = "090-1234-5678"
         is_expected.to eq false
       end
-      # 10,11桁のみということをテストするための内容
+      # 以下2つは10,11桁のみということをテストするための内容
       it '9桁未満でないこと' do
         test_user.phone_number = "1" * 9
         is_expected.to eq false
@@ -56,8 +59,9 @@ RSpec.describe User, type: :model do
         test_user.phone_number = "1" * 12
         is_expected.to eq false
       end
-      it '重複していないこと' do
-        pending '書き方がまだ分からない。'
+      it 'DBに重複がないこと' do
+        # 既に保存してあるデータの電話番号に変更
+        test_user.phone_number = "09012345678"
         is_expected.to eq false
       end
     end

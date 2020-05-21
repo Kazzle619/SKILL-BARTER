@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_105357) do
+ActiveRecord::Schema.define(version: 2020_05_21_181836) do
+
+  create_table "achievement_categories", force: :cascade do |t|
+    t.integer "achievement_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id", "tag_id"], name: "index_achievement_categories_on_achievement_id_and_tag_id", unique: true
+    t.index ["achievement_id"], name: "index_achievement_categories_on_achievement_id"
+    t.index ["tag_id"], name: "index_achievement_categories_on_tag_id"
+  end
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.text "introduction", null: false
+    t.string "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_achievements_on_user_id"
+  end
 
   create_table "background_jobs", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -49,6 +69,38 @@ ActiveRecord::Schema.define(version: 2020_05_21_105357) do
     t.index ["blocker_id"], name: "index_blocks_on_blocker_id"
   end
 
+  create_table "chat_messages", force: :cascade do |t|
+    t.integer "proposition_id", null: false
+    t.integer "room_id", null: false
+    t.text "content"
+    t.string "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_chat_messages_on_proposition_id"
+    t.index ["room_id"], name: "index_chat_messages_on_room_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "proposition_id", null: false
+    t.text "content"
+    t.string "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_comments_on_proposition_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "proposition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_favorites_on_proposition_id"
+    t.index ["user_id", "proposition_id"], name: "index_favorites_on_user_id_and_proposition_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_id", null: false
@@ -59,10 +111,98 @@ ActiveRecord::Schema.define(version: 2020_05_21_105357) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "offers", force: :cascade do |t|
+    t.integer "offering_id", null: false
+    t.integer "offered_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offered_id"], name: "index_offers_on_offered_id"
+    t.index ["offering_id"], name: "index_offers_on_offering_id"
+  end
+
   create_table "prefectures", force: :cascade do |t|
     t.integer "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "proposition_categories", force: :cascade do |t|
+    t.integer "proposition_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id", "tag_id"], name: "index_proposition_categories_on_proposition_id_and_tag_id", unique: true
+    t.index ["proposition_id"], name: "index_proposition_categories_on_proposition_id"
+    t.index ["tag_id"], name: "index_proposition_categories_on_tag_id"
+  end
+
+  create_table "proposition_rooms", force: :cascade do |t|
+    t.integer "proposition_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id", "room_id"], name: "index_proposition_rooms_on_proposition_id_and_room_id", unique: true
+    t.index ["proposition_id"], name: "index_proposition_rooms_on_proposition_id"
+    t.index ["room_id"], name: "index_proposition_rooms_on_room_id"
+  end
+
+  create_table "propositions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.text "introduction", null: false
+    t.date "deadline"
+    t.integer "barter_status", default: 1, null: false
+    t.string "rendering_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["barter_status"], name: "index_propositions_on_barter_status"
+    t.index ["deadline"], name: "index_propositions_on_deadline"
+    t.index ["introduction"], name: "index_propositions_on_introduction"
+    t.index ["title"], name: "index_propositions_on_title"
+    t.index ["user_id"], name: "index_propositions_on_user_id"
+  end
+
+  create_table "request_categories", force: :cascade do |t|
+    t.integer "proposition_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id", "tag_id"], name: "index_request_categories_on_proposition_id_and_tag_id", unique: true
+    t.index ["proposition_id"], name: "index_request_categories_on_proposition_id"
+    t.index ["tag_id"], name: "index_request_categories_on_tag_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "proposition_id", null: false
+    t.text "comment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposition_id"], name: "index_reviews_on_proposition_id"
+    t.index ["user_id", "proposition_id"], name: "index_reviews_on_user_id_and_proposition_id", unique: true
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "skill_categories", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_skill_categories_on_tag_id"
+    t.index ["user_id", "tag_id"], name: "index_skill_categories_on_user_id_and_tag_id", unique: true
+    t.index ["user_id"], name: "index_skill_categories_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "user_prefectures", force: :cascade do |t|
