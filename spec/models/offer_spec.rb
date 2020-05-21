@@ -17,8 +17,9 @@ RSpec.describe Offer, type: :model do
     end
 
     context 'offering_idカラム' do
-      let(:proposition_3) { create(:proposition, user_id: user.id) }
+      # 重複のテストをするために、offering_idカラムにだけ同じ値を持つデータを先に保存しておく。
       let!(:pre_offer) { Offer.create(offering_id: proposition_1.id, offered_id: proposition_3.id) }
+      let(:proposition_3) { create(:proposition, user_id: user.id) }
 
       it '空欄でないこと' do
         test_offer.offering_id = ""
