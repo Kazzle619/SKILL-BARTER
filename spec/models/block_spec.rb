@@ -28,6 +28,15 @@ RSpec.describe Block, type: :model do
         is_expected.to eq false
       end
     end
+
+    context 'blocker_id, blocked_idカラム複合' do
+      # 重複のテストをするために、同じ値を持つデータを先に保存しておく。
+      let!(:another_block) { Block.create(blocker_id: user1.id, blocked_id: user2.id) }
+
+      it 'DBに重複がないこと' do
+        is_expected.to eq false
+      end
+    end
   end
 
   describe 'アソシエーションのテスト' do
