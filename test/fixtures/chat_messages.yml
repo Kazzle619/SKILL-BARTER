@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proposition: one
+  room: one
+  content: MyText
+  image_id: MyString
+
+two:
+  proposition: two
+  room: two
+  content: MyText
+  image_id: MyString
