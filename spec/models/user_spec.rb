@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'birthdayカラム' do
-      it '空欄でも可' do
+      it '空欄でも良い' do
         test_user.birthday = ""
         is_expected.to eq true
       end
