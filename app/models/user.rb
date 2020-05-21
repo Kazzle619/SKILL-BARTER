@@ -19,7 +19,9 @@ class User < ApplicationRecord
   has_many :skill_categories, dependent: :destroy
 
   enum user_status: {
+    # 利用中
     subscribing: 1,
+    # 退会済
     unsubscribed: 2,
   }
 
