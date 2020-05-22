@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get 'propositions/index'
+  get 'propositions/new'
+  get 'propositions/edit'
+  get 'propositions/show'
+  get 'propositions/mypage_index'
+  get 'propositions/offer'
+  get 'propositions/search'
+  get 'propositions/finish'
+  get 'propositions/match'
   get 'users/top'
   get 'users/index'
   get 'users/mypage'
