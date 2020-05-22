@@ -9,7 +9,15 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body style="padding-top: 4.5rem;">
+    <header>
+      <% if user_signed_in? %>
+        <%= render 'layouts/login_header' %>
+      <% else %>
+        <%= render 'layouts/not_logged_in_header' %>
+      <% end %>
+    </header>
+
     <%= yield %>
   </body>
 </html>
