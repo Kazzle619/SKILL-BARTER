@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'achievements/new'
+  get 'achievements/edit'
   get 'propositions/index'
   get 'propositions/new'
   get 'propositions/edit'
