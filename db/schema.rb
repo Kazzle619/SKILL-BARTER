@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_181836) do
+ActiveRecord::Schema.define(version: 2020_05_22_175122) do
 
   create_table "achievement_categories", force: :cascade do |t|
     t.integer "achievement_id", null: false
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_181836) do
     t.string "title", null: false
     t.text "introduction", null: false
     t.date "deadline"
-    t.integer "barter_status", default: 1, null: false
+    t.integer "barter_status", default: 1
     t.string "rendering_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_181836) do
     t.string "phone_number", null: false
     t.text "introduction"
     t.string "profile_image_id"
-    t.integer "user_status", default: 1, null: false
+    t.integer "user_status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
