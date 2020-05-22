@@ -1,24 +1,69 @@
 Rails.application.routes.draw do
-  get 'achievements/new'
-  get 'achievements/edit'
-  get 'propositions/index'
-  get 'propositions/new'
-  get 'propositions/edit'
-  get 'propositions/show'
-  get 'propositions/mypage_index'
-  get 'propositions/offer'
-  get 'propositions/search'
-  get 'propositions/finish'
-  get 'propositions/match'
-  get 'users/top'
-  get 'users/index'
-  get 'users/mypage'
-  get 'users/edit'
-  get 'users/show'
-  get 'users/blocking'
-  get 'users/followers'
-  get 'users/following'
-  get 'users/notice'
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords',
+  }
+
+  root 'users#top'
+
+  resources :users, only: [:index, :edit, :show, :update, :destroy] do
+    collection do
+      get 'mypage'
+      get 'notice'
+    end
+
+    member do
+      get 'blocking'
+      get 'followers'
+      get 'following'
+    end
+  end
+
+  resources :user_prefectures, only: [:create, :destroy]
+
+  resources :background_schools, only: [:create, :destroy]
+
+  resources :background_jobs, only: [:create, :destroy]
+
+  resources :follows, only: [:create, :destroy]
+
+  resources :blocks, only: [:create, :destroy]
+
+  resources :propositions do
+    collection do
+      get 'mypage_index'
+      get 'offer'
+      get 'search'
+    end
+
+    member do
+      get 'finish'
+      get 'match'
+    end
+
+    resources :offers, only: [:create, :destroy]
+
+    resources :comments, only: [:create, :destroy]
+
+    resources :favorites, only: [:create, :destroy]
+
+    resources :reviews, only: [:create, :destroy]
+
+    resources :proposition_categories, only: [:create, :destroy]
+
+    resources :request_categories, only: [:create, :destroy]
+  end
+
+  resources :achievements, only: [:create, :new, :edit, :update, :destroy] do
+    resources :achievement_categories, only: [:create, :destroy]
+  end
+
+  resource :tag, only: [:create]
+
+  resources :skill_categories, only: [:create, :destroy]
+
+  resource :room, only: [:create]
+
+  resources :chat_messages, only: [:create, :destroy]
 end
