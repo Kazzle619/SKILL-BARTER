@@ -44,7 +44,7 @@ end
     birthday: Faker::Date.birthday(min_age: 18, max_age: 40),
     phone_number: Faker::PhoneNumber.cell_phone.delete("-"),
     introduction: "自己紹介です。自己紹介です。自己紹介です。自己紹介です。自己紹介です。",
-    profile_image_id: File.open("./app/assets/images/user_#{gender}_#{rand(1..2)}.jpeg"),
+    profile_image: File.open("./app/assets/images/user_#{gender}_#{rand(1..2)}.jpeg"),
     user_status: 1,
     email: "example#{n + 1}@gmail.com",
     password: "password",
