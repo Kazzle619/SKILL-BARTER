@@ -1,2 +1,40 @@
-<h1>Users#top</h1>
-<p>Find me in app/views/users/top.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1>SKILL-BARTERへようこそ</h1>
+  </div>
+
+  <div class="top-eye-catching">
+  </div>
+
+  <%# 新着スキルホルダー(ユーザー) %>
+  <h2>新着スキルホルダー</h2>
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-4">
+        <%= render 'layouts/skill_holder_card', user: user%>
+      </div>
+    <% end %>
+  </div>
+  <div class="text-right">
+    <%= link_to "もっと見る", users_path %>
+  </div>
+
+
+  <%# 新着案件 %>
+  <h2>新着案件</h2>
+  <div class="row">
+    <div class="col-md-9">
+      <% @propositions.each do |proposition| %>
+        <%= render 'layouts/proposition_card', proposition: proposition %>
+      <% end %>
+      <div class="text-right">
+        <%= link_to "もっと見る", propositions_path %>
+      </div>
+    </div>
+
+    <%# 案件検索フォーム %>
+    <div class="col-md-3  proposition_search_form rounded-lg">
+      <%= render 'layouts/propositions_search_form' %>
+    </div>
+  </div>
+</div>

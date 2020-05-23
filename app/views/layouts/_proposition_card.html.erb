@@ -1,0 +1,13 @@
+<div class="proposition_card col-md-12 rounded-lg">
+  <% proposition.proposition_categories.each do |proposition_category| %>
+    <%= render 'layouts/tag_card', tag: proposition_category.tag %>
+  <% end %>
+  <%= link_to proposition_path(proposition.id) do %>
+    <%= proposition.title %><br >
+    <%= proposition.introduction %><br >
+  <% end %>
+  <%= link_to user_path(proposition.user.id) do %>
+    <%= proposition.user.name %>
+    <%= attachment_image_tag proposition.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+  <% end %>
+</div>
