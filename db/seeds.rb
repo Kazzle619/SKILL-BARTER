@@ -79,7 +79,7 @@ end
     introduction: "説明です。説明です。説明です。説明です。説明です。",
     deadline: Faker::Date.forward(days: 60),
     barter_status: 1,
-    rendering_image_id: File.open("./app/assets/images/proposition_image.jpeg"),
+    rendering_image: File.open("./app/assets/images/proposition_image.jpeg"),
   )
 
   # 案件のタイトルに使ったタグをそのままproposition_category_tagに使用
