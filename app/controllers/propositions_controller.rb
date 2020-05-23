@@ -1,5 +1,6 @@
 class PropositionsController < ApplicationController
   def index
+    @propositions = Proposition.page(params[:page]).per(8).reverse_order
   end
 
   def create
