@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   def top
+    @users = User.all.shuffle.first(3)
+    @propositions = Proposition.all.shuffle.first(4)
   end
 
   def index

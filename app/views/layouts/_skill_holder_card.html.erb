@@ -1,0 +1,10 @@
+<div class="skill_holder_card col-md-12 rounded-lg">
+  <%= link_to user_path(user.id) do %>
+    <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+    <%= user.name %><br >
+  <% end %>
+  <%= user.introduction %><br >
+  <% user.skill_categories.each do |skill_category| %>
+    <%= render 'layouts/tag_card', tag: skill_category.tag %>
+  <% end %>
+</div>
