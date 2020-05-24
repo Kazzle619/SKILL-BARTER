@@ -1,2 +1,58 @@
-<h1>Propositions#show</h1>
-<p>Find me in app/views/propositions/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1>案件詳細</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-9">
+      <div class="col-md-12">
+        <%# タブ部分 %>
+        <ul id="myTab" class="nav nav-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a href="#home" id="home-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="home" aria-selected="true">詳細</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a href="#profile" id="profile-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="profile" aria-selected="false">チャット</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a href="#contact" id="contact-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="contact" aria-selected="false">レビュー</a>
+          </li>
+        </ul>
+
+        <%# パネル部分 %>
+        <div id="myTabContent" class="tab-content mt-3">
+          <div id="home" class="tab-pane active" role="tabpanel" aria-labelledby="home-tab">
+            <%# 詳細情報ページ %>
+            <%= render 'propositions/proposition_detail', proposition: @proposition, offer: @offer, offering_proposition: @offering_proposition %>
+          </div>
+          <div id="profile" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+            <%# チャットページ %>
+            <%= render 'propositions/proposition_chat_messages' %>
+          </div>
+          <div id="contact" class="tab-pane" role="tabpanel" aria-labelledby="contact-tab">
+            <%# レビューページ %>
+            <%= render 'propositions/proposition_review' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <%# コメントリスト %>
+        <% @comments.each do |comment| %>
+          <%= render 'comments/proposition_comments', comment: comment, proposition: @proposition %>
+        <% end %>
+      </div>
+
+      <div class="col-md-12">
+        <%# コメントフォーム %>
+        <%= render 'comments/comment_form', proposition: @proposition, comment: @comment %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <%# ユーザー紹介サイドバー %>
+      <%= render 'users/skill_holder_introduction_sidebar', user: @user %>
+    </div>
+  </div>
+</div>
+

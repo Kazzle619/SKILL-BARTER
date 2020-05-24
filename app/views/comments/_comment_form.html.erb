@@ -1,0 +1,15 @@
+<%= form_with(model: [proposition, comment]) do |f| %>
+  <div class="row">
+    <div class="col-md-2 d-flex align-items-center justify-content-center">
+      <%# 入力欄が枠外にはみ出ている。アイコンに後程変更予定 %>
+      <%= f.attachment_field :image %>
+    </div>
+    <div class="col-md-8">
+      <%= f.text_area :content, auto_focus: true, class: "w-100" %>
+    </div>
+    <div class="col-md-2 d-flex align-items-center">
+      <%# 画像、コメントどちらも空欄の時は投稿できないよう後程変更予定 %>
+      <%= f.submit "投稿", class: "btn btn-outline-info btn-block" %>
+    </div>
+  </div>
+<% end %>

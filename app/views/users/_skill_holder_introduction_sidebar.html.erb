@@ -1,0 +1,51 @@
+
+<%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "100x100", class: "rounded-circle" %>
+
+<% user.skill_categories.map(&:tag).each do |tag| %>
+  <%= render 'tags/tag_card', tag: tag %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+    <b>氏名：</b>
+  </div>
+  <div class="col-md-6">
+    <%= user.name %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <b>実績数：</b>
+  </div>
+  <div class="col-md-6">
+    <%= user.achievements.size %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <b>総合評価：</b>
+  </div>
+  <div class="col-md-6">
+    <span>※レビュー※</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <b>活動都道府県：</b>
+  </div>
+  <div class="col-md-6">
+    <% user.user_prefectures.map(&:prefecture).each do |prefecture| %>
+      <%= prefecture.name %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <b>自己紹介：</b>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= user.introduction %>
+  </div>
+</div>
