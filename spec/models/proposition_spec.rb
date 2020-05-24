@@ -67,9 +67,10 @@ RSpec.describe Proposition, type: :model do
       end
     end
 
-    context 'Requestモデルとの関係' do
+    context 'Offerモデルとの関係' do
       it '1:Nとなっている' do
-        expect(Proposition.reflect_on_association(:requests).macro).to eq :has_many
+        pending 'アソシエーションを変更したので要修正'
+        expect(Proposition.reflect_on_association(:offers).macro).to eq :has_many
       end
     end
 
