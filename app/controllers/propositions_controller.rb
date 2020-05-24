@@ -13,6 +13,14 @@ class PropositionsController < ApplicationController
   end
 
   def show
+    @proposition = Proposition.find(params[:id])
+    if @proposition.offer.exists?
+      @offer = @proposition.offer
+      @offering_proposition = Proposition.find(@offer.offering_id)
+    end
+    @comments = @proposition.comments
+    @comment = Comment.new
+    @user = @proposition.user
   end
 
   def update
