@@ -6,11 +6,11 @@ class Proposition < ApplicationRecord
   # has_many :offers, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :reviews, dependent: :destroy
   has_many :proposition_categories, dependent: :destroy
   has_many :request_categories, dependent: :destroy
   has_many :proposition_rooms, dependent: :destroy
   has_many :chat_messages, dependent: :destroy
+  has_one :review, dependent: :destroy
 
   has_many :offering_relationship, class_name: "Offer",
                                    foreign_key: "offering_id",
