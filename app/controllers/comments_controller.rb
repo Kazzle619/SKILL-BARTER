@@ -4,11 +4,11 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.proposition_id = params[:proposition_id].to_i
     if @comment.save
-      redirect_to proposition_path(params[:proposition_id])
+      redirect_to proposition_path(params[:proposition_id].to_i)
     else
       @proposition = Proposition.find(params[:proposition_id])
-      if @proposition.offer.exists?
-        @offer = @proposition.offer
+      if @proposition.offering?
+        @offer = @proposition.my_offer
         @offering_proposition = Proposition.find(@offer.offering_id)
       end
       @comments = @proposition.comments
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy
-    redirect_to proposition_path(params[:proposition_id])
+    redirect_to proposition_path(params[:proposition_id].to_i)
   end
 
   private
