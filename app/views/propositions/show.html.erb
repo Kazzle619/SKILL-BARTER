@@ -27,11 +27,11 @@
           </div>
           <div id="profile" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
             <%# チャットページ %>
-            <%= render 'propositions/proposition_chat_messages' %>
+            <%= render 'chat_messages/proposition_chat_messages' %>
           </div>
           <div id="contact" class="tab-pane" role="tabpanel" aria-labelledby="contact-tab">
             <%# レビューページ %>
-            <%= render 'propositions/proposition_review' %>
+            <%= render 'reviews/proposition_review', proposition: @proposition, review: @review %>
           </div>
         </div>
       </div>
