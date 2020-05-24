@@ -12,10 +12,10 @@
       <%= attachment_image_tag comment, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
     <%# コメントのみの場合 %>
     <% elsif comment.image.blank?%>
-      <div class="proposition-comment"><%= comment.content %></div>
+      <div class="sentence"><%= comment.content %></div>
     <%# コメント、画像どちらもある場合 %>
     <% else %>
-      <div class="proposition-comment"><%= comment.content %></div>
+      <div class="sentence"><%= comment.content %></div>
       <%= attachment_image_tag comment, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
     <% end %>
   </div>
