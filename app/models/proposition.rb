@@ -55,7 +55,7 @@ class Proposition < ApplicationRecord
   end
 
   # 案件に申請を出している自分の案件を取得
-  def offer
+  def my_offer
     if offering?
       # 1つしか無いはず。要リファクタリング。
       offering_proposition_id = (@current_user_proposition_ids & @offers_id)[0]

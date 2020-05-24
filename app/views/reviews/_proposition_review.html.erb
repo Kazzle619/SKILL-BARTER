@@ -1,0 +1,25 @@
+<%# 交換を完了しているか否かで表示する内容を変更 %>
+
+<div class="review-card col-md-12 rounded-lg">
+  <%# 交換が完了していない場合は交換完了確認 %>
+  <% if proposition.barter_status != "bartered" %>
+    <div class="row">
+      <div class="col-md-12 d-flex align-items-center proposition-comment">
+      スキル交換を完了後はレビュー作成ページへ移動します。<br >
+      レビューを作成すると、ここにレビュー内容が表示されます。
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2 d-flex align-items-center proposition-comment">
+        <%= link_to "スキル交換を完了する", new_proposition_review_path(proposition.id), "data-confirm" => "この操作は取り消せません。\nスキル交換を完了してよろしいですか？", class: "btn btn-info btn-block" %>
+      </div>
+    </div>
+
+  <%# 交換が完了している場合はレビューを表示 %>
+  <% else %>
+    
+    <%# 後程変更予定 %>
+    <%= "レビューレート" %>
+
+  <% end %>
+</div>
