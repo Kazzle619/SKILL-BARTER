@@ -35,4 +35,13 @@ class User < ApplicationRecord
       validates :email
     end
   end
+
+  # モデル内でcurrent_userを取得するために記載
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
 end
