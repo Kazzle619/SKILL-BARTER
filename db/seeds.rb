@@ -79,7 +79,7 @@ end
     introduction: "説明です。説明です。説明です。説明です。説明です。",
     deadline: Faker::Date.forward(days: 60),
     barter_status: 1,
-    rendering_image_id: File.open("./app/assets/images/proposition_image.jpeg"),
+    rendering_image: File.open("./app/assets/images/proposition_image.jpeg"),
   )
 
   # 案件のタイトルに使ったタグをそのままproposition_category_tagに使用
@@ -103,4 +103,32 @@ end
     proposition_id: proposition.id,
     tag_id: request_category_tag_id,
   )
+end
+
+# prefectures
+# 47都道府県 + 全国なので計48個
+48.times do |n|
+  Prefecture.create(
+    # 都道府県名はenumで設定してある。
+    name: n + 1,
+  )
+end
+
+# user_prefectures
+20.times do |n|
+  UserPrefecture.create(
+    user_id: n + 1,
+    prefecture_id: rand(1..48),
+  )
+end
+
+# comments
+40.times do |n|
+  rand(3..5).times do |i|
+    Comment.create(
+      user_id: rand(1..40),
+      proposition_id: n + 1,
+      content: "コメントです。コメントです。コメントです。コメントです。コメントです。",
+    )
+  end
 end

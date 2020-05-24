@@ -42,16 +42,12 @@ Rails.application.routes.draw do
       get 'match'
     end
 
+    # propositionsとネスト
     resources :offers, only: [:create, :destroy]
-
     resources :comments, only: [:create, :destroy]
-
     resources :favorites, only: [:create, :destroy]
-
-    resources :reviews, only: [:create, :destroy]
-
+    resources :reviews, only: [:new, :create, :edit, :update]
     resources :proposition_categories, only: [:create, :destroy]
-
     resources :request_categories, only: [:create, :destroy]
   end
 
