@@ -6,11 +6,11 @@ class Proposition < ApplicationRecord
   # has_many :offers, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :reviews, dependent: :destroy
   has_many :proposition_categories, dependent: :destroy
   has_many :request_categories, dependent: :destroy
   has_many :proposition_rooms, dependent: :destroy
   has_many :chat_messages, dependent: :destroy
+  has_one :review, dependent: :destroy
 
   has_many :offering_relationship, class_name: "Offer",
                                    foreign_key: "offering_id",
@@ -55,7 +55,7 @@ class Proposition < ApplicationRecord
   end
 
   # 案件に申請を出している自分の案件を取得
-  def offer
+  def my_offer
     if offering?
       # 1つしか無いはず。要リファクタリング。
       offering_proposition_id = (@current_user_proposition_ids & @offers_id)[0]

@@ -1,0 +1,54 @@
+<%# 交換を完了しているか否かで表示する内容を変更 %>
+
+<div class="review-card col-md-12 rounded-lg">
+  <%# 交換が完了していない場合は交換完了確認 %>
+  <% if proposition.barter_status != "bartered" %>
+    <div class="row">
+      <div class="col-md-12 d-flex align-items-center sentence">
+      スキル交換を完了後はレビュー作成ページへ移動します。<br >
+      レビューを作成すると、ここにレビュー内容が表示されます。
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2 d-flex align-items-center">
+        <%= link_to "スキル交換を完了する", new_proposition_review_path(proposition.id), "data-confirm" => "この操作は取り消せません。\nスキル交換を完了してよろしいですか？", class: "btn btn-info btn-block" %>
+      </div>
+    </div>
+
+  <%# 交換が完了している場合はレビューを表示 %>
+  <% else %>
+    <%# レビュー編集ボタン。レビューしたユーザーにのみ表示。 %>
+    <div class="row">
+      <div class="col-md-9">
+      </div>
+      <div class="col-md-3">
+        <% if review.user == current_user %>
+          <%= link_to "編集する", edit_proposition_review_path(proposition.id, review.id), class: "btn btn-outline-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+
+    <%# レビューしたユーザーのプロフィール画像と氏名 %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= attachment_image_tag review.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+        <%= review.user.name %>
+      </div>
+    </div>
+
+    <%# レビューレート。後程変更予定。 %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= "レビューレート" %>
+      </div>
+    </div>
+
+    <%# レビュー内容 %>
+    <div class="row d-flex align-items-center sentence">
+      <div class="col-md-12">
+        <%= review.comment %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

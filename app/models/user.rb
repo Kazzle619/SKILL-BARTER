@@ -14,9 +14,9 @@ class User < ApplicationRecord
   has_many :propositions, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :reviews
   has_many :achievements, dependent: :destroy
   has_many :skill_categories, dependent: :destroy
+  has_one :review
 
   has_many :following_relationship, class_name: "Follow",
                                     foreign_key: "follower_id",
