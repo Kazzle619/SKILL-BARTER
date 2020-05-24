@@ -1,0 +1,26 @@
+<div class="review-card col-md-12 rounded-lg">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>レビュー</h2>
+    </div>
+  </div>
+
+  <%# レビューレート編集。後程変更予定 %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= "レビューレート" %>
+    </div>
+  </div>
+
+  <%= form_with(model: [proposition, review]) do |f| %>
+    <div class="form-group row">
+      <div class="col-md-10 offset-md-1">
+        <%= f.text_area :comment, rows: 8, autofocus: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="actions mx-auto" style="width: 200px;">
+      <%= f.submit "レビュー送信", class: "btn btn-info btn-block" %><br />
+    </div>
+  <% end %>
+</div>
