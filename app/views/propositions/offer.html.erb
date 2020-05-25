@@ -1,2 +1,33 @@
-<h1>Propositions#offer</h1>
-<p>Find me in app/views/propositions/offer.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>申請用案件選択</h1>
+    </div>
+  </div>
+
+  <%# attachmentがpropositionにしか設定されておらず、offerフォームに入れるとエラーが出るため、propositionフォームを入れ子に %>
+  <%# id: "new_proposition"を付けて、propositionフォームで使用。 %>
+  <%# Rails5.2からid, classが自動付与されるはずだが、何故かidが付与されていなかった。 %>
+  <%= form_with model: [@proposition, @offer], id: "new_proposition_offer"  do |f| %>
+    <%# 申請用に案件を新規作成するか、既にある案件から申請するかをラジオボタンで選択 %>
+    <div class="form-check">
+      <%= f.radio_button :radio_number, 1, checked: "checked", class: "form-check-input" %>
+      <%= f.label :radio_number, "案件を新規に作成して申請する", value: 1, class: "form-check-label" %>
+    </div>
+
+    <div class="form-check">
+      <%= f.radio_button :radio_number, 2, class: "form-check-input" %>
+      <%= f.label :radio_number, "既存の案件から申請する", value: 2, class: "form-check-label" %>
+    </div>
+
+    <%# 案件新規作成フォーム %>
+    <%= render 'propositions/proposition_form', proposition: @new_proposition %>
+
+    <%# 既存の案件リスト %>
+    <% @propositions.each do |proposition| %>
+      <div class="row">
+        <%= render 'propositions/proposition_offer_card', proposition: proposition, form: f %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
