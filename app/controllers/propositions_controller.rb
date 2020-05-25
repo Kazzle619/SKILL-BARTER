@@ -36,6 +36,11 @@ class PropositionsController < ApplicationController
   end
 
   def offer
+    @offer = Offer.new
+    @new_proposition = Proposition.new
+    @propositions = Proposition.where(user_id: current_user.id, barter_status: "matching")
+    # 案件詳細ページから申請を出したい相手の案件idをoffered_idとして送ってある。
+    @proposition = Proposition.find(params[:offered_id])
   end
 
   def search
