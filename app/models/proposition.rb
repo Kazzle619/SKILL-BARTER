@@ -25,12 +25,16 @@ class Proposition < ApplicationRecord
   has_many :offerers, through: :offered_relationship, source: :offering
 
   enum barter_status: {
-    # 未マッチング
+    # 未マッチング かつ 未申請
     matching: 1,
+    # 申請中
+    offering: 2,
     # マッチング済
-    matched: 2,
+    matched: 3,
+    # 交換完了申請中(自分だけ交換完了ボタンを押している。)
+    bartering: 4,
     # 交換済み(履歴へ)
-    bartered: 3,
+    bartered: 5,
   }
 
   with_options presence: true do
