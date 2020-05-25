@@ -22,7 +22,7 @@
     <% if proposition.offering? %>
       <%= link_to "交換申請を取り下げる",  proposition_offer_path(proposition.id, offer.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
     <% else %>
-      <%= link_to "スキル交換申請", offer_propositions_path(proposition_id: proposition.id), class: "btn btn-info btn-block"%>
+      <%= link_to "スキル交換申請", offer_propositions_path(offered_id: proposition.id), class: "btn btn-info btn-block"%>
     <% end %>
   </div>
 </div>
