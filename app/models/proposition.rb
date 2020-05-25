@@ -45,7 +45,7 @@ class Proposition < ApplicationRecord
   end
 
   # 案件に自分(current_user)が申請を出しているかを判定する。
-  def offering?
+  def offering_to?
     # ログインユーザーの案件一覧を取得
     current_user_propositions = User.current.propositions
     # 上記をidに変更。(offering_propositionで使うので@を付与)
@@ -63,7 +63,7 @@ class Proposition < ApplicationRecord
 
   # 案件に申請を出している自分の案件を取得
   def my_offer
-    if offering?
+    if offering_to?
       # 1つしか無いはず。要リファクタリング。
       offering_proposition_id = (@current_user_proposition_ids & @offers_id)[0]
       Offer.find_by(offering_id: offering_proposition_id)
