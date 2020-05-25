@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
       redirect_to proposition_path(params[:proposition_id].to_i)
     else
       @proposition = Proposition.find(params[:proposition_id])
-      if @proposition.offering?
+      if @proposition.offering_to?
         @offer = @proposition.my_offer
         @offering_proposition = Proposition.find(@offer.offering_id)
       end
