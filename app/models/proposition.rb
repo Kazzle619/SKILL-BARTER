@@ -78,17 +78,17 @@ class Proposition < ApplicationRecord
   end
 
   # 案件(self)で申請を出しているかを判定。
-  def offering?
+  def is_offering?
     offering.present?
   end
 
   # マッチング済みかどうかを判定。offerしている相手のoffer相手が自分になっているかで確認。
-  def matched?
+  def is_matched?
     self == offering.offering if offering.present?
   end
 
   # 交換完了申請中かどうか( 案件(self)のオーナーだけがレビューを書いている状態か )を判定。
-  def bartering?
+  def is_bartering?
     if offering.present?
       owner_review = Review.find_by(user_id: user.id, proposition_id: offering.id)
       opponent_review = Review.find_by(user_id: offering.user.id, proposition_id: id)
@@ -101,7 +101,7 @@ class Proposition < ApplicationRecord
   end
 
   # スキル交換が完了しているか(お互いレビューを書いたか)を判定。
-  def bartered?
+  def is_bartered?
     if offering.present?
       owner_review = Review.find_by(user_id: user.id, proposition_id: offering.id)
       opponent_review = Review.find_by(user_id: offering.user.id, proposition_id: id)
@@ -115,14 +115,13 @@ class Proposition < ApplicationRecord
 
   # 状況に応じてbarter_statusを自動更新する。
   def auto_update_barter_status
-    if bartered?
+    if is_bartered?
       update(barter_status: "bartered")
-    elsif bartering?
+    elsif is_bartering?
       update(barter_status: "bartering")
-    elsif matched?
+    elsif is_matched?
       update(barter_status: "matched")
-      offering.update(barter_status: "matched")
-    elsif offering?
+    elsif is_offering?
       update(barter_status: "offering")
     # 交換申請を取り下げた場合に該当
     else
