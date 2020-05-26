@@ -8,8 +8,8 @@ class CommentsController < ApplicationController
     else
       @proposition = Proposition.find(params[:proposition_id])
       if @proposition.offering_to?
-        @offer = @proposition.my_offer
-        @offering_proposition = Proposition.find(@offer.offering_id)
+        @offering_proposition = @proposition.my_offering_proposition
+        @offer = @offering_proposition.offering_relationship
       end
       @comments = @proposition.comments
       @user = @proposition.user
