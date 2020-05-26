@@ -14,9 +14,9 @@ class PropositionsController < ApplicationController
 
   def show
     @proposition = Proposition.find(params[:id])
-    if @proposition.offering?
-      @offer = @proposition.my_offer
-      @offering_proposition = Proposition.find(@offer.offering_id)
+    if @proposition.offering_to?
+      @offering_proposition = @proposition.my_offering_proposition
+      @offer = @offering_proposition.offering_relationship
     end
     @comments = @proposition.comments
     @comment = Comment.new

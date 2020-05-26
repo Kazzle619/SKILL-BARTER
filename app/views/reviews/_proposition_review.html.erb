@@ -2,7 +2,7 @@
 
 <div class="review-card col-md-12 rounded-lg">
   <%# 交換が完了していない場合は交換完了確認 %>
-  <% if proposition.barter_status != "bartered" %>
+  <% if proposition.my_offering_proposition.barter_status != "bartering" && proposition.my_offering_proposition.barter_status != "bartered" %>
     <div class="row">
       <div class="col-md-12 d-flex align-items-center sentence">
       スキル交換を完了後はレビュー作成ページへ移動します。<br >
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-  <%# 交換が完了している場合はレビューを表示 %>
+  <%# レビューを作成済みの場合はレビューを表示 %>
   <% else %>
     <%# レビュー編集ボタン。レビューしたユーザーにのみ表示。 %>
     <div class="row">

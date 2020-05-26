@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
       redirect_to proposition_path(params[:proposition_id].to_i)
     else
       @proposition = Proposition.find(params[:proposition_id])
-      if @proposition.offering?
-        @offer = @proposition.my_offer
-        @offering_proposition = Proposition.find(@offer.offering_id)
+      if @proposition.offering_to?
+        @offering_proposition = @proposition.my_offering_proposition
+        @offer = @offering_proposition.offering_relationship
       end
       @comments = @proposition.comments
       @user = @proposition.user
