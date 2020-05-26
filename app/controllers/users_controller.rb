@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   end
 
   def index
+    # 退会していないユーザーのみ表示。
+    @users = User.where(user_status: "subscribing").page(params[:page]).per(8).reverse_order
   end
 
   def mypage
