@@ -9,8 +9,4 @@ class Offer < ApplicationRecord
     validates :offering_id, uniqueness: true
     validates :offered_id
   end
-
-  def matched?
-    Offer.exists?(offering_id: offered_id, offered_id: offering_id)
-  end
 end
