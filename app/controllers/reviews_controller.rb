@@ -1,10 +1,6 @@
 class ReviewsController < ApplicationController
   def new
     @proposition = Proposition.find(params[:proposition_id])
-    # 「スキル交換を完了する」ボタンから来ているので、ここでbarter_statusを"bartered"に変更。
-    @proposition.barter_status = "bartered"
-    @proposition.save
-
     @review = Review.new
   end
 
@@ -12,8 +8,13 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.user_id = current_user.id
     @review.proposition_id = params[:proposition_id].to_i
-
     if @review.save
+      # 状況に合わせて案件の交換ステータスを自動更新。
+      reviewed_proposition = @review.proposition
+      reviewers_bartering_proposition = reviewed_proposition.offering
+      reviewed_proposition.auto_update_barter_status
+      reviewers_bartering_proposition.auto_update_barter_status
+
       redirect_to proposition_path(params[:proposition_id].to_i), success: "レビューの作成に成功しました。"
     else
       @proposition = Proposition.find(params[:proposition_id])
