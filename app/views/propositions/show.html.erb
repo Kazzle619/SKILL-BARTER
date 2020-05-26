@@ -11,12 +11,15 @@
           <li class="nav-item" role="presentation">
             <a href="#home" id="home-tab" class="nav-link active" role="tab" data-toggle="tab" aria-controls="home" aria-selected="true">詳細</a>
           </li>
-          <li class="nav-item" role="presentation">
-            <a href="#profile" id="profile-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="profile" aria-selected="false">チャット</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a href="#contact" id="contact-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="contact" aria-selected="false">レビュー</a>
-          </li>
+          <%# マッチングしていない場合はチャット、レビュータグは表示しない。 %>
+          <% if @proposition.matched? %>
+            <li class="nav-item" role="presentation">
+              <a href="#profile" id="profile-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="profile" aria-selected="false">チャット</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a href="#contact" id="contact-tab" class="nav-link" role="tab" data-toggle="tab" aria-controls="contact" aria-selected="false">レビュー</a>
+            </li>
+          <% end %>
         </ul>
 
         <%# パネル部分 %>

@@ -61,6 +61,16 @@ class Proposition < ApplicationRecord
     # @current_user_proposition_ids & @offers_id != []
   end
 
+  # 案件(self)と自分(current_user)の案件がマッチしているかを判定する。
+  def matched_with?
+    matched? && offering.user == User.current
+  end
+
+  # 案件(self)がレビューされているかどうかを判定する。
+  def is_reviewed?
+    !!review
+  end
+
   # 案件(self)に出している自分の申請(offer)を取得
   def my_offering_proposition
     # スキル交換申請が来ている案件の中で、そのユーザーが自分のものを取得。1つしか無いはず。
