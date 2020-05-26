@@ -1,8 +1,10 @@
 class OffersController < ApplicationController
   def create
+    # 値を一部入力していてrenderした時用に、ここで@new_propositionを作成。
     @proposition_id = params.to_unsafe_h.key("申請")
     @new_proposition = Proposition.new(proposition_params)
     @new_proposition.user_id = current_user.id
+
     # radio_numberのみ
     @offer = Offer.new(offer_params)
     # URLのparams[:proposition_id]は申請を出したい相手の案件id
@@ -31,6 +33,9 @@ class OffersController < ApplicationController
         @offer.offering_id = @new_proposition.id
         @offer.save
 
+        # 状況に合わせて案件の交換ステータスを更新
+        @new_proposition.auto_update_barter_status
+
         # 完了したら案件詳細画面へ
         redirect_to proposition_path(params[:proposition_id].to_i), success: "案件の申請に成功しました。"
 
@@ -45,6 +50,11 @@ class OffersController < ApplicationController
     when 2
       @offer.offering_id = offering_proposition_id
       @offer.save
+
+      # offering, offeredそれぞれの案件の交換ステータスを状況に合わせて自動更新
+      @offer.offering.auto_update_barter_status
+      @offer.offered.auto_update_barter_status
+
       # 完了したら案件詳細画面へ
       redirect_to proposition_path(params[:proposition_id].to_i), success: "案件の申請に成功しました。"
 
@@ -58,13 +68,13 @@ class OffersController < ApplicationController
 
   def destroy
     offer = Offer.find(params[:id])
-    # リダイレクト、値の更新用にそれぞれのidを取っておく。
+    # リダイレクト、値の更新用にoffering, offeredそれぞれの案件インスタンスを取っておく。(どちらも値が変わる可能性がある)
     offered_proposition = offer.offered
     offering_proposition = offer.offering
 
     offer.destroy
 
-    # offerの状況に合わせて案件の交換ステータスを更新
+    # 状況に合わせて案件の交換ステータスを自動更新
     offered_proposition.auto_update_barter_status
     offering_proposition.auto_update_barter_status
 
