@@ -66,6 +66,11 @@ class Proposition < ApplicationRecord
     matched? && offering.user == User.current
   end
 
+  # 案件(self)がレビューされているかどうかを判定する。
+  def is_reviewed?
+    !!review
+  end
+
   # 案件(self)に出している自分の申請(offer)を取得
   def my_offering_proposition
     # スキル交換申請が来ている案件の中で、そのユーザーが自分のものを取得。1つしか無いはず。
