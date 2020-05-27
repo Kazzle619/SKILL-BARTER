@@ -21,7 +21,6 @@ class PropositionsController < ApplicationController
     @proposition = Proposition.find(params[:id])
     if @proposition.offering_to?
       @offering_proposition = @proposition.my_offering_proposition
-      @offer = @offering_proposition.offering_relationship
     end
     @comments = @proposition.comments
     @comment = Comment.new
