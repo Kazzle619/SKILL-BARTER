@@ -16,6 +16,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @achievements = @user.achievements
+    # まだマッチングしていない案件のみ表示。
+    @propositions = @user.propositions.where("barter_status <= ?", 2)
+    # 仕事の履歴、にはスキル交換の完了した案件を表示。
+    @bartered_propositions = @user.propositions.where(barter_status: "bartered")
   end
 
   def update
