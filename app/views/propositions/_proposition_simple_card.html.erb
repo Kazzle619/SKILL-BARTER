@@ -1,0 +1,11 @@
+<div class="card bg-light h-100">
+  <div class="card-body px-2 py-3">
+    <p class="card-title">
+      <% proposition.proposition_categories.each do |proposition_category| %>
+        <%= render 'tags/tag_card', tag: proposition_category.tag %>
+      <% end %>
+    </p>
+    <h5 class="card-title"><%= proposition.title %></h5>
+    <p class="card-text mb-0"><%= proposition.introduction %></p>
+  </div>
+</div>
