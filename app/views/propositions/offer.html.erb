@@ -25,9 +25,19 @@
 
     <%# 既存の案件リスト %>
     <% @propositions.each do |proposition| %>
-      <div class="row">
-        <%= render 'propositions/proposition_offer_card', proposition: proposition, form: f %>
+      <div class="col-md-12 bg-light rounded p-2 mt-2">
+        <%= render 'propositions/proposition_simple_card', proposition: proposition, form: f %>
+        <div class="row">
+          <div class="col-md-10">
+          </div>
+          <div class="col-md-2">
+            <%# nameを設定しないとどの案件の「申請」ボタンが押されたのか判別がつかない。 %>
+            <%# nameを設定することでparams[:proposition.id] => "申請"となり、判別が付くようになる。 %>
+            <%= f.submit "申請", name: "#{proposition.id}", data: { disable_with: "申請中…" }, class: "btn btn-outline-primary btn-block", form: "new_proposition_offer" %>
+          </div>
+        </div>
       </div>
     <% end %>
+
   <% end %>
 </div>
