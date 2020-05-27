@@ -113,7 +113,7 @@ User.all.each do |user|
     user_id: user.id,
     school_name: Faker::University.name.gsub("大学", "高校"),
     school_type: 1,
-    enrollment_status: 1,
+    enrollment_status: 2,
   )
 
   # 専門学校〜大学はランダムに選び、在籍ステータスもランダム
