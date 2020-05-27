@@ -77,6 +77,9 @@ class Proposition < ApplicationRecord
     offerers.select { |offerer| offerer.user == User.current }.pop
   end
 
+  # is_○○は○○以上の状況か、を判定している。
+  # 例えばis_bertering?は交換完了申請中, 交換完了どちらの状況にもtrueが出る。
+
   # 案件(self)で申請を出しているかを判定。
   def is_offering?
     offering.present?
@@ -87,17 +90,13 @@ class Proposition < ApplicationRecord
     self == offering.offering if offering.present?
   end
 
-  # 交換完了申請中かどうか( 案件(self)のオーナーだけがレビューを書いている状態か )を判定。
+  # 交換完了申請中かどうか( 案件(self)のオーナーがレビューを書いている状態か )を判定。
   def is_bartering?
     if offering.present?
       owner_review = Review.find_by(user_id: user.id, proposition_id: offering.id)
-      opponent_review = Review.find_by(user_id: offering.user.id, proposition_id: id)
-    else
-      owner_review = nil
-      opponent_review = nil
     end
 
-    owner_review.present? && opponent_review.blank?
+    owner_review.present?
   end
 
   # スキル交換が完了しているか(お互いレビューを書いたか)を判定。
