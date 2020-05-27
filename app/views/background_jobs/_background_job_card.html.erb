@@ -1,0 +1,27 @@
+<div class="card p-1 mb-1">
+  <div class="row no-gutters align-items-center">
+    <div class="col-3 col-md-3 text-center">
+      <i class="fas fa-building fa-lg"></i>
+    </div>
+    <div class="col-9 col-md-9">
+        <div class="card-text">
+          <%= background_job.company_name %><br >
+          <%# if-end文で書かないと空白行ができてしまう。 %>
+          <% if background_job.department %>
+            <%= background_job.department %><br >
+          <% end %>
+          <% if background_job.position %>
+            <%= background_job.position %><br >
+          <% end %>
+          <% if background_job.retirement_date %>
+            <%# distance_of_time_in_words_to_nowは現在からの差分しか取れないので、在籍期間を計算後、その期間分今日から遡った日付について表示させている。 %>
+            <% enrollment_period = background_job.retirement_date - background_job.joining_date %>
+            <span>在籍：</span><%= distance_of_time_in_words_to_now(enrollment_period.days.ago) %>
+          <% else %>
+            <span>在籍：</span><%= distance_of_time_in_words_to_now(background_job.joining_date) %>
+            <span class="badge badge-success">在籍中</span>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</div>
