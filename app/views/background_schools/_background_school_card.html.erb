@@ -1,0 +1,17 @@
+<div class="card p-1 mb-1">
+  <div class="row no-gutters align-items-center">
+    <div class="col-3 col-md-3 text-center">
+      <i class="fas fa-graduation-cap fa-lg"></i>
+    </div>
+    <div class="col-9 col-md-9">
+        <div class="card-text">
+          <%= background_school.school_name %><br >
+          <%# if-end文で書かないと空白行ができてしまう。 %>
+          <% if background_school.department %>
+            <%= background_school.department %><br >
+          <% end %>
+          <%= ["在籍中", "卒業", "中退"][background_school.enrollment_status_before_type_cast - 1] %>
+        </div>
+    </div>
+  </div>
+</div>
