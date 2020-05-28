@@ -12,7 +12,7 @@ class CreatePropositions < ActiveRecord::Migration[5.2]
     end
 
     add_index :propositions, :title
-    add_index :propositions, :introduction, limit: 255
+    add_index :propositions, :introduction, length: 255
     add_index :propositions, :deadline
     add_index :propositions, :barter_status
   end
