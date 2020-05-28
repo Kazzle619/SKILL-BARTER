@@ -1,8 +1,8 @@
 class CreateBlocks < ActiveRecord::Migration[5.2]
   def change
     create_table :blocks do |t|
-      t.references :blocker, null: false, foreign_key: true
-      t.references :blocked, null: false, foreign_key: true
+      t.references :blocker, null: false, foreign_key: { to_table: :users }
+      t.references :blocked, null: false, foreign_key: { to_table: :users }
 
       t.timestamps
     end
