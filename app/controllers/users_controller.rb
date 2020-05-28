@@ -10,6 +10,13 @@ class UsersController < ApplicationController
   end
 
   def mypage
+    @user = current_user
+    # offers_to_me_on_today = Offer.joins(
+    #   "LEFT OUTER JOIN propositions ON offers.offered_id = propositions.id
+    #    LEFT OUTER JOIN users ON propositions.user_id = users.id"
+    # ).where(propositions: { users: { id: current_user.id } }, created_at: Time.zone.now.all_day)
+    # @propositions = offers_to_me_on_today.map(&:offering)
+    @propositions = Proposition.joins(:user).where(users: { id: current_user.id })
   end
 
   def edit
