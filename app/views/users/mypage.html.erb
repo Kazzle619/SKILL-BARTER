@@ -1,2 +1,23 @@
-<h1>Users#mypage</h1>
-<p>Find me in app/views/users/mypage.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 bg-light">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <%# 過去の実績一覧 %>
+      <div class="row">
+        <div class="col-md-12">
+          <h5><strong>申請が来た新着案件</strong></h5>
+        </div>
+
+          <div class="row">
+            <% @propositions.each do |proposition| %>
+              <div class="col-6 col-md-3 mb-3">
+                <%= render 'propositions/proposition_simple_card', proposition: proposition %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
