@@ -1,2 +1,32 @@
-<h1>Users#mypage</h1>
-<p>Find me in app/views/users/mypage.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 bg-light">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <%# 活動状況一覧 %>
+      <div class="row my-3">
+        <div class="col-md-12">
+          <h5><strong><%= current_user.name %>さん : 活動状況</strong></h5>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <%= render 'users/user_activity_informations', active_propositions: @active_propositions, bartered_propositions: @bartered_propositions, likes: @likes %>
+        </div>
+      </div>
+
+      <%# 過去の実績一覧 %>
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <h5><strong>申請が来た新着案件</strong></h5>
+        </div>
+
+        <% @propositions_offering_to_me_today.each do |proposition| %>
+          <div class="col-12 col-md-12 mb-3">
+            <%= render 'propositions/proposition_card', proposition: proposition %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

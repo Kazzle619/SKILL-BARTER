@@ -1,0 +1,31 @@
+<div class="position-fixed">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">案件</a>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "新規案件作成", new_proposition_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "案件一覧", mypage_index_propositions_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "案件を探す", propositions_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">アカウント</a>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "プロフィール設定", edit_user_path(current_user.id), class: "nav-link" %>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "フォロワー一覧", followers_user_path(current_user.id), class: "nav-link" %>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "フォロー一覧", following_user_path(current_user.id), class: "nav-link" %>
+    </li>
+    <li class="nav-item ml-3">
+      <%= link_to "ブロック一覧", blocking_user_path(current_user.id), class: "nav-link" %>
+    </li>
+  </ul>
+</div>
