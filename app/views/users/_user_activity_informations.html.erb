@@ -1,0 +1,52 @@
+
+<div class="card-deck">
+  <%# 案件数カード %>
+  <div class="card bg-light">
+    <p class="card-text py-1 pl-2">
+      <strong>案件数: </strong>
+      <span class="badge badge-pill badge-success">
+        <%= active_propositions.size %>
+      </span>
+    </p>
+  </div>
+
+  <%# 完了数カード %>
+  <div class="card bg-light">
+    <p class="card-text py-1 pl-2">
+      <strong>完了数: </strong>
+      <span class="badge badge-pill badge-success">
+        <%= bartered_propositions.size %>
+      </span>
+    </p>
+  </div>
+
+  <%# イイね数カード %>
+  <div class="card bg-light">
+    <p class="card-text py-1 pl-2">
+      <strong>イイね数: </strong>
+      <span class="badge badge-pill badge-success">
+        <%= likes %>
+      </span>
+    </p>
+  </div>
+
+  <%# フォロワー数カード %>
+  <div class="card bg-light">
+    <p class="card-text py-1 pl-2">
+      <strong>フォロワー数: </strong>
+      <span class="badge badge-pill badge-success">
+        <%= current_user.followers.size %>
+      </span>
+    </p>
+  </div>
+
+  <%# フォロー数カード %>
+  <div class="card bg-light">
+    <p class="card-text py-1 pl-2">
+      <strong>フォロー数: </strong>
+      <span class="badge badge-pill badge-success">
+        <%= current_user.following.size %>
+      </span>
+    </p>
+  </div>
+</div>

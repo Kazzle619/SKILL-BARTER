@@ -7,7 +7,9 @@
   <div class="row">
     <div class="col-md-9">
       <% @propositions.each do |proposition| %>
-        <%= render 'propositions/proposition_card', proposition: proposition %>
+        <div class="col-md-12 my-3">
+          <%= render 'propositions/proposition_card', proposition: proposition %>
+        </div>
       <% end %>
     </div>
 
