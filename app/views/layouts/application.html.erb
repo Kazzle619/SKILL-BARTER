@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SKILLBarter</title>
+    <title>SKILL BARTER</title>
+    <%= favicon_link_tag('skill_barter_logo.jpg') %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -9,7 +10,21 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body style="padding-top: 4.5rem;">
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <% if user_signed_in? %>
+              <%= render 'layouts/login_header' %>
+            <% else %>
+              <%= render 'layouts/not_logged_in_header' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <%= yield %>
   </body>
 </html>

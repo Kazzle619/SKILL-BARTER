@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: MyString
+  introduction: MyText
+  deadline: 2020-05-21
+  barter_status: 1
+  rendering_image_id: MyString
+
+two:
+  user: two
+  title: MyString
+  introduction: MyText
+  deadline: 2020-05-21
+  barter_status: 1
+  rendering_image_id: MyString

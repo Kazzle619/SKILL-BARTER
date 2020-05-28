@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <h1>案件詳細</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-9">
+      <%= render 'propositions/proposition_folder', proposition: @proposition, offering_proposition: @offering_proposition, review: @review %>
+
+      <div class="col-md-12">
+        <%# コメントリスト %>
+        <strong>コメント</strong>
+        <% @comments.each do |comment| %>
+          <%= render 'comments/proposition_comments', comment: comment, proposition: @proposition %>
+        <% end %>
+      </div>
+
+      <div class="col-md-12">
+        <%# コメントフォーム %>
+        <%= render 'comments/comment_form', proposition: @proposition, comment: @comment %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <%# ユーザー紹介サイドバー %>
+      <%= render 'users/skill_holder_introduction_sidebar', user: @user %>
+    </div>
+  </div>
+</div>
+

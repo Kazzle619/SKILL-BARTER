@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row">
+    <div class="col-9 col-md-9">
+
+      <%# ユーザープロフィール画像 %>
+      <div class="row">
+        <div class="col-md-12 p-4">
+          <%# 画像が大きく表示されてしまう。後程変更予定。 %>
+          <%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", class: "img-fluid" %>
+        </div>
+      </div>
+
+      <%# 過去の実績一覧 %>
+      <div class="row">
+        <div class="col-md-12">
+          <h5><strong>過去の実績</strong></h5>
+        </div>
+
+          <div class="row">
+            <% @achievements.each do |achievement| %>
+              <div class="col-6 col-md-3 mb-3">
+                <%= render 'achievements/achievement_card', achievement: achievement %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+
+      <%# 案件一覧(まだマッチングしていない案件) %>
+      <div class="row">
+        <div class="col-md-12">
+          <h5><strong>案件</strong></h5>
+        </div>
+
+          <div class="row">
+            <% @propositions.each do |proposition| %>
+              <div class="col-6 col-md-3 mb-3">
+                <%= link_to proposition_path(proposition.id) do %>
+                  <%= render 'propositions/proposition_simple_card', proposition: proposition %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+
+      <%# 仕事の履歴(スキル交換済み案件一覧) %>
+      <div class="row">
+        <div class="col-md-12">
+          <h5><strong>仕事の履歴</strong></h5>
+          <% @bartered_propositions.each do |proposition| %>
+            <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 col-md-3">
+      <%# ユーザー紹介サイドバー %>
+      <div class="row pt-3">
+        <div class="col-12 col-md-12 px-0">
+          <%= render 'users/skill_holder_introduction_sidebar', user: @user %>
+        </div>
+      </div>
+
+      <%# 職歴 %>
+      <div class="row rounded bg-light py-2 my-2">
+        <div class="col-md-12">
+          <h6><strong>職歴</strong></h6>
+        </div>
+
+        <% @user.background_jobs.each do |background_job| %>
+          <div class="col-12 col-md-12">
+            <%= render 'background_jobs/background_job_card', background_job: background_job %>
+          </div>
+        <% end %>
+      </div>
+
+      <%# 学歴 %>
+      <div class="row rounded bg-light py-2">
+        <div class="col-md-12">
+          <h6><strong>学歴</strong></h6>
+        </div>
+
+        <% @user.background_schools.each do |background_school| %>
+          <div class="col-12 col-md-12">
+            <%= render 'background_schools/background_school_card', background_school: background_school %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

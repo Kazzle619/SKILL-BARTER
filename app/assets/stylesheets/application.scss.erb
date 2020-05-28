@@ -1,0 +1,72 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
+a {
+  color: black;
+}
+
+.top-eye-catching {
+  padding: 200px 0 200px 0;
+  background-image: image-url("<%= asset_path('top_page_image_1.jpeg') %>");
+  background-size: cover;
+}
+
+.skill_holder_card {
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(102, 204, 255, 0.5);
+}
+
+.tag_card {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(102, 51, 255, 0.3);
+}
+
+.proposition-card {
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(102, 204, 255, 0.5);
+}
+
+.propositions-search-form {
+  background-color: rgba(256, 153, 204, 0.5);
+}
+
+.sentence {
+  word-break: break-all;
+}
+
+.review-card {
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(153, 102, 255, 0.5);
+}
+
+.chat-messages-card {
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(255, 204, 102, 0.5);
+}
+
+.users-search-form {
+  background-color: rgba(256, 153, 204, 0.5);
+}

@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-2 d-flex align-items-center justify-content-center">
+    <%= attachment_image_tag comment.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+  </div>
+  <div class="col-md-8"">
+    <b><%= comment.user.name %></b>
+    <%# コメントも画像も無いデータの場合 %>
+    <% if comment.content.blank? && comment.image.blank? %>
+      <p>※コメント、画像が空です※</p>
+    <%# 画像のみの場合 %>
+    <% elsif comment.content.blank? %>
+      <%= attachment_image_tag comment, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
+    <%# コメントのみの場合 %>
+    <% elsif comment.image.blank?%>
+      <div class="sentence"><%= comment.content %></div>
+    <%# コメント、画像どちらもある場合 %>
+    <% else %>
+      <div class="sentence"><%= comment.content %></div>
+      <%= attachment_image_tag comment, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
+    <% end %>
+  </div>
+  <div class="col-md-2 d-flex align-items-center">
+    <% if comment.user == current_user %>
+      <%= link_to "削除", proposition_comment_path(proposition.id, comment.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger btn-block" %>
+    <% end %>
+  </div>
+</div>
