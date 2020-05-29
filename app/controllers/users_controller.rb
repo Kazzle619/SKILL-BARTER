@@ -18,8 +18,8 @@ class UsersController < ApplicationController
     # @propositions = offers_to_me_on_today.map(&:offering)
     offers_today = Offer.where(created_at: Time.zone.now.all_day)
     offering_propositions_today = offers_today.map { |offer| offer.offering }
+    @propositions_offering_to_me_today = []
     offering_propositions_today.each do |proposition|
-      @propositions_offering_to_me_today ||= []
       if proposition.offering.user == current_user
         @propositions_offering_to_me_today.append proposition
       end

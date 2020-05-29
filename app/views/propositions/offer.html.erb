@@ -8,7 +8,7 @@
   <%# attachmentがpropositionにしか設定されておらず、offerフォームに入れるとエラーが出るため、propositionフォームを入れ子に %>
   <%# id: "new_proposition"を付けて、propositionフォームで使用。 %>
   <%# Rails5.2からid, classが自動付与されるはずだが、何故かidが付与されていなかった。 %>
-  <%= form_with model: [@proposition, @offer], id: "new_proposition_offer"  do |f| %>
+  <%= form_with model: [@offered_proposition, @offer], id: "new_proposition_offer"  do |f| %>
     <%# 申請用に案件を新規作成するか、既にある案件から申請するかをラジオボタンで選択 %>
     <div class="form-check">
       <%= f.radio_button :radio_number, 1, checked: "checked", class: "form-check-input" %>
@@ -21,7 +21,7 @@
     </div>
 
     <%# 案件新規作成フォーム %>
-    <%= render 'propositions/proposition_form', proposition: @new_proposition %>
+    <%= render 'propositions/proposition_form', proposition: @new_proposition, form_target: "new_proposition_offer", tag: @tag, submit_value: "申請" %>
 
     <%# 既存の案件リスト %>
     <% @propositions.each do |proposition| %>
@@ -33,7 +33,7 @@
           <div class="col-md-2">
             <%# nameを設定しないとどの案件の「申請」ボタンが押されたのか判別がつかない。 %>
             <%# nameを設定することでparams[:proposition.id] => "申請"となり、判別が付くようになる。 %>
-            <%= f.submit "申請", name: "#{proposition.id}", data: { disable_with: "申請中…" }, class: "btn btn-outline-primary btn-block", form: "new_proposition_offer" %>
+            <%= f.submit "申請", name: "#{proposition.id}", data: { disable_with: "申請中…" }, class: "btn btn-primary btn-block", form: "new_proposition_offer" %>
           </div>
         </div>
       </div>

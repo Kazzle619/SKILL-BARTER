@@ -4,6 +4,7 @@ class OffersController < ApplicationController
     @proposition_id = params.to_unsafe_h.key("申請")
     @new_proposition = Proposition.new(proposition_params)
     @new_proposition.user_id = current_user.id
+    @offered_proposition = Proposition.find(params[:proposition_id])
 
     # radio_numberのみ
     @offer = Offer.new(offer_params)
@@ -42,7 +43,7 @@ class OffersController < ApplicationController
       # 必要なパラメータが不足している場合は申請用案件選択画面へ返す。
       else
         # renderで必要なインスタンス変数を用意。
-        instance_variables_for_render
+        instance_variables_for_propositions_offer
         render 'propositions/offer', danger: "スキル交換の申請に失敗しました。\n案件カテゴリ、要望カテゴリも入力されているか確認してください。"
       end
 
@@ -61,7 +62,7 @@ class OffersController < ApplicationController
     # (UIではできないようになっているが)ラジオボタンが選択されていなかった場合
     else
       # renderで必要なインスタンス変数を用意。
-      instance_variables_for_render
+      instance_variables_for_propositions_offer
       render 'propositions/offer', danger: "スキル交換の申請に失敗しました。\n案件カテゴリ、要望カテゴリも必ず入力してください。"
     end
   end
@@ -116,12 +117,5 @@ class OffersController < ApplicationController
     #     proposition.id
     #   end
     # end
-  end
-
-  # パラメータ不足でpropositions#offerへrenderする際に必要なインスタンス変数
-  def instance_variables_for_render
-    @propositions = Proposition.where(user_id: current_user.id, barter_status: "matching")
-    # 申請を出したい相手の案件
-    @proposition = Proposition.find(params[:proposition_id])
   end
 end

@@ -1,54 +1,67 @@
 <%# propositions#offerでrenderされている場合について %>
 <%# attachmentがpropositionにしか設定されておらず、offerフォームに入れるとエラーが出るため、フォームを入れ子構造に %>
-<%# それぞれのformヘルパーにform: "new_proposition"を付けて、offerフォームと共に値が送られるように。 %>
-<%= form_with(model: proposition) do |form| %>
+<%# それぞれのformヘルパーにform: form_targetを付けて、offerフォームからはform_target: "new_proposition"値が送られるように。 %>
+<%= form_with(model: proposition, id: "new_proposition") do |form| %>
   <div class="form-group row">
     <%= form.label :title, "案件タイトル", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.text_field :title, autofocus: true, class: "form-control", form: "new_proposition_offer" %>
+      <%= form.text_field :title, autofocus: true, class: "form-control", form: form_target %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :introduction, "案件説明文", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.text_area :introduction, rows: 3, class: "form-control", form: "new_proposition_offer" %>
+      <%= form.text_area :introduction, rows: 3, class: "form-control", form: form_target %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :deadline, "締め切り", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.date_field :deadline, class: "form-control", form: "new_proposition_offer" %>
+      <%= form.date_field :deadline, class: "form-control", form: form_target %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :rendering_image, "完成イメージ画像", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.attachment_field :rendering_image, class: "form-control", form: "new_proposition_offer" %>
+      <%= form.attachment_field :rendering_image, class: "form-control", form: form_target %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :tag_id, "案件カテゴリタグ", class: "col-md-2 col-form-label" %>
-    <div class="col-md-10">
-      <%= form.collection_select :proposition_category_tag_id, Tag.all.order(name: "ASC"), :id, :name,value: nil, prompt: "選択してください", class: "form-control", form: "new_proposition_offer" %>
+    <div class="col-md-5">
+      <%= form.collection_select :proposition_category_tag_id, Tag.all.order(name: "ASC"), :id, :name,value: nil, prompt: "選択してください", class: "form-control", form: form_target %>
+    </div>
+    <div class="col-md-5">
+      <%= render 'tags/tag_form', tag: tag, category: "proposition_category", tag_form_target: "new_proposition_category_tag"%>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :tag_id, "要望カテゴリタグ", class: "col-md-2 col-form-label" %>
-    <div class="col-md-10">
-      <%= form.collection_select :request_category_tag_id, Tag.all.order(name: "ASC"), :id, :name,value: nil, prompt: "選択してください", class: "form-control", form: "new_proposition_offer" %>
+    <div class="col-md-5">
+      <%= form.collection_select :request_category_tag_id, Tag.all.order(name: "ASC"), :id, :name,value: nil, prompt: "選択してください", class: "form-control", form: form_target %>
+    </div>
+    <div class="col-md-5">
+      <%= render 'tags/tag_form', tag: tag, category: "request_category", tag_form_target: "new_request_category_tag" %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
     </div>
-    <div class="col-md-2">
-      <%= form.submit "申請", class: "btn btn-outline-primary btn-block", form: "new_proposition_offer" %>
+    <div class="col-md-3">
+      <%= form.submit submit_value, class: "btn btn-primary btn-block", form: form_target %>
     </div>
   </div>
+<% end %>
+
+<%# これを置かないとtag_formのsubmitが効かない。上のform_withの中に置くとformタグが生成されないのでここに。 %>
+<%# また、案件カテゴリタグ用と要望カテゴリタグ用両方置いておかないと後に置いてある方の値しか飛ばしてくれない。。 %>
+<%= form_with(model: tag, url: tag_path, id: "new_proposition_category_tag") do |form| %>
+<% end %>
+<%= form_with(model: tag, url: tag_path, id: "new_request_category_tag") do |form| %>
 <% end %>
