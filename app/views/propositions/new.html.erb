@@ -1,2 +1,15 @@
-<h1>Propositions#new</h1>
-<p>Find me in app/views/propositions/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 bg-light">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <div class="col-md-12">
+        <h4><strong>新規案件作成</strong></h4>
+      </div>
+      <div class="col-md-12 mt-4">
+        <%= render 'propositions/proposition_form', proposition: @proposition, form_target: "new_proposition", tag: @tag, submit_value: "新規作成" %>
+      </div>
+    </div>
+  </div>
+</div>

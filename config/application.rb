@@ -18,5 +18,10 @@ module SKILLBarter
     # デフォルトのlocaleを日本語(:ja)にする。
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml'.to_s)]
+
+    # form_withでid, classが自動付与されていなかったので付けてみたが駄目。
+    # form_withでidを付与しないようにするにはこれをfalseにしてくださいとrailsのgithubに書いてある。
+    # https://github.com/rails/rails/commit/260d6f112a0ffdbe03e6f5051504cb441c1e94cd
+    config.action_view.form_with_generates_ids = true
   end
 end
