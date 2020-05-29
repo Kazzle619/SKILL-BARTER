@@ -9,9 +9,30 @@ class PropositionsController < ApplicationController
   end
 
   def create
+    @proposition = Proposition.new(proposition_params)
+    @proposition.user_id = current_user.id
+    # 案件、案件カテゴリ、要望カテゴリ全て必要な値が揃っているかを確認する。
+    # if文の条件文に書くと長すぎるのでここで変数にする。
+    is_proposition_category_selected = @proposition.proposition_category_tag_id.present?
+    is_request_category_selected = @proposition.request_category_tag_id.present?
+
+    # 案件カテゴリ, 要望カテゴリが空欄の場合はまだ案件を保存したくないので.valid?で判定。
+    if @proposition.valid? && is_proposition_category_selected && is_request_category_selected
+      # 全て揃っていることを確認してようやく案件、案件カテゴリ、要望カテゴリ、スキル交換申請を保存。
+      @proposition.save
+      PropositionCategory.create(proposition_id: @proposition.id,
+                                 tag_id: @proposition.proposition_category_tag_id.to_i)
+      RequestCategory.create(proposition_id: @proposition.id,
+                             tag_id: @proposition.request_category_tag_id.to_i)
+      redirect_to finish_proposition_path(@proposition)
+    else
+      render 'propositions/new'
+    end
   end
 
   def new
+    @proposition = Proposition.new
+    @tag = Tag.new
   end
 
   def edit
@@ -40,11 +61,8 @@ class PropositionsController < ApplicationController
   end
 
   def offer
-    @offer = Offer.new
-    @new_proposition = Proposition.new
-    @propositions = Proposition.where(user_id: current_user.id, barter_status: "matching")
-    # 案件詳細ページから申請を出したい相手の案件idをoffered_idとして送ってある。
-    @proposition = Proposition.find(params[:offered_id])
+    # パラメータが多く、他でrenderされることも多いのでapplication_controllerに以下のメソッドを定義。
+    instance_variables_for_propositions_offer
   end
 
   def search
@@ -54,5 +72,19 @@ class PropositionsController < ApplicationController
   end
 
   def match
+  end
+
+  private
+
+  # 新規案件作成フォームに入力した値
+  # 案件カテゴリとして選んだタグのidがparams[:proposition][:proposition_category_id]として飛んできている。
+  # 要望カテゴリとして選んだタグのidがparams[:proposition][:request_category_id]として飛んできている。
+  def proposition_params
+    params.require(:proposition).permit(:title,
+                                        :introduction,
+                                        :deadline,
+                                        :rendering_image,
+                                        :proposition_category_tag_id,
+                                        :request_category_tag_id)
   end
 end
