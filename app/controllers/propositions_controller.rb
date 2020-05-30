@@ -58,6 +58,7 @@ class PropositionsController < ApplicationController
   end
 
   def mypage_index
+    @propositions = current_user.propositions
   end
 
   def offer

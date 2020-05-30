@@ -1,2 +1,48 @@
-<h1>Propositions#mypage_index</h1>
-<p>Find me in app/views/propositions/mypage_index.html.erb</p>
+<%# マッチング関係を矢印でも示すよう後程変更予定。 %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <%# 活動状況一覧 %>
+      <div class="row my-3">
+        <div class="col-md-12">
+          <h5><strong><%= current_user.name %>さんの案件一覧</strong></h5>
+        </div>
+        <% @propositions.each do |proposition| %>
+          <div class="col-md-12 mt-2 bg-light rounded-lg my-2">
+            <div class="row">
+              <div class="col-md-5 my-2">
+                <%= render 'propositions/proposition_detail', proposition: proposition %>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-5">
+                <% if proposition.offering %>
+                  <div class="col-md-12 my-2 p-0">
+                    <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: proposition.offering %>
+                    <%= render 'propositions/proposition_card', proposition: proposition.offering %>
+                  </div>
+                <% end %>
+                <% proposition.offerers.each do |offering_proposition| %>
+                  <% if proposition.offering.blank? && proposition.offering != offering_proposition %>
+                    <div class="col-md-12 my-2 p-0">
+                      <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
+                      <%= render 'propositions/proposition_card', proposition: offering_proposition %>
+                    </div>
+                  <% elsif proposition.offering != offering_proposition %>
+                    <div class="col-md-12 my-2 p-0">
+                      <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
+                      <%= render 'propositions/proposition_card', proposition: offering_proposition %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
