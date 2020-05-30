@@ -26,6 +26,7 @@
     <%# 既存の案件リスト %>
     <% @propositions.each do |proposition| %>
       <div class="col-md-12 bg-light rounded p-2 mt-2">
+        <%= render 'layouts/matching_relation_info', my_proposition: proposition, opponent_proposition: @offered_proposition %>
         <%= render 'propositions/proposition_simple_card', proposition: proposition, form: f %>
         <div class="row">
           <div class="col-md-10">
