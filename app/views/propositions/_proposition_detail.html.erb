@@ -30,9 +30,12 @@
       </p>
     <% end %>
 
-    <%# 条件の入れ子は好ましくないが、どうしてもここは入れ子以外では表現できなかった %>
+    <%# 条件の入れ子は好ましくないが、どうしてもここは入れ子以外では表現できなかった。後程変更予定。 %>
     <div class="actions mx-auto card-text mb-3" style="width: 200px;">
-      <% if proposition.is_matched? %>
+      <%# 自分の案件には何も表示しない。%>
+      <% if proposition.user == current_user %>
+
+      <% elsif proposition.is_matched? %>
         <%# 案件がマッチング済みで、マッチングしているのも自分 %>
         <% if proposition.matched_with? %>
           <%= link_to "交換申請を取り下げる",  proposition_offer_path(proposition.id, offering_proposition.offering_relationship.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
