@@ -69,6 +69,7 @@ class PropositionsController < ApplicationController
   end
 
   def finish
+    @proposition = Proposition.find(params[:id])
   end
 
   def match
