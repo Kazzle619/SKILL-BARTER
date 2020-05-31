@@ -26,6 +26,7 @@ class PropositionsController < ApplicationController
                              tag_id: @proposition.request_category_tag_id.to_i)
       redirect_to finish_proposition_path(@proposition)
     else
+      @tag = Tag.new
       render 'propositions/new'
     end
   end
@@ -36,6 +37,13 @@ class PropositionsController < ApplicationController
   end
 
   def edit
+    @proposition = Proposition.find(params[:id])
+    # 今は1つしか登録できないようにしてあるのでこれで。後程変更予定。
+    proposition_category = @proposition.proposition_categories[0]
+    request_category = @proposition.request_categories[0]
+    @proposition.proposition_category_tag_id = proposition_category.id
+    @proposition.request_category_tag_id = request_category.id
+    @tag = Tag.new
   end
 
   def show
@@ -52,6 +60,24 @@ class PropositionsController < ApplicationController
   end
 
   def update
+    @proposition = Proposition.find(params[:id])
+    category_tag_ids
+    # 案件、案件カテゴリ、要望カテゴリ全て必要な値が揃っているかを確認する。
+    # if文の条件文に書くと長すぎるのでここで変数にする。
+    is_proposition_category_selected = @proposition_category_tag_id.present?
+    is_request_category_selected = @request_category_tag_id.present?
+    # 長すぎてrubocopに弾かれるのでここでカテゴリタグの選択確認だけまとめる。
+    is_categories_both_selected = is_proposition_category_selected && is_request_category_selected
+
+    if is_categories_both_selected && @proposition.update(proposition_params)
+      # 全て揃っていることを確認してようやく案件カテゴリ、要望カテゴリを更新。
+      @proposition.proposition_categories[0].update(tag_id: @proposition_category_tag_id)
+      @proposition.request_categories[0].update(tag_id: @request_category_tag_id)
+      redirect_to finish_proposition_path(@proposition)
+    else
+      @tag = Tag.new
+      render 'propositions/edit'
+    end
   end
 
   def destroy
@@ -71,6 +97,7 @@ class PropositionsController < ApplicationController
 
   def finish
     @proposition = Proposition.find(params[:id])
+    @previous_path = Rails.application.routes.recognize_path(request.referer)
   end
 
   def match
@@ -88,5 +115,10 @@ class PropositionsController < ApplicationController
                                         :rendering_image,
                                         :proposition_category_tag_id,
                                         :request_category_tag_id)
+  end
+
+  def category_tag_ids
+    @proposition_category_tag_id = params[:proposition][:proposition_category_tag_id]
+    @request_category_tag_id = params[:proposition][:request_category_tag_id]
   end
 end
