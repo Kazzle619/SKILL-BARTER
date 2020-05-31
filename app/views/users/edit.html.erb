@@ -1,2 +1,94 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <%# ユーザー編集フォーム %>
+      <div class="row bg-light py-2 my-2">
+        <div class="col-md-12">
+          <h5><strong>プロフィール</strong></h5>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <%= render 'users/user_edit_form', user: @user %>
+        </div>
+      </div>
+
+      <%# 活動都道府県編集フォーム %>
+      <div class="row rounded bg-light py-2 my-2">
+        <div class="col-md-12">
+          <h5><strong>活動都道府県</strong></h5>
+        </div>
+
+        <% @user.user_prefectures.each do |user_prefecture| %>
+          <div class="col-md-12 mt-2">
+            <%= render 'user_prefectures/user_prefectures_list_item', user_prefecture: user_prefecture %>
+          </div>
+        <% end %>
+
+        <div class="col-md-12 mt-2">
+          <%= render 'user_prefectures/user_prefecture_form', user_prefecture: @new_user_prefecture %>
+        </div>
+      </div>
+
+      <%# 職歴編集フォーム %>
+      <div class="row rounded bg-light py-2 my-2">
+        <div class="col-md-12">
+          <h5><strong>職歴</strong></h5>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row align-items-center">
+            <% @user.background_jobs.each do |background_job| %>
+              <div class="col-10 col-md-10">
+                <%= render 'background_jobs/background_job_card', background_job: background_job %>
+              </div>
+              <div class="col-2 col-md-2 align-items-center">
+                <%= link_to "削除", background_job_path(background_job.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row bg-white rounded-lg m-1 p-2">
+            <div class="col-md-12">
+              <%= render 'background_jobs/background_job_form', background_job: @new_background_job %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%# 学歴編集フォーム %>
+      <div class="row rounded bg-light py-2 my-2">
+        <div class="col-md-12">
+          <h5><strong>学歴</strong></h5>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row align-items-center">
+            <% @user.background_schools.each do |background_school| %>
+              <div class="col-10 col-md-10">
+                <%= render 'background_schools/background_school_card', background_school: background_school %>
+              </div>
+              <div class="col-2 col-md-2 align-items-center">
+                <%= link_to "削除", background_school_path(background_school.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row bg-white rounded-lg m-1 p-2">
+            <div class="col-md-12">
+              <%= render 'background_schools/background_school_form', background_school: @new_background_school %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
