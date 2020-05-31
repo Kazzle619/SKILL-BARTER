@@ -1,13 +1,18 @@
+<% if @previous_path[:action] == "create" %>
+  <% provide :heading, "新規案件作成"%>
+<% elsif @previous_path[:action] == "edit" %>
+  <% provide :heading, "案件編集" %>
+<% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-md-3">
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
     <div class="col-md-9">
-      <%# 活動状況一覧 %>
       <div class="row my-3">
         <div class="col-md-12">
-          <h5><strong>新規案件作成完了</strong></h5>
+          <h5><strong><%= yield(:heading) %>完了</strong></h5>
         </div>
 
         <div class="col-md-12 mt-2">
