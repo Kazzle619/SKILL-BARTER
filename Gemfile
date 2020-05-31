@@ -45,7 +45,7 @@ gem 'refile-mini_magick'
 gem 'rails-i18n'
 gem 'ransack'
 gem 'bullet'
-gem 'kaminari', '~> 1.1.1'
+gem 'kaminari', '~> 1.2.1'
 gem 'ratyrate'
 gem 'font-awesome-sass'
 
