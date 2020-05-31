@@ -1,0 +1,62 @@
+<%= form_with(model: background_job) do |f| %>
+  <div class="form-group row align-items-center">
+    <%= f.label :company_name, "会社名", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.text_field :company_name, autofocus: true , class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :department, "部署", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.text_field :department, placeholder: "必須ではありません", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :position, "役職", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.text_field :position, placeholder: "必須ではありません", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :joining_year, "入社年月", class: "col-md-2 col-form-label" %>
+    <div class="col-md-5">
+      <%= f.text_field :joining_year, class: "form-control" %>
+    </div>
+    <div class="col-md-1">
+      <span>年</span>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :joining_month, class: "form-control" %>
+    </div>
+    <div class="col-md-1">
+      <span>月</span>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :retirement_year, "退社年月(在籍中の場合は空欄)", class: "col-md-2 col-form-label" %>
+    <div class="col-md-5">
+      <%= f.text_field :retirement_year, class: "form-control" %>
+    </div>
+    <div class="col-md-1">
+      <span>年</span>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :retirement_month, class: "form-control" %>
+    </div>
+    <div class="col-md-1">
+      <span>月</span>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "追加", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>

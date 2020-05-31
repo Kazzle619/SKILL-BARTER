@@ -1,0 +1,37 @@
+<%= form_with(model: background_school) do |f| %>
+  <div class="form-group row align-items-center">
+    <%= f.label :school_name, "学校名", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.text_field :school_name, autofocus: true , class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :school_type, "学校種類", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.select :school_type, { 高校: "highschool", 専門学校: "vocational_school", 短期大学: "junior_college", 大学: "university", 大学校: "academy", 大学院: "graduate_school" }, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :department, "学部", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.text_field :department, placeholder: "必須ではありません", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row align-items-center">
+    <%= f.label :enrollment_status, "在学状況", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.select :enrollment_status, { 在学中: "currently", 卒業: "graduated", 中退: "dropout" }, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "追加", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>

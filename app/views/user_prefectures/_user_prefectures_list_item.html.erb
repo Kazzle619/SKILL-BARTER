@@ -1,0 +1,8 @@
+<div class="row px-2">
+  <div class="col-md-3 border border-secondary rounded-sm p-1 text-center">
+    <%= Prefecture.names.key(user_prefecture.prefecture_id) %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to "削除", user_prefecture_path(user_prefecture.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
+  </div>
+</div>
