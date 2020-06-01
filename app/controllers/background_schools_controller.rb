@@ -6,7 +6,8 @@ class BackgroundSchoolsController < ApplicationController
       redirect_to edit_user_path(current_user.id), success: "学歴項目の作成に成功しました。"
     else
       # 要リファクタリング
-      @user = User.find(params[:id])
+      @user = current_user
+      @new_skill_category = SkillCategory.new
       @new_user_prefecture = UserPrefecture.new
       @new_background_job = BackgroundJob.new
 
@@ -16,7 +17,7 @@ class BackgroundSchoolsController < ApplicationController
 
   def destroy
     background_school = BackgroundSchool.find(params[:id])
-    background_school.destroy
+    background_school.destroy!
     redirect_to edit_user_path(current_user.id), success: "学歴項目の削除に成功しました。"
   end
 
