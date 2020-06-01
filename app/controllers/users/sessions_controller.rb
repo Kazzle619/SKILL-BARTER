@@ -9,9 +9,17 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    user = User.find_by(email: sign_in_params[:email])
+    if user.user_status == "unsubscribed"
+      # application_controllerのset_current_userにより自動的にログインしてしまっている様子なので、一度ログアウト処理を挟む。
+      # 後程変更予定。
+      sign_out user
+      redirect_to root_path, danger: "退会済みのユーザーです。"
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
