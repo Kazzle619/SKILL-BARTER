@@ -6,7 +6,8 @@ class UserPrefecturesController < ApplicationController
       redirect_to edit_user_path(current_user.id), success: "活動都道府県の追加に成功しました。"
     else
       # 要リファクタリング
-      @user = User.find(params[:id])
+      @user = current_user
+      @new_skill_category = SkillCategory.new
       @new_background_school = BackgroundSchool.new
       @new_background_job = BackgroundJob.new
 
@@ -16,7 +17,7 @@ class UserPrefecturesController < ApplicationController
 
   def destroy
     user_prefecture = UserPrefecture.find(params[:id])
-    user_prefecture.destroy
+    user_prefecture.destroy!
     redirect_to edit_user_path(current_user.id), success: "活動都道府県の削除に成功しました。"
   end
 

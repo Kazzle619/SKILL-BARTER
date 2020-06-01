@@ -2,7 +2,7 @@
   <div class="card-body px-3 py-2">
     <p class="card-title">
       <% proposition.proposition_categories.each do |proposition_category| %>
-        <%= render 'tags/tag_card', tag: proposition_category.tag %>
+        <%= render 'tags/tag_badge', tag: proposition_category.tag %>
       <% end %>
     </p>
     <%= link_to proposition_path(proposition.id) do %>

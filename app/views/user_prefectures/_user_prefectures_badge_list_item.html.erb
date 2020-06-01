@@ -1,0 +1,4 @@
+<span class="badge badge-info text-wrap mx-2">
+  <%= Prefecture.names.key(user_prefecture.prefecture_id) %>
+  <%= link_to "✕", user_prefecture_path(user_prefecture.id), method: :delete, class: "text-white" %>
+</span>

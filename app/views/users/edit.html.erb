@@ -15,17 +15,34 @@
         </div>
       </div>
 
+      <%# スキルカテゴリータグ編集フォーム %>
+      <div class="row rounded bg-light py-2 my-2">
+        <div class="col-md-12">
+          <h5><strong>スキルカテゴリー</strong></h5>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <% @user.skill_categories.each do |skill_category| %>
+              <%= render 'skill_categories/skill_category_badge_list_item', skill_category: skill_category %>
+          <% end %>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <%= render 'skill_categories/skill_category_form', skill_category: @new_skill_category %>
+        </div>
+      </div>
+
       <%# 活動都道府県編集フォーム %>
       <div class="row rounded bg-light py-2 my-2">
         <div class="col-md-12">
           <h5><strong>活動都道府県</strong></h5>
         </div>
 
-        <% @user.user_prefectures.each do |user_prefecture| %>
-          <div class="col-md-12 mt-2">
-            <%= render 'user_prefectures/user_prefectures_list_item', user_prefecture: user_prefecture %>
-          </div>
-        <% end %>
+        <div class="col-md-12 mt-2">
+          <% @user.user_prefectures.each do |user_prefecture| %>
+              <%= render 'user_prefectures/user_prefectures_badge_list_item', user_prefecture: user_prefecture %>
+          <% end %>
+        </div>
 
         <div class="col-md-12 mt-2">
           <%= render 'user_prefectures/user_prefecture_form', user_prefecture: @new_user_prefecture %>
@@ -87,7 +104,6 @@
           </div>
         </div>
       </div>
-
 
     </div>
   </div>

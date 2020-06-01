@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def edit
     # 要リファクタリング
     @user = User.find(params[:id])
+    @new_skill_category = SkillCategory.new
     @new_user_prefecture = UserPrefecture.new
     @new_background_school = BackgroundSchool.new
     @new_background_job = BackgroundJob.new
