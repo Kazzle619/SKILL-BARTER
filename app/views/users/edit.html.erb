@@ -6,8 +6,11 @@
     <div class="col-md-9">
       <%# ユーザー編集フォーム %>
       <div class="row bg-light py-2 my-2">
-        <div class="col-md-12">
+        <div class="col-md-9">
           <h5><strong>プロフィール</strong></h5>
+        </div>
+        <div class="col-md-3">
+          <%= link_to "退会する", user_path(current_user.id), method: :delete, class: "btn btn-outline-danger btn-block", "data-confirm" => "本当に退会しますか？" %>
         </div>
 
         <div class="col-md-12 mt-2">
