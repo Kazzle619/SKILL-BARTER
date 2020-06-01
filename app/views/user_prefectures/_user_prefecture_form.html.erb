@@ -1,7 +1,7 @@
 <%= form_with(model: user_prefecture) do |f| %>
   <div class="form-group row align-items-center px-2">
-    <div class="col-md-3 text-center">
-      <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, class: "form-control" %>
+    <div class="col-md-9 text-center">
+      <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "選択してください"}, {class: "custom-select"} %>
     </div>
     <div class="col-md-3">
       <%= f.submit "追加", class: "btn btn-primary btn-block" %>
