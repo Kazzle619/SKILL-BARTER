@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   # User.currentにcurrent_userを割り当てる。
   def set_current_user
+    # これが原因で退会済みユーザーでトップへredirectされていてもログインしてしまっている。後程変更予定。
     User.current = current_user
   end
 

@@ -32,8 +32,10 @@
 
     <%# 条件の入れ子は好ましくないが、どうしてもここは入れ子以外では表現できなかった。後程変更予定。 %>
     <div class="actions text-center card-text mb-3">
+      <%# ログインしていない場合は何も表示しない。 %>
+      <% if not user_signed_in? %>
       <%# 自分の案件には案件編集ページ %>
-      <% if proposition.user == current_user %>
+      <% elsif proposition.user == current_user %>
         <%= link_to "編集する", edit_proposition_path(proposition.id), class: "btn btn-outline-success btn-block" %>
       <% elsif proposition.is_matched? %>
         <%# 案件がマッチング済みで、マッチングしているのも自分 %>

@@ -53,6 +53,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    user = User.find(params[:id])
+    if user.update(user_status: "unsubscribed")
+      sign_out user
+      redirect_to root_path, success: "退会処理が完了しました。"
+    else
+      redirect_to edit_user_path(current_user.id), danger: "退会処理に失敗しました。\nお手数ですが、運営にご連絡ください。"
+    end
   end
 
   def blocking
