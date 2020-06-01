@@ -73,7 +73,7 @@ class OffersController < ApplicationController
     offered_proposition = offer.offered
     offering_proposition = offer.offering
 
-    offer.destroy
+    offer.destroy!
 
     # 状況に合わせて案件の交換ステータスを自動更新
     offered_proposition.auto_update_barter_status
