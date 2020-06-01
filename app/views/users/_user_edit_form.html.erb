@@ -1,6 +1,3 @@
-<%# propositions#offerでrenderされている場合について %>
-<%# attachmentがpropositionにしか設定されておらず、offerフォームに入れるとエラーが出るため、フォームを入れ子構造に %>
-<%# それぞれのformヘルパーにform: form_targetを付けて、offerフォームからはform_target: "new_proposition"値が送られるように。 %>
 <%= form_with(model: user) do |f| %>
   <div class="form-group row">
     <%= f.label :name, "氏名", class: "col-md-2 col-form-label" %>
@@ -16,12 +13,12 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <%= f.label :birthday, "生年月日", class: "col-md-2 col-form-label" %>
-    <div class="col-md-10">
-      <%= f.date_field :birthday, class: "form-control" %>
+    <div class="form-group row">
+      <%= f.label :email, "Eメール", class: "col-md-2 col-form-label" %><br >
+      <div class="col-md-10">
+        <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+      </div>
     </div>
-  </div>
 
   <div class="form-group row">
     <%= f.label :phone_number, "電話番号", class: "col-md-2 col-form-label" %>
@@ -31,9 +28,16 @@
   </div>
 
   <div class="form-group row">
+    <%= f.label :birthday, "生年月日", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= f.date_field :birthday, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
     <%= f.label :introduction, "自己紹介文", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= f.text_field :introduction, placeholder: "ハイフン無し", class: "form-control" %>
+      <%= f.text_area :introduction, rows: 3, placeholder: "ハイフン無し", class: "form-control" %>
     </div>
   </div>
 
@@ -43,14 +47,6 @@
       <%= f.attachment_field :profile_image, class: "form-control" %>
     </div>
   </div>
-
-
-    <div class="form-group row">
-      <%= f.label :email, "Eメール", class: "col-md-2 col-form-label" %><br >
-      <div class="col-md-10">
-        <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
-      </div>
-    </div>
 
   <div class="row">
     <div class="col-md-9">

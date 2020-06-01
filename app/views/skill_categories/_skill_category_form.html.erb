@@ -1,0 +1,10 @@
+<%= form_with(model: skill_category) do |f| %>
+  <div class="form-group row align-items-center px-2">
+    <div class="col-md-9 text-center">
+      <%= f.collection_select :tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください"}, {class: "custom-select"} %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "追加", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>
