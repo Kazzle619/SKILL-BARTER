@@ -3,7 +3,7 @@
     <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "100x100", class: "rounded-circle" %>
     <p class="card-title">
       <% user.skill_categories.map(&:tag).each do |tag| %>
-        <%= render 'tags/tag_card', tag: tag %>
+        <%= render 'tags/tag_badge', tag: tag %>
       <% end %>
     </p>
     <h4 class="card-title"><strong><%= user.name %></strong></h4>

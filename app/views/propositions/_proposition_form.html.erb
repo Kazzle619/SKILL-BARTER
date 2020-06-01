@@ -31,9 +31,9 @@
   </div>
 
   <div class="form-group row">
-    <%= form.label :tag_id, "案件カテゴリタグ", class: "col-md-2 col-form-label" %>
+    <%= form.label :proposition_category_tag_id, "案件カテゴリタグ", class: "col-md-2 col-form-label" %>
     <div class="col-md-5">
-      <%= form.collection_select :proposition_category_tag_id, Tag.all.order(name: "ASC"), :id, :name,value: nil, prompt: "選択してください", class: "form-control", form: form_target %>
+      <%= form.collection_select :proposition_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, value: nil, prompt: "選択してください", class: "form-control", form: form_target %>
     </div>
     <div class="col-md-5">
       <%= render 'tags/tag_form', tag: tag, category: "proposition_category", tag_form_target: "new_proposition_category_tag"%>
@@ -41,9 +41,9 @@
   </div>
 
   <div class="form-group row">
-    <%= form.label :tag_id, "要望カテゴリタグ", class: "col-md-2 col-form-label" %>
+    <%= form.label :request_category_tag_id, "要望カテゴリタグ", class: "col-md-2 col-form-label" %>
     <div class="col-md-5">
-      <%= form.collection_select :request_category_tag_id, Tag.all.order(name: "ASC"), :id, :name,value: nil, prompt: "選択してください", class: "form-control", form: form_target %>
+      <%= form.collection_select :request_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, value: nil, prompt: "選択してください", class: "form-control", form: form_target %>
     </div>
     <div class="col-md-5">
       <%= render 'tags/tag_form', tag: tag, category: "request_category", tag_form_target: "new_request_category_tag" %>

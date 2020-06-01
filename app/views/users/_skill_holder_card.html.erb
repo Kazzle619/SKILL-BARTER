@@ -5,6 +5,6 @@
   <% end %>
   <%= user.introduction %><br >
   <% user.skill_categories.each do |skill_category| %>
-    <%= render 'tags/tag_card', tag: skill_category.tag %>
+    <%= render 'tags/tag_badge', tag: skill_category.tag %>
   <% end %>
 </div>
