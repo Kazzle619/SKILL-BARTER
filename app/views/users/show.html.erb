@@ -35,7 +35,8 @@
             <% @propositions.each do |proposition| %>
               <div class="col-6 col-md-3 mb-3">
                 <%= link_to proposition_path(proposition.id) do %>
-                  <%= render 'propositions/proposition_simple_card', proposition: proposition %>
+                  <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
+                  <%= render 'propositions/proposition_simple_card', proposition: proposition, favorite: favorite %>
                 <% end %>
               </div>
             <% end %>
@@ -47,7 +48,8 @@
         <div class="col-md-12">
           <h5><strong>仕事の履歴</strong></h5>
           <% @bartered_propositions.each do |proposition| %>
-            <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review %>
+            <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
+            <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review, favorite: favorite %>
           <% end %>
         </div>
       </div>

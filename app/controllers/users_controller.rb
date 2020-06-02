@@ -65,6 +65,10 @@ class UsersController < ApplicationController
   def blocking
   end
 
+  def favorites
+    @propositions = current_user.favorites.map(&:proposition)
+  end
+
   def followers
   end
 

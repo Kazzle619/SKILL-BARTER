@@ -50,15 +50,6 @@ class Proposition < ApplicationRecord
     offerer_users = offerers.map(&:user)
     # 上記一覧に自分が入っているかで確認。
     offerer_users.include?(User.current)
-    # 自分の案件のid一覧を取得(offering_propositionで使うので@を付与)
-    # @current_user_propositions_ids = User.current.propositions.map(&:id)
-
-    # 案件(self)に来ているofferのid一覧を取得(offering_propositionで使うので@を付与)
-    # @offers_id = offerers.map(&:id)
-
-    # current_user_proposition_idsとoffers_idに重複する要素があるか(空集合になっていないか)どうかで判定
-    # あればオファーしているということ。
-    # @current_user_proposition_ids & @offers_id != []
   end
 
   # 案件(self)と自分(current_user)の案件がマッチしているかを判定する。

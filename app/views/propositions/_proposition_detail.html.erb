@@ -4,6 +4,9 @@
       <% proposition.proposition_categories.each do |proposition_category| %>
         <%= render 'tags/tag_badge', tag: proposition_category.tag %>
       <% end %>
+      <span id="favorite-<%= proposition.id %>" class="float-right">
+        <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
+      </span>
     </p>
     <h5 class="card-title"><%= proposition.title %></h5>
     <p class="card-text"><%= proposition.introduction %></p>
