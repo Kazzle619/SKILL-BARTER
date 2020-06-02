@@ -1,2 +1,28 @@
-<h1>Users#followers</h1>
-<p>Find me in app/views/users/followers.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <div class="row py-2 my-2">
+        <div class="col-md-9">
+          <h5><strong>フォロワー一覧</strong></h5>
+        </div>
+        <div class="row">
+          <% @followers.each do |follower| %>
+            <div class="col-md-6 my-3">
+              <% follow = Follow.find_by(follower_id: current_user.id, followed_id: follower.id) if user_signed_in? %>
+              <%= render 'users/skill_holder_card', user: follower, follow: follow %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%# ページネーション %>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <%= paginate @followers %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
