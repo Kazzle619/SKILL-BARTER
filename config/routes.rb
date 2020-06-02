@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     member do
       get 'blocking'
+      get 'favorites'
       get 'followers'
       get 'following'
     end
