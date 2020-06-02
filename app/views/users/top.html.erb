@@ -11,7 +11,8 @@
   <div class="row">
     <% @users.each do |user| %>
       <div class="col-md-4">
-        <%= render 'users/skill_holder_card', user: user%>
+        <% follow = Follow.find_by(follower_id: current_user.id, followed_id: user.id) if user_signed_in? %>
+        <%= render 'users/skill_holder_card', user: user, follow: follow%>
       </div>
     <% end %>
   </div>

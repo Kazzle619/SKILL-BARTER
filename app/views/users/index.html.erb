@@ -8,8 +8,9 @@
     <div class="col-md-9">
       <div class="row">
         <% @users.each do |user| %>
-          <div class="col-md-6">
-            <%= render 'users/skill_holder_card', user: user %>
+          <div class="col-md-6 my-3">
+            <% follow = Follow.find_by(follower_id: current_user.id, followed_id: user.id) if user_signed_in? %>
+            <%= render 'users/skill_holder_card', user: user, follow: follow %>
           </div>
         <% end %>
       </div>
@@ -17,7 +18,7 @@
 
     <%# スキルホルダー検索フォーム %>
     <div class="col-md-3  users-search-form rounded-lg">
-      <%= render 'users/users_search_form' %>
+      <%= render 'users/skill_holders_search_form' %>
     </div>
   </div><br >
 

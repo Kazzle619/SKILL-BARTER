@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse justify-content-end" id="Navbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <%= attachment_image_tag current_user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+          <%= attachment_image_tag current_user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle", style: "object-fit: cover;" %>
       </li>
       <li class="nav-item active">
         <%= link_to mypage_users_path, class: "nav-link" do %>
