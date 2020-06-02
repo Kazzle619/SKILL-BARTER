@@ -26,7 +26,8 @@
     <div class="col-md-9">
       <% @propositions.each do |proposition| %>
         <div class="col-md-12 my-3">
-          <%= render 'propositions/proposition_card', proposition: proposition %>
+          <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
+          <%= render 'propositions/proposition_card', proposition: proposition, favorite: favorite %>
         </div>
       <% end %>
       <div class="text-right">

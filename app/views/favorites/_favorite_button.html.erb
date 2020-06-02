@@ -1,0 +1,11 @@
+<% if not user_signed_in? %>
+  <i class="fas fa-thumbs-up fa-lg" style="color: #FF69B4;"></i><span class="h5" style="color: #FF69B4;"> <%= proposition.favorites.size %></span>
+<% elsif favorite.present? %>
+  <%= link_to proposition_favorite_path(proposition.id, favorite.id ), method: :delete, remote: true do %>
+    <i class="fas fa-thumbs-up fa-lg" style="color: #FF69B4;"></i><span class="h5" style="color: #FF69B4;"> <%= proposition.favorites.size %></span>
+  <% end %>
+<% else %>
+  <%= link_to proposition_favorites_path(proposition.id), method: :post, remote: true do %>
+    <i class="far fa-thumbs-up fa-lg" style="color: #FF69B4;"></i><span class="h5" style="color: #FF69B4;"> <%= proposition.favorites.size %></span>
+  <% end %>
+<% end %>
