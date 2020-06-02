@@ -1,6 +1,11 @@
 <div class="card">
   <div class="card-body px-2 py-3">
-    <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "100x100", class: "rounded-circle" %>
+    <div class="card-title text-center">
+      <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "150x150", class: "rounded-circle", style: "object-fit: cover;" %>
+    </div>
+    <p id="follow-<%= user.id %>" class="card-text text-center">
+      <%= render 'follows/follow_button', user: user, follow: follow %>
+    </p>
     <p class="card-title">
       <% user.skill_categories.map(&:tag).each do |tag| %>
         <%= render 'tags/tag_badge', tag: tag %>

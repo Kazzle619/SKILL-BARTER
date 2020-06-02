@@ -8,7 +8,7 @@
         <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
       </span>
     </p>
-    <h5 class="card-title"><%= proposition.title %></h5>
+    <h5 class="card-title"><%= link_to proposition.title, proposition_path(proposition.id) %></h5>
     <p class="card-text mb-0"><%= proposition.introduction %></p>
   </div>
 </div>

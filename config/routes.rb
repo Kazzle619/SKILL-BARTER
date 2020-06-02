@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   root 'users#top'
 
   resources :users, only: [:index, :edit, :show, :update, :destroy] do
+    resources :follows, only: [:create, :destroy]
+
+    resources :blocks, only: [:create, :destroy]
+
     collection do
       get 'mypage'
       get 'notice'
@@ -26,10 +30,6 @@ Rails.application.routes.draw do
   resources :background_schools, only: [:create, :destroy]
 
   resources :background_jobs, only: [:create, :destroy]
-
-  resources :follows, only: [:create, :destroy]
-
-  resources :blocks, only: [:create, :destroy]
 
   resources :propositions do
     collection do

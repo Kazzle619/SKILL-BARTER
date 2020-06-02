@@ -1,0 +1,11 @@
+<% if not user_signed_in? %>
+  <%# 何も表示しない。 %>
+<% elsif follow.present? %>
+  <%= link_to user_follow_path(user.id, follow.id), method: :delete, remote: true do %>
+    <span class="badge badge-pill badge-primary">フォロー中</span>
+  <% end %>
+<% else %>
+  <%= link_to user_follows_path(user.id), method: :post, remote: true do %>
+    <span class="badge badge-pill border border-primary text-primary">フォローする</span>
+  <% end %>
+<% end %>

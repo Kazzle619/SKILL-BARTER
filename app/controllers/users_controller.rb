@@ -42,6 +42,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @follow = Follow.find_by(
+      follower_id: current_user.id,
+      followed_id: @user.id,
+    )
     @achievements = @user.achievements
     # まだマッチングしていない案件のみ表示。
     @propositions = @user.propositions.where("barter_status <= ?", 2)
@@ -70,9 +74,11 @@ class UsersController < ApplicationController
   end
 
   def followers
+    @followers = current_user.followers.page(params[:page]).per(8).reverse_order
   end
 
   def following
+    @following = current_user.following.page(params[:page]).per(8).reverse_order
   end
 
   def notice
