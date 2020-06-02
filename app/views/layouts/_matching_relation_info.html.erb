@@ -1,4 +1,6 @@
-<% if opponent_proposition.bartered? && opponent_proposition.offering == my_proposition %>
+<% if my_proposition.blank? || opponent_proposition.blank?%>
+  <%# 何も表示しない。 %>
+<% elsif opponent_proposition.bartered? && opponent_proposition.offering == my_proposition %>
   <div class="col-md-7 p-1 bg-primary text-white rounded-lg text-center">
     スキル交換完了
   </div>
