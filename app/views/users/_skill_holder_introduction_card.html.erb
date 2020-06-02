@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-body px-2 py-3">
+    <div class="card-title text-center">
+      <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "150x150", class: "rounded-circle", style: "object-fit: cover;" %>
+    </div>
+    <p id="follow-<%= user.id %>" class="card-text text-center">
+      <%= render 'follows/follow_button', user: user, follow: follow %>
+    </p>
+    <p class="card-title">
+      <% user.skill_categories.map(&:tag).each do |tag| %>
+        <%= render 'tags/tag_badge', tag: tag %>
+      <% end %>
+    </p>
+    <h4 class="card-title"><strong><%= user.name %></strong></h4>
+    <p class="card-text"><%= "★★★★★" %></p>
+    <p class="card-text"><strong>実績数:　</strong><span class="badge badge-pill badge-success"><%= user.achievements.size %></span></p>
+    <%# レビューレート。後程変更予定 %>
+    <p class="card-text">
+      <strong>活動都道府県: </strong>
+      <% user.user_prefectures.map(&:prefecture).each do |prefecture| %>
+        <%= "#{prefecture.name}　" %>
+      <% end %>
+    </p>
+    <p class="card-text"><%= user.introduction %></p>
+  </div>
+</div>
