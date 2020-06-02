@@ -5,7 +5,6 @@
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
     <div class="col-md-9">
-      <%# 活動状況一覧 %>
       <div class="row my-3">
         <div class="col-md-12">
           <h5><strong><%= current_user.name %>さんの案件一覧</strong></h5>
@@ -13,28 +12,28 @@
         <% @propositions.each do |proposition| %>
           <div class="col-md-12 mt-2 bg-light rounded-lg my-2">
             <div class="row">
+              <%# 自分の案件一覧 %>
               <div class="col-md-5 my-2">
-                <%= render 'propositions/proposition_detail', proposition: proposition %>
+                <%= render 'propositions/proposition_detail', proposition: proposition, favorite: Favorite.find_by(user_id: current_user.id, proposition: proposition.id) %>
               </div>
               <div class="col-md-2">
               </div>
+
+              <%# 自分の案件それぞれと関連する案件一覧 %>
               <div class="col-md-5">
+                <%# 自分が申請を出している相手がいればそれが一番上 %>
                 <% if proposition.offering %>
                   <div class="col-md-12 my-2 p-0">
                     <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: proposition.offering %>
-                    <%= render 'propositions/proposition_card', proposition: proposition.offering %>
+                    <%= render 'propositions/proposition_card', proposition: proposition.offering, favorite: Favorite.find_by(user_id: current_user, proposition_id: proposition.id) %>
                   </div>
                 <% end %>
                 <% proposition.offerers.each do |offering_proposition| %>
-                  <% if proposition.offering.blank? && proposition.offering != offering_proposition %>
+                  <%# 申請相手は上記で表示しているので、ここには表示させたくない。 %>
+                  <% if not (proposition.offering.present? && proposition.offering == offering_proposition) %>
                     <div class="col-md-12 my-2 p-0">
                       <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
-                      <%= render 'propositions/proposition_card', proposition: offering_proposition %>
-                    </div>
-                  <% elsif proposition.offering != offering_proposition %>
-                    <div class="col-md-12 my-2 p-0">
-                      <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
-                      <%= render 'propositions/proposition_card', proposition: offering_proposition %>
+                      <%= render 'propositions/proposition_card', proposition: offering_proposition, favorite: Favorite.find_by(user_id: current_user.id, proposition_id: offering_proposition.id) %>
                     </div>
                   <% end %>
                 <% end %>

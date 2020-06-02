@@ -57,6 +57,9 @@ class PropositionsController < ApplicationController
     if @proposition.review.present?
       @review = @proposition.review
     end
+    if user_signed_in?
+      @favorite = Favorite.find_by(user_id: current_user.id, proposition_id: @proposition.id)
+    end
   end
 
   def update
@@ -98,6 +101,7 @@ class PropositionsController < ApplicationController
   def finish
     @proposition = Proposition.find(params[:id])
     @previous_path = Rails.application.routes.recognize_path(request.referer)
+    @favorite = Favorite.find_by(user_id: current_user.id, proposition_id: @proposition.id)
   end
 
   def match
