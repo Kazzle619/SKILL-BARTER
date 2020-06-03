@@ -1,26 +1,26 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light rounded-bottom fixed-top">
   <div class="container">
-  </div>
-  <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag 'skill_barter_logo.jpg', width: 70, height: 70 %>
-  <% end %>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag 'skill_barter_logo.jpg', width: 70, height: 70 %>
+    <% end %>
 
-  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#Navbar" aria-controls="Navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#Navbar" aria-controls="Navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse justify-content-end" id="Navbar">
-    <ul class="navbar-nav">
-      <li class="nav-item active d-flex align-items-center">
-        <%= link_to new_user_session_path, class: "nav-link" do %>
-          <div class="float-right inline-block h5">ログイン</div>
-        <% end %>
-      </li>
-      <li class="nav-item active d-flex align-items-center">
-        <%= link_to new_user_registration_path, class: "nav-link" do %>
-          <div class="float-right inline-block h5">新規登録</div>
-        <% end %>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse justify-content-end" id="Navbar">
+      <ul class="navbar-nav">
+        <li class="nav-item active d-flex align-items-center">
+          <%= link_to new_user_session_path, class: "nav-link" do %>
+            <div class="float-right inline-block h5">ログイン</div>
+          <% end %>
+        </li>
+        <li class="nav-item active d-flex align-items-center">
+          <%= link_to new_user_registration_path, class: "nav-link" do %>
+            <div class="float-right inline-block h5">新規登録</div>
+          <% end %>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
