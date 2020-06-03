@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     collection do
       get 'mypage'
       get 'notice'
+      get 'search'
     end
 
     member do

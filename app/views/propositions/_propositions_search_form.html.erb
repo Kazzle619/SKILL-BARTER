@@ -1,7 +1,7 @@
 <div class="col-md-12 rounded-lg shadow py-3 sticky-top">
   <h6><strong>案件検索フォーム</strong></h6>
 
-  <%= search_form_for(@search, url: search_propositions_path) do |f| %>
+  <%= search_form_for(search, url: search_propositions_path) do |f| %>
     <div class="form-group row">
       <div class="col-md-12">
         <%= f.search_field :title_or_introduction_cont, placeholder: "タイトルまたは説明文で探す。", autofocus: true, class: "form-control" %>
@@ -24,13 +24,13 @@
 
     <div class="form-group row">
       <div class="col-md-12">
-        <%= f.collection_select :proposition_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "案件カテゴリタグを選択してください"}, {class: "custom-select"} %>
+        <%= f.collection_select :proposition_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "案件カテゴリタグで探す"}, {class: "custom-select"} %>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-md-12">
-        <%= f.collection_select :request_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "要望カテゴリタグを選択してください"}, {class: "custom-select"} %>
+        <%= f.collection_select :request_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "要望カテゴリタグで探す"}, {class: "custom-select"} %>
       </div>
     </div>
 
