@@ -4,8 +4,15 @@ class PropositionsController < ApplicationController
 
     # まだマッチしていない案件(交換ステータスが「マッチング中」か「交換申請中」)のみ表示。
     # ORを使う場合はenumの文字列では検索できないようなので1(matching)と2(offering)で検索。
-    unmatched_propositions = Proposition.where("(barter_status = ?) OR (barter_status = ?)", 1, 2)
-    @propositions = unmatched_propositions.page(params[:page]).per(8).reverse_order
+    # line12からの@propositionsでなくてOK。しかしそもそも以下の記述だと狙ったものだけになっていない。後程変更予定。
+    # unmatched_propositions = Proposition.where("(barter_status = ?) OR (barter_status = ?)", 1, 2)
+    # @propositions = unmatched_propositions.page(params[:page]).per(8).reverse_order
+
+    @search = Proposition.ransack(params[:q])
+    @propositions = @search.result.includes(
+      :proposition_category_tags,
+      :request_category_tags,
+    ).page(params[:page]).per(8).reverse_order
   end
 
   def create
@@ -20,10 +27,14 @@ class PropositionsController < ApplicationController
     if @proposition.valid? && is_proposition_category_selected && is_request_category_selected
       # 全て揃っていることを確認してようやく案件、案件カテゴリ、要望カテゴリ、スキル交換申請を保存。
       @proposition.save
-      PropositionCategory.create(proposition_id: @proposition.id,
-                                 tag_id: @proposition.proposition_category_tag_id.to_i)
-      RequestCategory.create(proposition_id: @proposition.id,
-                             tag_id: @proposition.request_category_tag_id.to_i)
+      PropositionCategory.create(
+        proposition_id: @proposition.id,
+        tag_id: @proposition.proposition_category_tag_id.to_i
+      )
+      RequestCategory.create(
+        proposition_id: @proposition.id,
+        tag_id: @proposition.request_category_tag_id.to_i,
+      )
       redirect_to finish_proposition_path(@proposition)
     else
       @tag = Tag.new
@@ -62,7 +73,10 @@ class PropositionsController < ApplicationController
       @review = @proposition.review
     end
     if user_signed_in?
-      @favorite = Favorite.find_by(user_id: current_user.id, proposition_id: @proposition.id)
+      @favorite = Favorite.find_by(
+        user_id: current_user.id,
+        proposition_id: @proposition.id,
+      )
     end
   end
 
@@ -100,6 +114,11 @@ class PropositionsController < ApplicationController
   end
 
   def search
+    @search = Proposition.ransack(search_params)
+    @propositions = @search.result.includes(
+      :proposition_category_tags,
+      :request_category_tags,
+    ).page(params[:page]).per(8).reverse_order
   end
 
   def finish
@@ -113,16 +132,14 @@ class PropositionsController < ApplicationController
 
   private
 
-  # 新規案件作成フォームに入力した値
-  # 案件カテゴリとして選んだタグのidがparams[:proposition][:proposition_category_id]として飛んできている。
-  # 要望カテゴリとして選んだタグのidがparams[:proposition][:request_category_id]として飛んできている。
+  # 案件カテゴリとして選んだタグのidがparams[:proposition][:proposition_category_tag_id]として飛んできている。
+  # 要望カテゴリとして選んだタグのidがparams[:proposition][:request_category_tag_id]として飛んできている。
   def proposition_params
-    params.require(:proposition).permit(:title,
-                                        :introduction,
-                                        :deadline,
-                                        :rendering_image,
-                                        :proposition_category_tag_id,
-                                        :request_category_tag_id)
+    params.require(:proposition).permit!
+  end
+
+  def search_params
+    params.require(:q).permit!
   end
 
   def category_tag_ids

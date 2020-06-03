@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
   def top
     @users = User.all.shuffle.first(3)
-    @propositions = Proposition.all.shuffle.first(4)
+    # @propositions = Proposition.all.shuffle.first(4)
+    @search = Proposition.ransack(params[:q])
+    @propositions = @search.result.includes(
+      :proposition_category_tags,
+      :request_category_tags,
+    ).page(params[:page]).per(8)
   end
 
   def index

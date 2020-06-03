@@ -8,6 +8,11 @@
         <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
       </span>
     </p>
+    <p class="card-title">
+      <% proposition.request_categories.each do |request_category| %>
+        <%= render 'tags/request_category_tag_badge', tag: request_category.tag %>
+      <% end %>
+    </p>
     <%= link_to proposition_path(proposition.id) do %>
       <h5 class="card-title"><%= proposition.title %></h5>
       <p class="card-text mb-0"><%= proposition.introduction %></p>
