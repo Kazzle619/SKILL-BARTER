@@ -1,3 +1,44 @@
-<div class="col-md-12">
-  <h1>案件検索フォームです</h1>
+<div class="col-md-12 rounded-lg shadow py-3 sticky-top">
+  <h6><strong>案件検索フォーム</strong></h6>
+
+  <%= search_form_for(@search, url: search_propositions_path) do |f| %>
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :title_or_introduction_cont, placeholder: "タイトルまたは説明文で探す。", autofocus: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :deadline_lteq, "〆切日", class: "col-md-12 col-form-label" %>
+      <div class="col-md-12">
+        <%= f.date_field :deadline_lteq, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :barter_status_lteq, "ステータス", class: "col-md-12 col-form-label" %>
+      <div class="col-md-12">
+        <%= f.select :barter_status_lteq, { 交換完了したものも含めて全て: 5, マッチング中: 2 }, {}, { class: "custom-select" } %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.collection_select :proposition_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "案件カテゴリタグを選択してください"}, {class: "custom-select"} %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.collection_select :request_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "要望カテゴリタグを選択してください"}, {class: "custom-select"} %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2 actions">
+        <%= f.submit "検索", class: "btn btn-primary btn-block" %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
