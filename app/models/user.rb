@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   attachment :profile_image
 
-  has_many :user_prefectures, dependent: :destroy
   has_many :background_schools, dependent: :destroy
   has_many :background_jobs, dependent: :destroy
   # has_many :follows, dependent: :destroy
@@ -15,8 +14,13 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :achievements, dependent: :destroy
-  has_many :skill_categories, dependent: :destroy
   has_one :review
+
+  has_many :user_prefectures, dependent: :destroy
+  has_many :dealable_prefectures, through: :user_prefectures, source: :prefecture
+
+  has_many :skill_categories, dependent: :destroy
+  has_many :skill_category_tags, through: :skill_categories, source: :tag
 
   has_many :following_relationship, class_name: "Follow",
                                     foreign_key: "follower_id",

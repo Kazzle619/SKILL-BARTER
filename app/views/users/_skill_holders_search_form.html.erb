@@ -1,3 +1,66 @@
-<div class="col-md-12">
-  <h1>スキルホルダー(ユーザー)検索フォームです</h1>
+<div class="col-md-12 rounded-lg shadow py-3 sticky-top">
+  <h6><strong>スキルホルダー検索フォーム</strong></h6>
+
+  <%= search_form_for(search, url: search_users_path) do |f| %>
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :name_cont, placeholder: "氏名で探す。", autofocus: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :kana_name_cont, placeholder: "ヨミガナで探す。", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :introduction_cont, placeholder: "説明文で探す。", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.collection_select :dealable_prefectures_id_eq, Prefecture.all, :id, :name, { include_blank: "活動都道府県で探す"}, {class: "custom-select"} %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.collection_select :skill_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "スキルカテゴリータグで探す"}, {class: "custom-select"} %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :background_schools_school_name_cont, placeholder: "学歴学校名で探す。", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :background_jobs_company_name_cont, placeholder: "職歴会社名で探す。", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :background_jobs_department_cont, placeholder: "職歴部署名で探す。", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.search_field :background_jobs_position_cont, placeholder: "職歴役職名で探す。", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2 actions">
+        <%= f.submit "検索", class: "btn btn-primary btn-block" %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
