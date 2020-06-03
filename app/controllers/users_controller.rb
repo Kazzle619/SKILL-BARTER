@@ -10,8 +10,13 @@ class UsersController < ApplicationController
   end
 
   def index
+    @search = User.ransack(params[:q])
     # 退会していないユーザーのみ表示。
-    @users = User.where(user_status: "subscribing").page(params[:page]).per(8).reverse_order
+    @users = @search.result.includes(
+      :skill_category_tags,
+      :background_jobs,
+      :background_schools,
+    ).where(user_status: "subscribing").page(params[:page]).per(8)
   end
 
   # 要リファクタリング
@@ -89,5 +94,20 @@ class UsersController < ApplicationController
   end
 
   def notice
+  end
+
+  def search
+    @search = User.ransack(search_params)
+    @users = @search.result.includes(
+      :skill_category_tags,
+      :background_jobs,
+      :background_schools,
+    ).where(user_status: "subscribing").page(params[:page]).per(8)
+  end
+
+  private
+
+  def search_params
+    params.require(:q).permit!
   end
 end
