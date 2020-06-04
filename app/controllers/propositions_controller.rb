@@ -59,15 +59,14 @@ class PropositionsController < ApplicationController
 
   def show
     @proposition = Proposition.find(params[:id])
+    # 長すぎてrubocopで弾かれるのでif文で
     if @proposition.offering_to?
       @offering_proposition = @proposition.my_offering_proposition
     end
     @comments = @proposition.comments
     @comment = Comment.new
     @user = @proposition.user
-    if @proposition.review.present?
-      @review = @proposition.review
-    end
+    @review = @proposition.review if @proposition.review.present?
     if user_signed_in?
       @follow = Follow.find_by(
         follower_id: current_user.id,
@@ -78,6 +77,8 @@ class PropositionsController < ApplicationController
         proposition_id: @proposition.id,
       )
     end
+    @room = @proposition.room
+    @chat_messages = ChatMessage.where(room_id: @room.id) if @room.present?
   end
 
   def update

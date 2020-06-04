@@ -49,7 +49,8 @@
           <h5><strong>仕事の履歴</strong></h5>
           <% @bartered_propositions.each do |proposition| %>
             <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
-            <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review, favorite: favorite %>
+            <%= room = proposition.room %>
+            <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review, favorite: favorite, room: room, chat_messages: ChatMessage.where(room_id: room.id) if room.present? %>
           <% end %>
         </div>
       </div>

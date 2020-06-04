@@ -70,14 +70,14 @@ ActiveRecord::Schema.define(version: 2020_05_22_175122) do
   end
 
   create_table "chat_messages", force: :cascade do |t|
-    t.integer "proposition_id", null: false
+    t.integer "user_id", null: false
     t.integer "room_id", null: false
     t.text "content"
     t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposition_id"], name: "index_chat_messages_on_proposition_id"
     t.index ["room_id"], name: "index_chat_messages_on_room_id"
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|

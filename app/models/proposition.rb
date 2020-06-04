@@ -10,8 +10,7 @@ class Proposition < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :proposition_rooms, dependent: :destroy
-  has_many :chat_messages, dependent: :destroy
-  has_one :review, dependent: :destroy
+  has_one  :review, dependent: :destroy
 
   has_many :proposition_categories, dependent: :destroy
   has_many :proposition_category_tags, through: :proposition_categories, source: :tag
@@ -19,13 +18,13 @@ class Proposition < ApplicationRecord
   has_many :request_categories, dependent: :destroy
   has_many :request_category_tags, through: :request_categories, source: :tag
 
-  has_one :offering_relationship, class_name: "Offer",
-                                  foreign_key: "offering_id",
-                                  dependent: :destroy
+  has_one  :offering_relationship, class_name: "Offer",
+                                   foreign_key: "offering_id",
+                                   dependent: :destroy
   has_many :offered_relationships, class_name: "Offer",
                                    foreign_key: "offered_id",
                                    dependent: :destroy
-  has_one :offering, through: :offering_relationship, source: :offered
+  has_one  :offering, through: :offering_relationship, source: :offered
   has_many :offerers, through: :offered_relationships, source: :offering
 
   enum barter_status: {
@@ -120,6 +119,21 @@ class Proposition < ApplicationRecord
     # 交換申請を取り下げた場合に該当
     else
       update(barter_status: "matching")
+    end
+  end
+
+  # 現在のマッチング相手とのRoomを取得
+  def room
+    this_propositions_room_ids = proposition_rooms.map(&:room_id)
+    if is_offering?
+      opponent_propositions_room_ids = offering.proposition_rooms.map(&:room_id)
+    else
+      opponent_propositions_room_ids = []
+    end
+    # 上記2つの共通IDが目当てのroom_id。あるなら1つしか無いはず。
+    room_id = (this_propositions_room_ids & opponent_propositions_room_ids).pop
+    if is_matched? && room_id.present?
+      Room.find(room_id)
     end
   end
 end
