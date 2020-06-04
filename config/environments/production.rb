@@ -47,7 +47,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # ひとまずEIPで記載。後程変更予定。
-  config.action_cable.allowed_request_origins = [ 'http://13.112.212.82']
+  config.action_cable.allowed_request_origins = [ 'https://skill-barter.com/', /http:\/\/skill-barter.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
