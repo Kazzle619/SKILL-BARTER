@@ -14,7 +14,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :achievements, dependent: :destroy
-  has_one :review
+  has_one  :review
+  has_many :chat_messages, dependent: :destroy
 
   has_many :user_prefectures, dependent: :destroy
   has_many :dealable_prefectures, through: :user_prefectures, source: :prefecture

@@ -15,7 +15,7 @@
               <%# お気に入り案件一覧 %>
               <div class="col-md-5 my-2">
                 <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition.my_offering_proposition, opponent_proposition: proposition %>
-                <%= render 'propositions/proposition_card', proposition: proposition, favorite: Favorite.find_by(user_id: current_user, proposition_id: proposition.id) %>
+                <%= render 'propositions/proposition_card', proposition: proposition %>
               </div>
               <div class="col-md-2">
               </div>

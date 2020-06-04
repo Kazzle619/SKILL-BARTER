@@ -25,7 +25,7 @@
                 <% if proposition.offering %>
                   <div class="col-md-12 my-2 p-0">
                     <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: proposition.offering %>
-                    <%= render 'propositions/proposition_card', proposition: proposition.offering, favorite: Favorite.find_by(user_id: current_user, proposition_id: proposition.id) %>
+                    <%= render 'propositions/proposition_card', proposition: proposition.offering %>
                   </div>
                 <% end %>
                 <% proposition.offerers.each do |offering_proposition| %>
@@ -33,7 +33,7 @@
                   <% if not (proposition.offering.present? && proposition.offering == offering_proposition) %>
                     <div class="col-md-12 my-2 p-0">
                       <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
-                      <%= render 'propositions/proposition_card', proposition: offering_proposition, favorite: Favorite.find_by(user_id: current_user.id, proposition_id: offering_proposition.id) %>
+                      <%= render 'propositions/proposition_card', proposition: offering_proposition %>
                     </div>
                   <% end %>
                 <% end %>

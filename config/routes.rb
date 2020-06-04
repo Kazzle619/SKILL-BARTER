@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
@@ -63,5 +65,5 @@ Rails.application.routes.draw do
 
   resource :room, only: [:create]
 
-  resources :chat_messages, only: [:create, :destroy]
+  resources :chat_messages, only: [:destroy]
 end

@@ -23,7 +23,7 @@
     </div>
     <div id="profile" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
       <%# チャットページ %>
-      <%= render 'chat_messages/proposition_chat_messages' %>
+      <%= render 'rooms/chat_room_card', chat_messages: chat_messages, proposition: proposition %>
     </div>
     <div id="contact" class="tab-pane" role="tabpanel" aria-labelledby="contact-tab">
       <%# レビューページ %>
