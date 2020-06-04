@@ -48,6 +48,7 @@ gem 'bullet'
 gem 'kaminari', '~> 1.2.1'
 gem 'ratyrate'
 gem 'font-awesome-sass'
+gem 'refile-s3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
