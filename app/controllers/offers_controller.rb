@@ -26,18 +26,20 @@ class OffersController < ApplicationController
       if @new_proposition.valid? && is_proposition_category_selected && is_request_category_selected
         # 全て揃っていることを確認してようやく案件、案件カテゴリ、要望カテゴリ、スキル交換申請を保存。
         @new_proposition.save
-        PropositionCategory.create(proposition_id: @new_proposition.id,
-                                   tag_id: @new_proposition.proposition_category_tag_id.to_i)
-        RequestCategory.create(proposition_id: @new_proposition.id,
-                               tag_id: @new_proposition.request_category_tag_id.to_i)
+        PropositionCategory.create(
+          proposition_id: @new_proposition.id,
+          tag_id: @new_proposition.proposition_category_tag_id.to_i
+        )
+        RequestCategory.create(
+          proposition_id: @new_proposition.id,
+          tag_id: @new_proposition.request_category_tag_id.to_i
+        )
         # 案件を新規に作成する場合はoffering_idが空なので、ここで入れて保存。
         @offer.offering_id = @new_proposition.id
         @offer.save
 
-        # 状況に合わせて案件の交換ステータスを更新
-        @new_proposition.auto_update_barter_status
+        creating_room_and_update_barter_statuses(@new_proposition)
 
-        # 完了したら案件詳細画面へ
         redirect_to proposition_path(params[:proposition_id].to_i), success: "案件の申請に成功しました。"
 
       # 必要なパラメータが不足している場合は申請用案件選択画面へ返す。
@@ -52,9 +54,7 @@ class OffersController < ApplicationController
       @offer.offering_id = offering_proposition_id
       @offer.save
 
-      # offering, offeredそれぞれの案件の交換ステータスを状況に合わせて自動更新
-      @offer.offering.auto_update_barter_status
-      @offer.offered.auto_update_barter_status
+      creating_room_and_update_barter_statuses(@offer.offering)
 
       # 完了したら案件詳細画面へ
       redirect_to proposition_path(params[:proposition_id].to_i), success: "案件の申請に成功しました。"
@@ -94,12 +94,7 @@ class OffersController < ApplicationController
   # 案件カテゴリとして選んだタグのidがparams[:proposition][:proposition_category_id]として飛んできている。
   # 要望カテゴリとして選んだタグのidがparams[:proposition][:request_category_id]として飛んできている。
   def proposition_params
-    params.require(:proposition).permit(:title,
-                                        :introduction,
-                                        :deadline,
-                                        :rendering_image,
-                                        :proposition_category_tag_id,
-                                        :request_category_tag_id)
+    params.require(:proposition).permit!
   end
 
   # どの既存の案件の「申請」ボタンを押したのかによってoffering_idに入れる値を判別
@@ -117,5 +112,25 @@ class OffersController < ApplicationController
     #     proposition.id
     #   end
     # end
+  end
+
+  def creating_room_and_update_barter_statuses(proposition)
+    proposition.auto_update_barter_status
+    proposition.offering.auto_update_barter_status
+    # マッチングしたらRoom, PropositionRoomを新規作成。
+    # 以前一度マッチングしていればpropositon.roomが存在するはずで、その場合は新たには作成しないように。
+    if proposition.matched? && proposition.room.blank?
+      room = Room.create!
+      # この案件とルームを関連付ける。
+      PropositionRoom.create!(
+        proposition_id: proposition.id,
+        room_id: room.id,
+      )
+      # マッチング相手の案件とルームを関連付ける。
+      PropositionRoom.create!(
+        proposition_id: proposition.offering.id,
+        room_id: room.id,
+      )
+    end
   end
 end
