@@ -261,3 +261,23 @@ end
 Proposition.all.each do |proposition|
   proposition.auto_update_barter_status
 end
+
+# rooms, proposition_rooms
+# 既にマッチングしている相手(barter_statusが"matched", "bartering", "bartered")にのみ作成。
+# 既に相手方で作っていたら作らないようにdone_idsを使って制御。
+done_ids = []
+Proposition.where('barter_status >= ?', 3).each do |proposition|
+  if not done_ids.include?(proposition.offering.id)
+    room = Room.create!
+    PropositionRoom.create!(
+      proposition_id: proposition.id,
+      room_id: room.id,
+    )
+    # マッチング相手のも作成。
+    PropositionRoom.create!(
+      proposition_id: proposition.offering.id,
+      room_id: room.id,
+    )
+    done_ids.append(proposition.id)
+  end
+end
