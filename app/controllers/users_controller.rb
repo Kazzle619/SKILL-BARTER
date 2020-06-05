@@ -66,6 +66,16 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to edit_user_path(@user.id), success: "プロフィールの編集に成功しました。"
+    else
+      @new_skill_category = SkillCategory.new
+      @new_user_prefecture = UserPrefecture.new
+      @new_background_school = BackgroundSchool.new
+      @new_background_job = BackgroundJob.new
+      render 'users/edit', danger: "プロフィールの編集に失敗しました。"
+    end
   end
 
   def destroy
@@ -106,6 +116,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit!
+  end
 
   def search_params
     params.require(:q).permit!
