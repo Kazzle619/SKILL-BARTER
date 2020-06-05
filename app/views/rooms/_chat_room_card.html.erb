@@ -1,13 +1,22 @@
 <div class="row rounded-lg p-3" style="background-color: rgba(255, 204, 102, 0.5);">
   <div class="col-md-12">
     <%# チャットコメント一覧。無限スクロールに後程変更予定。 %>
-    <div id="chat-messages-<%= proposition.room.id %>" class="row">
-      <% chat_messages.each do |chat_message| %>
-        <% if user_signed_in? && chat_message.user == current_user %>
-          <%= render 'chat_messages/my_chat_message', chat_message: chat_message %>
-        <% else %>
-          <%= render 'chat_messages/opponent_chat_message', chat_message: chat_message %>
+    <div id="chat-messages-<%= proposition.room.id if proposition.room.present? %>" class="row">
+      <% if chat_messages.present? %>
+        <% chat_messages.each do |chat_message| %>
+          <% if user_signed_in? && chat_message.user == current_user %>
+            <%= render 'chat_messages/my_chat_message', chat_message: chat_message %>
+          <% else %>
+            <%= render 'chat_messages/opponent_chat_message', chat_message: chat_message %>
+          <% end %>
         <% end %>
+      <% else %>
+        <div class="text-center">
+          <p>
+          チャットがまだ始まっていません。
+          始まるとここにメッセージが表示されます。
+          </p>
+        </div>
       <% end %>
     </div>
 
