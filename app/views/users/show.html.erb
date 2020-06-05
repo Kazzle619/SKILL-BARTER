@@ -6,7 +6,8 @@
       <div class="row">
         <div class="col-md-12 p-4">
           <%# 画像が大きく表示されてしまう。後程変更予定。 %>
-          <%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", class: "img-fluid" %>
+          <%# できれば映像に後程変更予定。 %>
+          <%= image_tag @user.profile_image_id.to_s, class: "img-fluid" %>
         </div>
       </div>
 
@@ -49,7 +50,7 @@
           <h5><strong>仕事の履歴</strong></h5>
           <% @bartered_propositions.each do |proposition| %>
             <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
-            <%= room = proposition.room %>
+            <% room = proposition.room %>
             <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review, favorite: favorite, room: room, chat_messages: ChatMessage.where(room_id: room.id) if room.present? %>
           <% end %>
         </div>

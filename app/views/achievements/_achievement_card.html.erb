@@ -1,5 +1,5 @@
 <div class="card img-thumbnail bg-light h-100 mb-10">
-  <%= attachment_image_tag achievement, :image, format: 'jpeg', fallback: "skill_barter_logo.jpg", class: "card-img-top img-thumbnail" %>
+  <%= image_tag achievement.image_id.to_s, class: "card-img-top img-thumbnail" %>
   <div class="card-body px-2 py-3">
     <h5 class="card-title"><%= achievement.title %></h5>
     <p class="card-text mb-0"><%= achievement.introduction %></p>

@@ -4,11 +4,11 @@
   <div class="inline-block float-right flex-column align-items-end">
     <div class="mb-1 text-right">
       <strong><%= chat_message.user.name %></strong>
-      <%= attachment_image_tag chat_message.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "40x40", class: "rounded-circle", style: "object-fit: cover;" %>
+      <%= image_tag chat_message.user.profile_image_id.to_s, height: 40, width: 40, class: "rounded-circle", style: "object-fit: cover;" %>
     </div>
     <div class="bg-success rounded-lg text-white p-2 text-wrap">
       <%= chat_message.content %><br >
-      <%= attachment_image_tag chat_message, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
+      <%= image_tag chat_message.image_id.to_s, class: "w-100 h-auto" if chat_message.image_id.present? %>
     </div>
     <div class="text-left" style="font-size: 0.5em;">
       <%= chat_message.created_at.strftime("%Y/%m/%d %H:%M") %>

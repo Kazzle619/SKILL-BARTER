@@ -1,5 +1,5 @@
 class Achievement < ApplicationRecord
-  attachment :image
+  mount_uploader :image_id, ImageUploader
 
   belongs_to :user
   has_many :achievement_categories, dependent: :destroy
