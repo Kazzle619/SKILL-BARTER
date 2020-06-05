@@ -1,6 +1,9 @@
+# ファイルに日本語を使えるように
+CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
+
 unless Rails.env.development? || Rails.env.test?
   CarrierWave.configure do |config|
-    config.storage :fog
+    config.storage = :fog
     config.fog_provider = 'fog/aws'
     config.fog_credentials = {
       provider: 'AWS',
@@ -10,7 +13,7 @@ unless Rails.env.development? || Rails.env.test?
     }
 
     config.fog_directory  = 'skill-barter-bucket'
-    config.asset_host = "https://skill-barter-bucket.s3.amazonaws.com"
+    config.asset_host = "https://skill-barter-bucket.s3-ap-northeast-1.amazonaws.com"
     config.cache_storage = :fog
   end
 end
