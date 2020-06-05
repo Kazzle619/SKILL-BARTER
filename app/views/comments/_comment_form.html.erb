@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-2 d-flex align-items-center justify-content-center">
       <%# 入力欄が枠外にはみ出ている。アイコンに後程変更予定 %>
-      <%= f.attachment_field :image %>
+      <%= f.file_field :image_id %>
     </div>
     <div class="col-md-8">
       <%= f.text_area :content, auto_focus: true, class: "w-100" %>

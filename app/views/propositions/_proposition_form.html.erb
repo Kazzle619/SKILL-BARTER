@@ -26,7 +26,7 @@
   <div class="form-group row">
     <%= form.label :rendering_image, "完成イメージ画像", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.attachment_field :rendering_image, class: "form-control", form: form_target %>
+      <%= form.file_field :rendering_image_id, class: "form-control", form: form_target %>
     </div>
   </div>
 

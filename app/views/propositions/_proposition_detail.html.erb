@@ -22,9 +22,9 @@
       </p>
     <% end %>
     <% if proposition.rendering_image_id %>
-      <p class="card-text">
+      <p class="card-text mb-3">
         完成イメージ
-        <%= attachment_image_tag proposition, :rendering_image, format: 'jpeg', size: "autox100%", class: "w-100" %><br ><br >
+        <%= image_tag proposition.rendering_image_id.to_s, class: "w-100 h-auto" %>
       </p>
     <% end %>
 
