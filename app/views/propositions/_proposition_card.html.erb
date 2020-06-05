@@ -23,7 +23,7 @@
       <p class="card-text mb-0">
         <%= link_to proposition.user.name, user_path(proposition.user.id) %>
         <%= link_to user_path(proposition.user.id) do %>
-          <%= attachment_image_tag proposition.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+          <%= image_tag proposition.user.profile_image_id.to_s, height: 50, width: 50, class: "rounded-circle", style: "object-fit: cover;" %>
         <% end %>
         <%# 後程変更予定 %>
         <%= "★★★★★" %>

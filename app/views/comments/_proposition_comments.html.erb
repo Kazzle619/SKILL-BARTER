@@ -1,27 +1,42 @@
 <div class="row">
-  <div class="col-md-2 d-flex align-items-center justify-content-center">
-    <%= attachment_image_tag comment.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
-  </div>
-  <div class="col-md-8"">
-    <b><%= comment.user.name %></b>
-    <%# コメントも画像も無いデータの場合 %>
-    <% if comment.content.blank? && comment.image.blank? %>
-      <p>※コメント、画像が空です※</p>
-    <%# 画像のみの場合 %>
-    <% elsif comment.content.blank? %>
-      <%= attachment_image_tag comment, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
-    <%# コメントのみの場合 %>
-    <% elsif comment.image.blank?%>
-      <div class="sentence"><%= comment.content %></div>
-    <%# コメント、画像どちらもある場合 %>
-    <% else %>
-      <div class="sentence"><%= comment.content %></div>
-      <%= attachment_image_tag comment, :image, format: 'jpeg', size: "autox100%", class: "w-100" %>
-    <% end %>
-  </div>
-  <div class="col-md-2 d-flex align-items-center">
-    <% if comment.user == current_user %>
-      <%= link_to "削除", proposition_comment_path(proposition.id, comment.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger btn-block" %>
-    <% end %>
-  </div>
+  <% if user_signed_in? && comment.user == current_user %>
+    <div class="col-md-3 my-1">
+    </div>
+    <div class="col-md-9 my-1">
+      <div class="inline-block float-right flex-column align-items-end">
+        <div class="mb-1 text-right">
+          <strong><%= comment.user.name %></strong>
+          <%= image_tag comment.user.profile_image_id.to_s, height: 40, width: 40, class: "rounded-circle", style: "object-fit: cover;" %>
+        </div>
+        <div class="bg-success rounded-lg text-white p-2 text-wrap">
+          <%= comment.content %><br >
+          <%= image_tag comment.image_id.to_s, class: "w-100 h-auto" if comment.image_id.present? %>
+        </div>
+        <div class="text-left" style="font-size: 0.5em;">
+          <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
+        </div>
+        <div class="text-right">
+          <%= link_to "削除", proposition_comment_path(proposition.id, comment.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger btn-block" %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="col-md-9 my-1">
+      <div class="inline-block float-left flex-column align-items-start">
+        <div class="mb-1">
+          <%= image_tag comment.user.profile_image_id.to_s, height: 40, width: 40, class: "rounded-circle", style: "object-fit: cover;" %>
+          <strong><%= comment.user.name %></strong>
+        </div>
+        <div class="bg-light rounded-lg p-2 text-wrap">
+          <%= comment.content %><br >
+          <%= image_tag comment.image_id.to_s, class: "w-100 h-auto" if comment.image_id.present? %>
+        </div>
+        <div class="text-right" style="font-size: 0.5em;">
+          <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 my-1">
+    </div>
+  <% end %>
 </div>

@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  attachment :image
+  mount_uploader :image_id, ImageUploader
 
   belongs_to :user
   belongs_to :proposition

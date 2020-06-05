@@ -2,9 +2,9 @@ class Proposition < ApplicationRecord
   # proposition#offerの処理判定で、paramsのままだと扱いにくいので属性を追加。
   attr_accessor :proposition_category_tag_id, :request_category_tag_id
 
-  belongs_to :user
+  mount_uploader :rendering_image_id, ImageUploader
 
-  attachment :rendering_image
+  belongs_to :user
 
   # has_many :offers, dependent: :destroy
   has_many :comments, dependent: :destroy

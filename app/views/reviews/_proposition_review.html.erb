@@ -14,7 +14,7 @@
 
       <%# レビューしたユーザーのプロフィール画像と氏名 %>
       <div class="card-title">
-        <%= attachment_image_tag review.user, :profile_image, format: 'jpeg', fallback: "no_image_user.jpeg", size: "50x50", class: "rounded-circle" %>
+        <%= image_tag review.user.profile_image_id.to_s, height: 50, width: 50, class: "rounded-circle", style: "object-fit: cover;" %>
         <%= review.user.name %>
       </div>
 
