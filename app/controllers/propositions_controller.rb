@@ -52,8 +52,8 @@ class PropositionsController < ApplicationController
     # 今は1つしか登録できないようにしてあるのでこれで。後程変更予定。
     proposition_category = @proposition.proposition_categories[0]
     request_category = @proposition.request_categories[0]
-    @proposition.proposition_category_tag_id = proposition_category.id
-    @proposition.request_category_tag_id = request_category.id
+    @proposition.proposition_category_tag_id = proposition_category.tag_id
+    @proposition.request_category_tag_id = request_category.tag_id
     @tag = Tag.new
   end
 
