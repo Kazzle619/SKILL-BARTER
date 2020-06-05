@@ -1,0 +1,44 @@
+<%= form_with(model: achievement, id: "new_achievement") do |form| %>
+  <div class="form-group row">
+    <%= form.label :title, "実績タイトル", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= form.text_field :title, autofocus: true, class: "form-control", form: form_target %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :introduction, "実績説明文", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= form.text_area :introduction, rows: 3, class: "form-control", form: form_target %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :image_id, "関連画像", class: "col-md-2 col-form-label" %>
+    <div class="col-md-10">
+      <%= form.file_field :image_id, class: "form-control", form: form_target %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :achievement_category_tag_id, "実績カテゴリタグ", class: "col-md-2 col-form-label" %>
+    <div class="col-md-5">
+      <%= form.collection_select :achievement_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください" }, { class: "form-control", form: form_target } %>
+    </div>
+    <div class="col-md-5">
+      <%= render 'tags/tag_form', tag: tag, category: "achievement_category", tag_form_target: "new_achievement_category_tag"%>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3">
+      <%= form.submit submit_value, class: "btn btn-primary btn-block", form: form_target %>
+    </div>
+  </div>
+<% end %>
+
+<%# これを置かないとtag_formのsubmitが効かない。上のform_withの中に置くとformタグが生成されないのでここに。 %>
+<%= form_with(model: tag, url: tag_path, id: "new_achievement_category_tag") do |form| %>
+<% end %>
