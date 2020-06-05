@@ -44,7 +44,7 @@ end
     birthday: Faker::Date.birthday(min_age: 18, max_age: 40),
     phone_number: Faker::PhoneNumber.cell_phone.delete("-"),
     introduction: "自己紹介です。自己紹介です。自己紹介です。自己紹介です。自己紹介です。",
-    profile_image: File.open("./app/assets/images/user_#{gender}_#{rand(1..2)}.jpeg"),
+    profile_image_id: File.open("./app/assets/images/user_#{gender}_#{rand(1..2)}.jpeg"),
     user_status: 1,
     email: "example#{n + 1}@gmail.com",
     password: "password",
@@ -166,7 +166,7 @@ User.all.each do |user|
       introduction: "説明です。" * rand(5..10),
       deadline: Faker::Date.forward(days: 60),
       barter_status: 1,
-      rendering_image: File.open("./app/assets/images/proposition_image.jpeg"),
+      rendering_image_id: File.open("./app/assets/images/proposition_image.jpeg"),
     )
 
     # 案件のタイトルに使ったタグをそのままproposition_category_tagに使用

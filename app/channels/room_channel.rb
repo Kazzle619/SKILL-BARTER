@@ -13,7 +13,7 @@ class RoomChannel < ApplicationCable::Channel
     else
       chat_message = ChatMessage.create!(
         content: data['message'],
-        image: data['image'],
+        image_id: data['image'],
         user_id: data['user'],
         room_id: data['room'],
       )
