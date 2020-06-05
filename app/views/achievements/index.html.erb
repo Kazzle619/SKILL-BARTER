@@ -1,0 +1,21 @@
+<%# マッチング関係を矢印でも示すよう後程変更予定。 %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+        <div class="col-md-12">
+          <h5><strong><%= current_user.name %>さんの実績一覧</strong></h5>
+        </div>
+        <div class="row">
+          <% @achievements.each do |achievement| %>
+            <div class="col-6 col-md-3 mb-3">
+              <%= render 'achievements/achievement_card', achievement: achievement %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     resources :request_categories, only: [:create, :destroy]
   end
 
-  resources :achievements, only: [:create, :new, :edit, :update, :destroy] do
+  resources :achievements, only: [:index, :create, :new, :edit, :update, :destroy] do
     resources :achievement_categories, only: [:create, :destroy]
   end
 

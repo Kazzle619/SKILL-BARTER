@@ -1,4 +1,6 @@
 class Achievement < ApplicationRecord
+  attr_accessor :achievement_category_tag_id
+
   mount_uploader :image_id, ImageUploader
 
   belongs_to :user
