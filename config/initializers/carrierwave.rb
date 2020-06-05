@@ -10,7 +10,7 @@ unless Rails.env.development? || Rails.env.test?
     }
 
     config.fog_directory  = 'skill-barter-bucket'
-    config.asset_host = "https://s3.amazonaws.com/skill-barter-bucket"
+    config.asset_host = "https://skill-barter-bucket.s3.amazonaws.com"
     config.cache_storage = :fog
   end
 end
