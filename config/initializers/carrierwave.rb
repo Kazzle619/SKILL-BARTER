@@ -12,7 +12,6 @@ unless Rails.env.development? || Rails.env.test?
     config.storage = :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory  = 'skill-barter-bucket'
-    config.asset_host = "https://skill-barter-bucket.s3-ap-northeast-1.amazonaws.com"
     config.cache_storage = :fog
     config.fog_public = true
   end
