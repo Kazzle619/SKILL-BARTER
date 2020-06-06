@@ -1,4 +1,7 @@
 class PropositionsController < ApplicationController
+  prepend_before_action :authenticate_user!, except: [:search, :index, :show]
+  before_action :authenticate_right_user, only: [:finish, :match, :edit, :update, :destroy]
+
   def index
     # 行が長すぎてrubocopで弾かれるので、2行で記述。必要なのは@propositions
 
@@ -146,5 +149,12 @@ class PropositionsController < ApplicationController
   def category_tag_ids
     @proposition_category_tag_id = params[:proposition][:proposition_category_tag_id]
     @request_category_tag_id = params[:proposition][:request_category_tag_id]
+  end
+
+  def authenticate_right_user
+    proposition = Proposition.find(params[:id])
+    if proposition.user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end

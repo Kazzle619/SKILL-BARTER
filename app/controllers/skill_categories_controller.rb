@@ -1,4 +1,7 @@
 class SkillCategoriesController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_aciton :authenticate_right_user, only: :destroy
+
   def create
     @new_skill_category = SkillCategory.new(skill_category_params)
     @new_skill_category.user_id = current_user.id
@@ -25,5 +28,11 @@ class SkillCategoriesController < ApplicationController
 
   def skill_category_params
     params.require(:skill_category).permit(:tag_id)
+  end
+
+  def authenticate_right_user
+    if SkillCategory.find(params[:id]).user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end

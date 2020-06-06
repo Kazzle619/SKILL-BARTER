@@ -1,4 +1,8 @@
 class OffersController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_action :authenticate_right_user_for_create, only: [:create]
+  before_action :authenticate_right_user_for_destroy, only: [:destroy]
+
   def create
     # 値を一部入力していてrenderした時用に、ここで@new_propositionを作成。
     @proposition_id = params.to_unsafe_h.key("申請")
@@ -131,6 +135,24 @@ class OffersController < ApplicationController
         proposition_id: proposition.offering.id,
         room_id: room.id,
       )
+    end
+  end
+
+  def authenticate_right_user_for_create
+    # 既存の案件から申請する場合、申請する案件のオーナーでなければredirect。新規作成はredirectしない。
+    if offering_proposition_id.present?
+      offering_proposition = proposition.find(offering_proposition_id)
+    end
+    if offering_proposition.present? && offering_proposition.user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
+  end
+
+  def authenticate_right_user_for_destroy
+    offer = Offer.find(params[:id])
+    # 申請を出している側の案件のオーナーでなければredirect。
+    if offer.offering.user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end
 end

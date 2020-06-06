@@ -1,4 +1,7 @@
 class AchievementsController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_action :authenticate_right_user, except: [:index, :create, :new]
+
   def index
     @achievements = Achievement.where(user_id: current_user.id)
   end
@@ -55,5 +58,11 @@ class AchievementsController < ApplicationController
 
   def achievement_params
     params.require(:achievement).permit!
+  end
+
+  def authenticate_right_user
+    if Achievement.find(params[:id]).user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end

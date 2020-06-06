@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  prepend_prepend_before_action :authenticate_user!
+  before_action :authenticate_right_user, only: :destroy
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
@@ -27,5 +30,11 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content, :image)
+  end
+
+  def authenticate_right_user
+    if Comment.find(params[:id]).user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end
