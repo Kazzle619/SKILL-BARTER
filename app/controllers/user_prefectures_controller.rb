@@ -1,4 +1,7 @@
 class UserPrefecturesController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_action :authenticate_right_user, only: :destroy
+
   def create
     @new_user_prefecture = UserPrefecture.new(user_prefecture_params)
     @new_user_prefecture.user_id = current_user.id
@@ -25,5 +28,11 @@ class UserPrefecturesController < ApplicationController
 
   def user_prefecture_params
     params.require(:user_prefecture).permit(:prefecture_id)
+  end
+
+  def authenticate_right_user
+    if UserPrefecture.find(params[:id]).user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end

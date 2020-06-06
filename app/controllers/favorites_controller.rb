@@ -1,4 +1,7 @@
 class FavoritesController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_action :authenticate_right_user, only: :destroy
+
   def create
     @proposition = Proposition.find(params[:proposition_id])
     @favorite = Favorite.new(
@@ -9,11 +12,15 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @proposition = Proposition.find(params[:proposition_id])
-    favorite = Favorite.find_by(
-      user_id: current_user.id,
-      proposition_id: params[:proposition_id],
-    )
+    favorite = Favorite.find(params[:id])
     favorite.destroy!
+  end
+
+  private
+
+  def authenticate_right_user
+    if Favorite.find(params[:id]).user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end

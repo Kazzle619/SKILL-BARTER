@@ -1,4 +1,7 @@
 class ReviewsController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_action :authenticate_matching_user
+
   def new
     @proposition = Proposition.find(params[:proposition_id])
     @review = Review.new
@@ -41,5 +44,14 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:comment)
+  end
+
+  def authenticate_matching_user
+    proposition = Proposition.find(params[:proposition_id])
+    if !proposition.is_matched?
+      redirect_to root_path, warning: "この案件はマッチングしていないためレビューできません。"
+    elsif proposition.offering.user != current_user
+      redirect_to root_path, warning: "マッチング相手のみ編集可能です。"
+    end
   end
 end

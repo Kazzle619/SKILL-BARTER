@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  prepend_before_action :authenticate_user!, except: [:top, :index, :show]
+  before_action :authenticate_right_user, except: [:top, :mypage, :index, :show]
+
   def top
     @users = User.all.shuffle.first(3)
     # @propositions = Proposition.all.shuffle.first(4)
@@ -123,5 +126,12 @@ class UsersController < ApplicationController
 
   def search_params
     params.require(:q).permit!
+  end
+
+  def authenticate_right_user
+    user = User.find(params[:id])
+    if user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end
