@@ -1,6 +1,6 @@
 class BlocksController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authenticate_right_user
+  before_action :authenticate_right_user
 
   def create
   end
@@ -11,7 +11,7 @@ class BlocksController < ApplicationController
   private
 
   def authenticate_right_user
-    if Block.find(params[:id]).blocker != current_user
+    if user_signed_in? && Block.find(params[:id]).blocker != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

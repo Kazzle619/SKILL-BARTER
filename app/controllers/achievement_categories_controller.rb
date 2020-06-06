@@ -1,6 +1,6 @@
 class AchievementCategoriesController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authenticate_right_user
+  before_action :authenticate_right_user
 
   def create
   end
@@ -11,7 +11,7 @@ class AchievementCategoriesController < ApplicationController
   private
 
   def authenticate_right_user
-    if Achievement.find(params[:achievement_id]).user != current_user
+    if user_signed_in? && Achievement.find(params[:achievement_id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end
