@@ -51,7 +51,8 @@ class BackgroundJobsController < ApplicationController
   end
 
   def authentticate_right_user
-    if user_signed_in? && BackgroundJob.find(params[:id]).user != current_user
+    background_job = BackgroundJob.find(params[:id]) if params[:id].present?
+    if user_signed_in? && background_job.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

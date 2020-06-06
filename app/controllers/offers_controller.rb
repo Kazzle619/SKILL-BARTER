@@ -149,7 +149,7 @@ class OffersController < ApplicationController
   end
 
   def authenticate_right_user_for_destroy
-    offer = Offer.find(params[:id])
+    offer = Offer.find(params[:id]) if params[:id].present?
     # 申請を出している側の案件のオーナーでなければredirect。
     if user_signed_in? && offer.offering.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"

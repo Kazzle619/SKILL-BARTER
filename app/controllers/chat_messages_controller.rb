@@ -12,7 +12,8 @@ class ChatMessagesController < ApplicationController
   private
 
   def authenticate_right_user
-    if user_signed_in? && ChatMessage.find(params[:id]).user != current_user
+    chat_message = ChatMessage.find(params[:id]) if params[:id].present?
+    if user_signed_in? && chat_message.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end
