@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  prepend_before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :authenticate_right_user_for_create, only: [:create]
   before_action :authenticate_right_user_for_destroy, only: [:destroy]
 
