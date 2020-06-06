@@ -1,6 +1,6 @@
 class ChatMessagesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_right_user
+  # before_action :authenticate_user!
+  # before_action :authenticate_right_user
 
   def destroy
     # 非同期通信に後程変更予定。
