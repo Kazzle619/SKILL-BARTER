@@ -1,5 +1,5 @@
 class AchievementCategoriesController < ApplicationController
-  prepend_before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :authenticate_right_user
 
   def create

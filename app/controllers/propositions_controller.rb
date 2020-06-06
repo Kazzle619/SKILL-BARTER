@@ -1,5 +1,5 @@
 class PropositionsController < ApplicationController
-  prepend_before_action :authenticate_user!, except: [:search, :index, :show]
+  before_action :authenticate_user!, except: [:search, :index, :show]
   before_action :authenticate_right_user, only: [:finish, :match, :edit, :update, :destroy]
 
   def index
