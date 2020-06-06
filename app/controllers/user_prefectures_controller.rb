@@ -1,6 +1,6 @@
 class UserPrefecturesController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authenticate_right_user, only: :destroy
+  before_action :authenticate_right_user, only: :destroy
 
   def create
     @new_user_prefecture = UserPrefecture.new(user_prefecture_params)
@@ -31,7 +31,7 @@ class UserPrefecturesController < ApplicationController
   end
 
   def authenticate_right_user
-    if UserPrefecture.find(params[:id]).user != current_user
+    if user_signed_in? && UserPrefecture.find(params[:id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

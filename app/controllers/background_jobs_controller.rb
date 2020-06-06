@@ -1,6 +1,6 @@
 class BackgroundJobsController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authentticate_right_user, only: :destroy
+  before_action :authentticate_right_user, only: :destroy
 
   def create
     @new_background_job = BackgroundJob.new(background_job_params)
@@ -51,7 +51,7 @@ class BackgroundJobsController < ApplicationController
   end
 
   def authentticate_right_user
-    if BackgroundJob.find(params[:id]).user != current_user
+    if user_signed_in? && BackgroundJob.find(params[:id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

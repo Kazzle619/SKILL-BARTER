@@ -1,6 +1,6 @@
 class BackgroundSchoolsController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authenticate_right_user, only: :destroy
+  before_action :authenticate_right_user, only: :destroy
 
   def create
     @new_background_school = BackgroundSchool.new(background_school_params)
@@ -31,7 +31,7 @@ class BackgroundSchoolsController < ApplicationController
   end
 
   def authenticate_right_user
-    if BackgroundSchool.find(params[:id]).user != current_user
+    if user_signed_in? && BackgroundSchool.find(params[:id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end
