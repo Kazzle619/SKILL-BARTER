@@ -152,7 +152,7 @@ class PropositionsController < ApplicationController
   end
 
   def authenticate_right_user
-    proposition = Proposition.find(params[:id])
+    proposition = Proposition.find(params[:id]) if params[:id].present?
     if user_signed_in? && proposition.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end

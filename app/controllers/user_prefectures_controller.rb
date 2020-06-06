@@ -31,7 +31,8 @@ class UserPrefecturesController < ApplicationController
   end
 
   def authenticate_right_user
-    if user_signed_in? && UserPrefecture.find(params[:id]).user != current_user
+    user_prefecture = UserPrefecture.find(params[:id]) if params[:id].present?
+    if user_signed_in? && user_prefecture.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end
