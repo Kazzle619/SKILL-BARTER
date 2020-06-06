@@ -1,6 +1,6 @@
 class BlocksController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_right_user
+  # before_action :authenticate_user!
+  # before_action :authenticate_right_user
 
   def create
   end
