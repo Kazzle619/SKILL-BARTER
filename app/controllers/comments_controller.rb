@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  prepend_prepend_before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :authenticate_right_user, only: :destroy
 
   def create
