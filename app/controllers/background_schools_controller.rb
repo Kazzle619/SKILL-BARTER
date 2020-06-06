@@ -1,4 +1,7 @@
 class BackgroundSchoolsController < ApplicationController
+  prepend_before_action :authenticate_user!
+  before_action :authenticate_right_user, only: :destroy
+
   def create
     @new_background_school = BackgroundSchool.new(background_school_params)
     @new_background_school.user_id = current_user.id
@@ -24,9 +27,12 @@ class BackgroundSchoolsController < ApplicationController
   private
 
   def background_school_params
-    params.require(:background_school).permit(:school_name,
-                                              :school_type,
-                                              :department,
-                                              :enrollment_status)
+    params.require(:background_school).permit!
+  end
+
+  def authenticate_right_user
+    if BackgroundSchool.find(params[:id]).user != current_user
+      redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
   end
 end
