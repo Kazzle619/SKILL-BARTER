@@ -61,7 +61,8 @@ class AchievementsController < ApplicationController
   end
 
   def authenticate_right_user
-    if user_signed_in? && Achievement.find(params[:id]).user != current_user
+    achievement = Achievement.find(params[:id]) if params[:id].present?
+    if user_signed_in? && achievement.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

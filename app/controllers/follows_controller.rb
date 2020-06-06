@@ -20,7 +20,8 @@ class FollowsController < ApplicationController
   private
 
   def authenticate_right_user
-    if user_signed_in? && Follow.find(params[:id]).user != current_user
+    follow = Follow.find(params[:id]) if params[:id].present?
+    if user_signed_in? && follow.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

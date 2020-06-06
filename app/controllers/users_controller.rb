@@ -129,7 +129,7 @@ class UsersController < ApplicationController
   end
 
   def authenticate_right_user
-    user = User.find(params[:id])
+    user = User.find(params[:id]) if params[:id].present?
     if user_signed_in? && user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
