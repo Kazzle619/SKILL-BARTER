@@ -1,6 +1,6 @@
 class PropositionsController < ApplicationController
-  before_action :authenticate_user!, except: [:search, :index, :show]
-  before_action :authenticate_right_user, only: [:finish, :match, :edit, :update, :destroy]
+  # before_action :authenticate_user!, except: [:search, :index, :show]
+  # before_action :authenticate_right_user, only: [:finish, :match, :edit, :update, :destroy]
 
   def index
     # 行が長すぎてrubocopで弾かれるので、2行で記述。必要なのは@propositions

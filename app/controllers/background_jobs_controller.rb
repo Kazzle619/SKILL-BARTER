@@ -1,6 +1,6 @@
 class BackgroundJobsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authentticate_right_user, only: :destroy
+  # before_action :authenticate_user!
+  # before_action :authentticate_right_user, only: :destroy
 
   def create
     @new_background_job = BackgroundJob.new(background_job_params)
