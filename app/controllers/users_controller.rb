@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user!, except: [:top, :index, :show]
+  before_action :authenticate_user!, except: [:top, :index, :show]
   # before_action :authenticate_right_user, except: [:top, :mypage, :index, :show]
 
   def top

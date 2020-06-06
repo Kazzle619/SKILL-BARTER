@@ -1,5 +1,5 @@
 class SkillCategoriesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   # before_aciton :authenticate_right_user, only: :destroy
 
   def create

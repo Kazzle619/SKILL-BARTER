@@ -1,5 +1,5 @@
 class ChatMessagesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   # before_action :authenticate_right_user
 
   def destroy

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   # before_action :authenticate_matching_user
 
   def new
