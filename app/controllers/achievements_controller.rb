@@ -1,6 +1,6 @@
 class AchievementsController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authenticate_right_user, except: [:index, :create, :new]
+  before_action :authenticate_right_user, except: [:index, :create, :new]
 
   def index
     @achievements = Achievement.where(user_id: current_user.id)
@@ -61,7 +61,7 @@ class AchievementsController < ApplicationController
   end
 
   def authenticate_right_user
-    if Achievement.find(params[:id]).user != current_user
+    if user_signed_in? && Achievement.find(params[:id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

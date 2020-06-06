@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authenticate_right_user, only: :destroy
+  before_action :authenticate_right_user, only: :destroy
 
   def create
     @comment = Comment.new(comment_params)
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   end
 
   def authenticate_right_user
-    if Comment.find(params[:id]).user != current_user
+    if user_signed_in? && Comment.find(params[:id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end

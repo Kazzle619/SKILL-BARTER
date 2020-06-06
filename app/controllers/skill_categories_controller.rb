@@ -1,6 +1,6 @@
 class SkillCategoriesController < ApplicationController
   before_action :authenticate_user!
-  # before_aciton :authenticate_right_user, only: :destroy
+  before_aciton :authenticate_right_user, only: :destroy
 
   def create
     @new_skill_category = SkillCategory.new(skill_category_params)
@@ -31,7 +31,7 @@ class SkillCategoriesController < ApplicationController
   end
 
   def authenticate_right_user
-    if SkillCategory.find(params[:id]).user != current_user
+    if user_signed_in? && SkillCategory.find(params[:id]).user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
     end
   end
