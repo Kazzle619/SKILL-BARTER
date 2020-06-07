@@ -124,7 +124,7 @@ class PropositionsController < ApplicationController
           offerer.auto_update_barter_status
         end
       end
-      redirect_to request.referer, success: "案件の削除に成功しました。"
+      redirect_to mypage_index_propositions_path, success: "案件の削除に成功しました。"
     end
   end
 
