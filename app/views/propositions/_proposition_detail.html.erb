@@ -1,5 +1,6 @@
 <div class="card" style="background-color: rgba(102, 204, 255, 0.5);">
   <div class="card-body px-2 py-3">
+    <%# 案件カテゴリタグ %>
     <p class="card-title">
       <% proposition.proposition_categories.each do |proposition_category| %>
         <%= render 'tags/tag_badge', tag: proposition_category.tag %>
@@ -8,19 +9,46 @@
         <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
       </span>
     </p>
+    <%# 要望カテゴリタグ %>
     <p class="card-title">
       <% proposition.request_categories.each do |request_category| %>
         <%= render 'tags/request_category_tag_badge', tag: request_category.tag %>
       <% end %>
     </p>
-    <h5 class="card-title"><%= proposition.title %></h5>
+
+    <%# 案件タイトル %>
+    <h5 class="card-title">
+      <%= proposition.title %>
+      <%# レビューされている場合はレビューレートも表示  %>
+      <div id="star-rate-<%= proposition.id %>"></div>
+    </h5>
+    <script>
+      $('#star-rate-<%= proposition.id %>').raty({
+        size    : 36,
+        starOff : '<%= asset_path('star-off.png') %>',
+        starOn  : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        half    : true,
+        readOnly: true,
+        score   : <%= proposition.review.rate if proposition.review.present? %>,
+      });
+    </script>
+
+    <%# レビューレート %>
+    <div class="card-text">
+    </div>
+
+    <%# 案件説明文 %>
     <p class="card-text"><%= proposition.introduction %></p>
-    <%# 交換完了申請後は納期は表示しない %>
+
+    <%# 納期。交換完了申請後は表示しない %>
     <% if proposition.deadline && !proposition.is_bartering? %>
       <p class="card-text">
         納期： <%= proposition.deadline.strftime("%Y年%m月%d日中") %>
       </p>
     <% end %>
+
+    <%# 完成イメージ %>
     <% if proposition.rendering_image_id %>
       <p class="card-text mb-3">
         完成イメージ

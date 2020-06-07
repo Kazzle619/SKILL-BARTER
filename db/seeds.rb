@@ -210,11 +210,13 @@ User.first(10).each do |user|
     user_id: user.id,
     proposition_id: passive_proposition_id_1,
     comment: "レビューです。" * rand(5..10),
+    rate: rand(1..5),
   )
   Review.create!(
     user_id: Proposition.find(passive_proposition_id_1).user.id,
     proposition_id: user.propositions[0].id,
     comment: "レビューです。" * rand(5..10),
+    rate: rand(1..5),
   )
   Offer.create!(
     offering_id: user.propositions[0].id,
@@ -231,6 +233,7 @@ User.first(10).each do |user|
     user_id: user.id,
     proposition_id: passive_proposition_id_2,
     comment: "レビューです。" * rand(5..10),
+    rate: rand(1..5),
   )
   Offer.create!(
     offering_id: user.propositions[1].id,

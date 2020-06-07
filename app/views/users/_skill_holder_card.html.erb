@@ -13,6 +13,24 @@
         <%= user.name %><br >
       <% end %>
     </h5>
+    <%# レビューレート、レビュー数 %>
+    <% if user.revieweds != [] %>
+      <div class="card-title">
+        <span id="user-star-rate-<%= user.id %>"></span><span class="text-secondary">(<%= user.revieweds.size %>)</span>
+      </div>
+    <% end %>
+
+    <script>
+      $('#user-star-rate-<%= user.id %>').raty({
+        size    : 36,
+        starOff : '<%= asset_path('star-off.png') %>',
+        starOn  : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        half    : true,
+        readOnly: true,
+        score   : <%= round_up_by_half(user.revieweds.map(&:rate).sum(0.0) / user.revieweds.size) if user.revieweds != [] %>,
+      });
+    </script>
     <p class="card-text"><%= user.introduction %></p>
     <p class="card-text mb-0">
       <% user.skill_categories.each do |skill_category| %>
