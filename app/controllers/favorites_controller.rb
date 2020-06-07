@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_right_user, only: :destroy
+  # before_action :authenticate_right_user, only: :destroy
 
   def create
     @proposition = Proposition.find(params[:proposition_id])
