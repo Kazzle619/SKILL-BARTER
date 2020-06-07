@@ -1,10 +1,10 @@
-<div class="col-md-12 rounded-lg shadow py-3 sticky-top">
+<div class="col-md-12 rounded-lg shadow sticky-top" style="padding: 5.5rem 1rem;">
   <h6><strong>案件検索フォーム</strong></h6>
 
   <%= search_form_for(search, url: search_propositions_path) do |f| %>
     <div class="form-group row">
       <div class="col-md-12">
-        <%= f.search_field :title_or_introduction_cont, placeholder: "タイトルまたは説明文で探す。", autofocus: true, class: "form-control" %>
+        <%= f.search_field :title_or_introduction_cont, placeholder: "タイトルまたは説明文で探す。", class: "form-control" %>
       </div>
     </div>
 
