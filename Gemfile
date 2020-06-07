@@ -49,7 +49,8 @@ gem 'rails-i18n'
 gem 'ransack'
 gem 'bullet'
 gem 'kaminari', '~> 1.2.1'
-gem 'ratyrate'
+# 評価を押した瞬間にredirectされるため、コメントも必要なレビュー画面には不適と判断。
+# gem 'ratyrate'
 gem 'font-awesome-sass'
 
 group :development, :test do
