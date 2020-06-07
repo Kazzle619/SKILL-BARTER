@@ -1,0 +1,11 @@
+<% if not user_signed_in? %>
+  <%# 何も表示しない。 %>
+<% elsif block.present? %>
+  <%= link_to user_block_path(user.id, block.id), method: :delete, remote: true do %>
+    <span class="badge badge-pill badge-danger">ブロック中</span>
+  <% end %>
+<% else %>
+  <%= link_to user_blocks_path(user.id), method: :post, "data-confirm" => "本当にブロックしますか？" do %>
+    <span class="badge badge-pill border border-danger text-danger">ブロックする</span>
+  <% end %>
+<% end %>
