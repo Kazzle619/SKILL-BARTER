@@ -111,6 +111,21 @@ class PropositionsController < ApplicationController
   end
 
   def destroy
+    proposition = Proposition.find(params[:id])
+    if proposition.is_matched?
+      redirect_to request.referer, warning: "マッチングしている案件は削除できません。"
+    else
+      # 削除すると関連するofferも消えるので、申請が来ていた案件のステータスを削除後に更新。
+      # ここで取っておかないと、削除後はofferersが空になってしまう。to_aとしないと同じく消えてしまう。
+      update_needed_propositions = proposition.offerers.to_a
+      proposition.destroy!
+      if update_needed_propositions.present?
+        update_needed_propositions.each do |offerer|
+          offerer.auto_update_barter_status
+        end
+      end
+      redirect_to mypage_index_propositions_path, success: "案件の削除に成功しました。"
+    end
   end
 
   def mypage_index
