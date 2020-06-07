@@ -12,7 +12,11 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    favorite = Favorite.find(params[:id])
+    @proposition = Proposition.find(params[:proposition_id])
+    favorite = Favorite.find_by(
+      user_id: current_user.id,
+      proposition_id: @proposition.id
+    )
     favorite.destroy!
   end
 
