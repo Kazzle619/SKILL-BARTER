@@ -3,23 +3,32 @@
 <div class="card" style="background-color: rgba(102, 204, 255, 0.3);">
   <div class="card-body px-3 py-2">
     <p class="card-title">
+      <%# 案件カテゴリタグ %>
       <% proposition.proposition_categories.each do |proposition_category| %>
         <%= render 'tags/tag_badge', tag: proposition_category.tag %>
       <% end %>
+
+      <%# イイねボタン　%>
       <span id="favorite-<%= proposition.id %>" class="float-right">
-        <%= favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
+        <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
         <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
       </span>
     </p>
+
+    <%# 要望カテゴリタグ %>
     <p class="card-title">
       <% proposition.request_categories.each do |request_category| %>
         <%= render 'tags/request_category_tag_badge', tag: request_category.tag %>
       <% end %>
     </p>
+
+    <%# 案件情報 %>
     <%= link_to proposition_path(proposition.id) do %>
       <h5 class="card-title"><%= proposition.title %></h5>
       <p class="card-text mb-0"><%= proposition.introduction %></p>
     <% end %>
+
+      <%# 案件オーナー情報 %>
       <p class="card-text mb-0">
         <%= link_to proposition.user.name, user_path(proposition.user.id) %>
         <%= link_to user_path(proposition.user.id) do %>
@@ -27,12 +36,12 @@
         <% end %>
         <%# レビューレート、レビュー数 %>
         <% if proposition.user.revieweds != [] %>
-          <span id="user-star-rate-<%= proposition.id %>"></span>
+          <span id="user-star-rate-<%= proposition.user.id %>"></span>
           <span class="text-secondary">(<%= proposition.user.revieweds.size %>)</span>
         <% end %>
 
         <script>
-          $('#user-star-rate-<%= proposition.id %>').raty({
+          $('#user-star-rate-<%= proposition.user.id %>').raty({
             size    : 36,
             starOff : '<%= asset_path('star-off.png') %>',
             starOn  : '<%= asset_path('star-on.png') %>',
