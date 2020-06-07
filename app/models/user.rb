@@ -66,4 +66,12 @@ class User < ApplicationRecord
   def self.current=(user)
     Thread.current[:user] = user
   end
+
+  def rate_average
+    revieweds.map(&:rate).sum(0.0) / revieweds.size if revieweds.present?
+  end
+
+  def blocked_by?(user)
+    user.blocking.present? && user.blocking.include?(self)
+  end
 end

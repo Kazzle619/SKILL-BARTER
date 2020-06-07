@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:top, :index, :show]
   before_action :authenticate_right_user, except: [:top, :mypage, :index, :show]
+  before_action :authenticate_not_blocked, only: [:show]
 
   def top
     @users = User.all.shuffle.first(3)
@@ -59,6 +60,10 @@ class UsersController < ApplicationController
       @follow = Follow.find_by(
         follower_id: current_user.id,
         followed_id: @user.id,
+      )
+      @block = Block.find_by(
+        blocker_id: current_user.id,
+        blocked_id: @user.id,
       )
     end
     @achievements = @user.achievements
@@ -132,6 +137,13 @@ class UsersController < ApplicationController
     user = User.find(params[:id]) if params[:id].present?
     if user_signed_in? && user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
+  end
+
+  def authenticate_not_blocked
+    user = User.find(params[:id]) if params[:id].present?
+    if user_signed_in? && current_user.blocked_by?(user)
+      redirect_to request.referer, warning: "あなたはブロックされています。"
     end
   end
 end

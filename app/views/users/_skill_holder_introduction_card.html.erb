@@ -5,10 +5,15 @@
       <%= image_tag user.profile_image_id.to_s, height: 150, width: 150, class: "rounded-circle", style: "object-fit: cover;" %>
     </div>
 
-    <%# フォローボタン %>
-    <p id="follow-<%= user.id %>" class="card-text text-center">
-      <%= render 'follows/follow_button', user: user, follow: follow %>
-    </p>
+    <%# フォロー、ブロックボタン %>
+    <div class="card-text text-center">
+      <span id="follow-<%= user.id %>" class="card-text text-center">
+        <%= render 'follows/follow_button', user: user, follow: follow %>
+      </span>
+      <span id="block-<%= user.id %>" class="card-text text-center">
+        <%= render 'blocks/block_button', user: user, block: block %>
+      </span>
+    </div>
 
     <%# スキルカテゴリータグ %>
     <p class="card-title">
