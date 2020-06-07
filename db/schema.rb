@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_175122) do
+ActiveRecord::Schema.define(version: 2020_06_07_064004) do
 
   create_table "achievement_categories", force: :cascade do |t|
     t.integer "achievement_id", null: false
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 2020_05_22_175122) do
     t.text "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "rate", default: 0.0, null: false
     t.index ["proposition_id"], name: "index_reviews_on_proposition_id"
     t.index ["user_id", "proposition_id"], name: "index_reviews_on_user_id_and_proposition_id", unique: true
     t.index ["user_id"], name: "index_reviews_on_user_id"

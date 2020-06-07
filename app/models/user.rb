@@ -8,13 +8,12 @@ class User < ApplicationRecord
 
   has_many :background_schools, dependent: :destroy
   has_many :background_jobs, dependent: :destroy
-  # has_many :follows, dependent: :destroy
-  # has_many :blocks, dependent: :destroy
   has_many :propositions, dependent: :destroy
+  has_many :revieweds, through: :propositions, source: :review
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :achievements, dependent: :destroy
-  has_one  :review
+  has_many :reviews
   has_many :chat_messages, dependent: :destroy
 
   has_many :user_prefectures, dependent: :destroy

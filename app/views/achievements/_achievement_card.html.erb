@@ -1,13 +1,13 @@
 <div class="card img-thumbnail bg-light h-100 mb-10">
   <% if user_signed_in? && achievement.user == current_user %>
-  <p class="card-text mb-0 text-right">
-    <span class="badge badge-pill badge-info"><%= link_to "編集", edit_achievement_path(achievement.id), class: "text-white" %></span>
-    <span class="badge badge-pill badge-danger"><%= link_to "削除", achievement_path(achievement.id), method: :delete, class: "text-white", "data-confirm" => "本当に削除しますか？" %></span>
-  </p>
-  <%= image_tag achievement.image_id.to_s, class: "card-img-top img-thumbnail" %>
-  <div class="card-body px-2 py-3">
-    <h5 class="card-title"><%= achievement.title %></h5>
-    <p class="card-text"><%= achievement.introduction %></p>
-  </div>
+    <p class="card-text mb-0 text-right">
+      <span class="badge badge-pill badge-info"><%= link_to "編集", edit_achievement_path(achievement.id), class: "text-white" %></span>
+      <span class="badge badge-pill badge-danger"><%= link_to "削除", achievement_path(achievement.id), method: :delete, class: "text-white", "data-confirm" => "本当に削除しますか？" %></span>
+    </p>
+  <% end %>
+    <%= image_tag achievement.image_id.to_s, class: "card-img-top img-thumbnail" %>
+    <div class="card-body px-2 py-3">
+      <h5 class="card-title"><%= achievement.title %></h5>
+      <p class="card-text"><%= achievement.introduction %></p>
+    </div>
 </div>
-<% end %>

@@ -25,8 +25,23 @@
         <%= link_to user_path(proposition.user.id) do %>
           <%= image_tag proposition.user.profile_image_id.to_s, height: 50, width: 50, class: "rounded-circle", style: "object-fit: cover;" %>
         <% end %>
-        <%# 後程変更予定 %>
-        <%= "★★★★★" %>
+        <%# レビューレート、レビュー数 %>
+        <% if proposition.user.revieweds != [] %>
+          <span id="user-star-rate-<%= proposition.id %>"></span>
+          <span class="text-secondary">(<%= proposition.user.revieweds.size %>)</span>
+        <% end %>
+
+        <script>
+          $('#user-star-rate-<%= proposition.id %>').raty({
+            size    : 36,
+            starOff : '<%= asset_path('star-off.png') %>',
+            starOn  : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half    : true,
+            readOnly: true,
+            score   : <%= round_up_by_half(proposition.user.revieweds.map(&:rate).sum(0.0) / proposition.user.revieweds.size) if proposition.user.revieweds != [] %>,
+          });
+        </script>
       </p>
   </div>
 </div>
