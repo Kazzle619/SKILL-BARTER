@@ -72,7 +72,8 @@
       <% if not user_signed_in? %>
       <%# 自分の案件には案件編集ページ %>
       <% elsif proposition.user == current_user %>
-        <%= link_to "編集する", edit_proposition_path(proposition.id), class: "btn btn-outline-success btn-block" %>
+        <%= link_to "編集する", edit_proposition_path(proposition.id), class: "btn btn-success btn-block" %>
+        <%= link_to "削除する", proposition_path(proposition.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
       <% elsif proposition.is_matched? %>
         <%# 案件がマッチング済みで、マッチングしているのも自分 %>
         <% if proposition.matched_with? %>
