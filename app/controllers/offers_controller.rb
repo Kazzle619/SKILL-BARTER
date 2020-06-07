@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_right_user_for_create, only: [:create]
-  before_action :authenticate_right_user_for_destroy, only: [:destroy]
+  # before_action :authenticate_right_user_for_create, only: [:create]
+  # before_action :authenticate_right_user_for_destroy, only: [:destroy]
 
   def create
     # 値を一部入力していてrenderした時用に、ここで@new_propositionを作成。

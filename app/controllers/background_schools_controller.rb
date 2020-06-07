@@ -1,6 +1,6 @@
 class BackgroundSchoolsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_right_user, only: :destroy
+  # before_action :authenticate_right_user, only: :destroy
 
   def create
     @new_background_school = BackgroundSchool.new(background_school_params)
