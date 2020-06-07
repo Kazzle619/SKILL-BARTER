@@ -1,2 +1,34 @@
-<h1>Propositions#match</h1>
-<p>Find me in app/views/propositions/match.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <% if @best_match_propositions.present? %>
+        <div class="col-md-12">
+          <h5><strong>ベストマッチ</strong></h5>
+        </div>
+        <% @best_match_propositions.each do |proposition| %>
+          <div class="col-12 col-md-12 mb-3">
+            <%= render 'propositions/proposition_card', proposition: proposition %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if @half_match_propositions.present?%>
+        <div class="col-md-12">
+          <h5><strong>要望マッチ</strong></h5>
+        </div>
+        <% @half_match_propositions.each do |proposition| %>
+          <div class="col-12 col-md-12 mb-3">
+            <%= render 'propositions/proposition_card', proposition: proposition %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if @best_match_propositions.blank? && @half_match_propositions.blank? %>
+          <h3><strong>マッチする案件がありません。</strong></h3>
+      <% end %>
+    </div>
+  </div>
+</div>
