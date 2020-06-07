@@ -1,6 +1,7 @@
 class PropositionsController < ApplicationController
   before_action :authenticate_user!, except: [:search, :index, :show]
   before_action :authenticate_right_user, only: [:finish, :match, :edit, :update, :destroy]
+  before_action :authenticate_not_blocked, only: [:show]
 
   def index
     # 行が長すぎてrubocopで弾かれるので、2行で記述。必要なのは@propositions
@@ -74,6 +75,10 @@ class PropositionsController < ApplicationController
       @follow = Follow.find_by(
         follower_id: current_user.id,
         followed_id: @user.id,
+      )
+      @block = Block.find_by(
+        blocker_id: current_user.id,
+        blocked_id: @user.id,
       )
       @favorite = Favorite.find_by(
         user_id: current_user.id,
@@ -169,6 +174,13 @@ class PropositionsController < ApplicationController
     proposition = Proposition.find(params[:id]) if params[:id].present?
     if user_signed_in? && proposition.user != current_user
       redirect_to root_path, warning: "適切なユーザーではありません。"
+    end
+  end
+
+  def authenticate_not_blocked
+    proposition = Proposition.find(params[:id]) if params[:id].present?
+    if user_signed_in? && current_user.blocked_by?(proposition.user)
+      redirect_to request.referer, warning: "あなたはブロックされています。"
     end
   end
 end
