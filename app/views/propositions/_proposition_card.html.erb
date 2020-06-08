@@ -36,13 +36,13 @@
         <% end %>
         <%# レビューレート、レビュー数 %>
         <% if proposition.user.revieweds != [] %>
-          <span id="user-star-rate-<%= proposition.id %>"></span>
+          <span id="proposition-star-rate-<%= proposition.id %>"></span>
           <span class="text-secondary">(<%= proposition.user.revieweds.size %>)</span>
         <% end %>
 
         <% rate_average = round_up_by_half(proposition.user.revieweds.map(&:rate).sum(0.0) / proposition.user.revieweds.size) if proposition.user.revieweds != [] %>
         <script>
-          $('#user-star-rate-<%= proposition.id %>').raty({
+          $('#proposition-star-rate-<%= proposition.id %>').raty({
             size    : 36,
             starOff : '<%= asset_path('star-off.png') %>',
             starOn  : '<%= asset_path('star-on.png') %>',
