@@ -97,6 +97,7 @@ class UsersController < ApplicationController
   end
 
   def blocking
+    @blocking = current_user.blocking.page(params[:page]).per(8).reverse_order
   end
 
   def favorites
