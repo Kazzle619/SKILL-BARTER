@@ -18,7 +18,8 @@ class ReviewsController < ApplicationController
       reviewed_proposition.auto_update_barter_status
       reviewers_bartering_proposition.auto_update_barter_status
 
-      redirect_to proposition_path(params[:proposition_id].to_i), success: "レビューの作成に成功しました。"
+      flash[:success] = "レビューの作成に成功しました。"
+      redirect_to proposition_path(params[:proposition_id].to_i)
     else
       @proposition = Proposition.find(params[:proposition_id])
       render 'reviews/new', danger: "レビューの作成に失敗しました。"
@@ -33,10 +34,11 @@ class ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     if @review.update(review_params)
-      redirect_to proposition_path(params[:proposition_id].to_i), success: "レビューの編集に成功しました。"
+      flash[:success] = "レビューの編集に成功しました。"
+      redirect_to proposition_path(params[:proposition_id].to_i)
     else
       @proposition = Proposition.find(params[:proposition_id])
-      render 'reviews/edit', danger: "レビューの編集に失敗しました。"
+      render 'reviews/edit'
     end
   end
 
@@ -49,9 +51,11 @@ class ReviewsController < ApplicationController
   def authenticate_matching_user
     proposition = Proposition.find(params[:proposition_id])
     if !proposition.is_matched?
-      redirect_to root_path, warning: "この案件はマッチングしていないためレビューできません。"
+      flash[:warning] = "この案件はマッチングしていないためレビューできません。"
+      redirect_to root_path
     elsif user_signed_in? && proposition.offering.user != current_user
-      redirect_to root_path, warning: "マッチング相手のみ編集可能です。"
+      flash[:warning] = "マッチング相手のみ編集可能です。"
+      redirect_to root_path
     end
   end
 end

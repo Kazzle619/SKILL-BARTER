@@ -6,7 +6,8 @@ class BackgroundSchoolsController < ApplicationController
     @new_background_school = BackgroundSchool.new(background_school_params)
     @new_background_school.user_id = current_user.id
     if @new_background_school.save
-      redirect_to edit_user_path(current_user.id), success: "学歴項目の作成に成功しました。"
+      flash[:success] = "学歴項目の作成に成功しました。"
+      redirect_to edit_user_path(current_user.id)
     else
       # 要リファクタリング
       @user = current_user
@@ -14,14 +15,15 @@ class BackgroundSchoolsController < ApplicationController
       @new_user_prefecture = UserPrefecture.new
       @new_background_job = BackgroundJob.new
 
-      render 'users/edit', danger: "学歴項目の作成に失敗しました。"
+      render 'users/edit'
     end
   end
 
   def destroy
     background_school = BackgroundSchool.find(params[:id])
     background_school.destroy!
-    redirect_to edit_user_path(current_user.id), success: "学歴項目の削除に成功しました。"
+    flash[:success] = "学歴項目の削除に成功しました。"
+    redirect_to edit_user_path(current_user.id)
   end
 
   private
@@ -33,7 +35,8 @@ class BackgroundSchoolsController < ApplicationController
   def authenticate_right_user
     background_school = BackgroundSchool.find(params[:id]) if params[:id].present?
     if user_signed_in? && background_school.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end

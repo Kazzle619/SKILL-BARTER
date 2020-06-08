@@ -6,9 +6,11 @@ class FollowsController < ApplicationController
     # フォロー相手
     @user = User.find(params[:user_id])
     if current_user.blocked_by?(@user)
-      redirect_to request.referer, warning: "あなたはブロックされています。"
+      flash[:warning] = "あなたはブロックされています。"
+      redirect_to request.referer
     elsif current_user.blocking.include?(@user)
-      redirect_to request.referer, warning: "ブロックしているユーザーです。"
+      flash[:warning] = "ブロックしているユーザーです。"
+      redirect_to request.referer
     else
       @follow = Follow.new(
         follower_id: current_user.id,
@@ -32,7 +34,8 @@ class FollowsController < ApplicationController
   def authenticate_right_user
     follow = Follow.find(params[:id]) if params[:id].present?
     if user_signed_in? && follow.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end

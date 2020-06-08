@@ -16,10 +16,11 @@ class AchievementsController < ApplicationController
         achievement_id: @achievement.id,
         tag_id: @achievement.achievement_category_tag_id.to_i
       )
-      redirect_to achievements_path, success: "実績の作成に成功しました。"
+      flash[:success] = "実績の作成に成功しました。"
+      redirect_to achievements_path
     else
       @tag = Tag.new
-      render 'achievements/new', danger: "実績の作成に失敗しました。"
+      render 'achievements/new'
     end
   end
 
@@ -41,17 +42,19 @@ class AchievementsController < ApplicationController
     achievement_category_tag_id = params[:achievement][:achievement_category_tag_id]
     if achievement_category_tag_id.present? && @achievement.update(achievement_params)
       @achievement.achievement_categories[0].update(tag_id: achievement_category_tag_id)
-      redirect_to achievements_path, success: "実績の更新に成功しました。"
+      flash[:success] = "実績の更新に成功しました。"
+      redirect_to achievements_path
     else
       @tag = Tag.new
-      render 'achievements/edit', danger: "実績の更新に失敗しました。"
+      render 'achievements/edit'
     end
   end
 
   def destroy
     achievement = Achievement.find(params[:id])
     achievement.destroy!
-    redirect_to achievements_path, success: "実績の削除に成功しました。"
+    flash[:success] = "実績の削除に成功しました。"
+    redirect_to achievements_path
   end
 
   private
@@ -63,7 +66,8 @@ class AchievementsController < ApplicationController
   def authenticate_right_user
     achievement = Achievement.find(params[:id]) if params[:id].present?
     if user_signed_in? && achievement.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end

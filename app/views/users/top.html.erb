@@ -1,20 +1,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>SKILL-BARTERへようこそ</h1>
+      <h2>SKILL-BARTERへようこそ</h2>
     </div>
   </div>
 
-  <div class="top-eye-catching">
+  <div class="top-eye-catching mb-2">
   </div>
 
   <%# 新着スキルホルダー(ユーザー) %>
-  <h2>新着スキルホルダー</h2>
+  <h4>新着スキルホルダー</h4>
   <div class="row">
     <% @users.each do |user| %>
       <div class="col-md-4">
         <% follow = Follow.find_by(follower_id: current_user.id, followed_id: user.id) if user_signed_in? %>
-        <%= render 'users/skill_holder_card', user: user, follow: follow%>
+        <%= render 'users/skill_holder_card', user: user, follow: follow %>
       </div>
     <% end %>
   </div>
@@ -24,7 +24,7 @@
 
 
   <%# 新着案件 %>
-  <h2>新着案件</h2>
+  <h4>新着案件</h4>
   <div class="row">
     <div class="col-md-9">
       <% @propositions.each do |proposition| %>

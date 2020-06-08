@@ -30,7 +30,8 @@ class BackgroundJobsController < ApplicationController
     end
 
     if @new_background_job.save
-      redirect_to edit_user_path(current_user.id), success: "職歴項目の追加に成功しました。"
+      flash[:success] = "職歴項目の追加に成功しました。"
+      redirect_to edit_user_path(current_user.id)
     else
       # 要リファクタリング
       @user = current_user
@@ -45,7 +46,8 @@ class BackgroundJobsController < ApplicationController
   def destroy
     background_job = BackgroundJob.find(params[:id])
     background_job.destroy!
-    redirect_to edit_user_path(current_user.id), success: "職歴項目の削除に成功しました。"
+    flash[:success] = "職歴項目の削除に成功しました。"
+    redirect_to edit_user_path(current_user.id)
   end
 
   private
@@ -57,7 +59,8 @@ class BackgroundJobsController < ApplicationController
   def authentticate_right_user
     background_job = BackgroundJob.find(params[:id]) if params[:id].present?
     if user_signed_in? && background_job.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end

@@ -5,9 +5,11 @@ class TagsController < ApplicationController
     @tag = Tag.new(name: tag_params)
     if @tag.save
       # 本当はrenderで値が入ったままにできればなお良し。ただ、formが一層複雑になるのでひとまずredirect。後程変更予定。
+      flash[:success] = "タグの新規作成に成功しました。"
       redirect_to request.referer
     else
       # ここも上記と同じく、本当はrenderが良い。ひとまずredirect。後程変更予定。
+      flash[:danger] = "タグの新規作成に失敗しました。"
       redirect_to request.referer
     end
   end

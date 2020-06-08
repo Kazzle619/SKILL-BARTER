@@ -12,7 +12,8 @@ class RequestCategoriesController < ApplicationController
 
   def authenticate_right_user
     if user_signed_in? && Proposition.find(params[:proposition_id]).user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end
