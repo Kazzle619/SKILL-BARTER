@@ -25,7 +25,8 @@ class FavoritesController < ApplicationController
   def authenticate_right_user
     favorite = Favorite.find(params[:id]) if params[:id].present?
     if user_signed_in? && favorite.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end

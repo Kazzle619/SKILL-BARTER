@@ -44,13 +44,14 @@ class OffersController < ApplicationController
 
         creating_room_and_update_barter_statuses(@new_proposition)
 
-        redirect_to proposition_path(params[:proposition_id].to_i), success: "案件の申請に成功しました。"
+        flash[:success] = "案件の申請に成功しました。"
+        redirect_to proposition_path(params[:proposition_id].to_i)
 
       # 必要なパラメータが不足している場合は申請用案件選択画面へ返す。
       else
         # renderで必要なインスタンス変数を用意。
         instance_variables_for_propositions_offer
-        render 'propositions/offer', danger: "スキル交換の申請に失敗しました。\n案件カテゴリ、要望カテゴリも入力されているか確認してください。"
+        render 'propositions/offer'
       end
 
     # 「既存の案件から申請する」が選択されていた場合
@@ -61,13 +62,14 @@ class OffersController < ApplicationController
       creating_room_and_update_barter_statuses(@offer.offering)
 
       # 完了したら案件詳細画面へ
-      redirect_to proposition_path(params[:proposition_id].to_i), success: "案件の申請に成功しました。"
+      flash[:success] = "案件の申請に成功しました。"
+      redirect_to proposition_path(params[:proposition_id].to_i)
 
     # (UIではできないようになっているが)ラジオボタンが選択されていなかった場合
     else
       # renderで必要なインスタンス変数を用意。
       instance_variables_for_propositions_offer
-      render 'propositions/offer', danger: "スキル交換の申請に失敗しました。\n案件カテゴリ、要望カテゴリも必ず入力してください。"
+      render 'propositions/offer'
     end
   end
 
@@ -83,7 +85,8 @@ class OffersController < ApplicationController
     offered_proposition.auto_update_barter_status
     offering_proposition.auto_update_barter_status
 
-    redirect_to proposition_path(offered_proposition), success: "交換申請を取り下げました。"
+    flash[:success] = "交換申請を取り下げました。"
+    redirect_to proposition_path(offered_proposition)
   end
 
   private
@@ -144,7 +147,8 @@ class OffersController < ApplicationController
       offering_proposition = proposition.find(offering_proposition_id)
     end
     if user_signed_in? && offering_proposition.present? && offering_proposition.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 
@@ -152,7 +156,8 @@ class OffersController < ApplicationController
     offer = Offer.find(params[:id]) if params[:id].present?
     # 申請を出している側の案件のオーナーでなければredirect。
     if user_signed_in? && offer.offering.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end

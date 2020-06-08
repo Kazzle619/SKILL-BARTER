@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.proposition_id = params[:proposition_id].to_i
     if @comment.save
+      flash[:success] = "コメントの作成に成功しました。"
       redirect_to proposition_path(params[:proposition_id].to_i)
     else
       @proposition = Proposition.find(params[:proposition_id])
@@ -23,6 +24,7 @@ class CommentsController < ApplicationController
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy!
+    flash[:success] = "コメントの削除に成功しました。"
     redirect_to proposition_path(params[:proposition_id].to_i)
   end
 
@@ -35,7 +37,8 @@ class CommentsController < ApplicationController
   def authenticate_right_user
     comment = Comment.find(params[:id]) if params[:id].present?
     if user_signed_in? && comment.user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 end
