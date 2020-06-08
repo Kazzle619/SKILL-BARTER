@@ -1,8 +1,11 @@
-<%= form_with(model: background_job) do |f| %>
+<%= form_with(model: background_job, html: { class: "needs-validation-job", novalidate: true }) do |f| %>
   <div class="form-group row align-items-center">
-    <%= f.label :company_name, "会社名", class: "col-md-2 col-form-label" %>
+    <%= f.label :company_name, "会社名", for: "validationCustom01", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= f.text_field :company_name, autofocus: true , class: "form-control" %>
+      <%= f.text_field :company_name, id: "validationCustom01", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        会社名を入力してください。
+      </div>
     </div>
   </div>
 
@@ -21,15 +24,21 @@
   </div>
 
   <div class="form-group row align-items-center">
-    <%= f.label :joining_year, "入社年月", class: "col-md-2 col-form-label" %>
+    <%= f.label :joining_year, "入社年月", for: "validationCustom02", class: "col-md-2 col-form-label" %>
     <div class="col-md-5">
-      <%= f.text_field :joining_year, class: "form-control" %>
+      <%= f.text_field :joining_year, id: "validationCustom02", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        入社年を入力してください。
+      </div>
     </div>
     <div class="col-md-1">
       <span>年</span>
     </div>
     <div class="col-md-3">
-      <%= f.text_field :joining_month, class: "form-control" %>
+      <%= f.text_field :joining_month, id: "validationCustom03", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        入社月を入力してください。
+      </div>
     </div>
     <div class="col-md-1">
       <span>月</span>
@@ -60,3 +69,25 @@
     </div>
   </div>
 <% end %>
+
+<script>
+// 無効なフィールドがある場合にフォーム送信を無効にするスターターJavaScriptの実例
+(function() {
+  'use strict';
+
+  window.addEventListener('load', function() {
+    // カスタムブートストラップ検証スタイルを適用するすべてのフォームを取得
+    var forms = document.getElementsByClassName('needs-validation-job');
+    // ループして帰順を防ぐ
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
