@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @propositions = @search.result.includes(
       :proposition_category_tags,
       :request_category_tags,
-    ).page(params[:page]).per(8)
+    ).shuffle.first(5)
   end
 
   def index
@@ -76,13 +76,14 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to edit_user_path(@user.id), success: "プロフィールの編集に成功しました。"
+      flash[:success] = "プロフィールの編集に成功しました。"
+      redirect_to edit_user_path(@user.id)
     else
       @new_skill_category = SkillCategory.new
       @new_user_prefecture = UserPrefecture.new
       @new_background_school = BackgroundSchool.new
       @new_background_job = BackgroundJob.new
-      render 'users/edit', danger: "プロフィールの編集に失敗しました。"
+      render 'users/edit'
     end
   end
 
@@ -90,9 +91,11 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if user.update(user_status: "unsubscribed")
       sign_out user
-      redirect_to root_path, success: "退会処理が完了しました。"
+      flash[:success] = "退会処理が完了しました。ご利用いただきありがとうございました。"
+      redirect_to root_path
     else
-      redirect_to edit_user_path(current_user.id), danger: "退会処理に失敗しました。\nお手数ですが、運営にご連絡ください。"
+      flash[:danger] = "退会処理に失敗しました。お手数ですが、運営にご連絡ください。"
+      redirect_to edit_user_path(current_user.id)
     end
   end
 
@@ -137,14 +140,16 @@ class UsersController < ApplicationController
   def authenticate_right_user
     user = User.find(params[:id]) if params[:id].present?
     if user_signed_in? && user != current_user
-      redirect_to root_path, warning: "適切なユーザーではありません。"
+      flash[:warning] = "適切なユーザーではありません。"
+      redirect_to root_path
     end
   end
 
   def authenticate_not_blocked
     user = User.find(params[:id]) if params[:id].present?
     if user_signed_in? && current_user.blocked_by?(user)
-      redirect_to request.referer, warning: "あなたはブロックされています。"
+      flash[:warning] = "あなたはブロックされています。"
+      redirect_to root_path
     end
   end
 end

@@ -39,6 +39,7 @@ class PropositionsController < ApplicationController
         proposition_id: @proposition.id,
         tag_id: @proposition.request_category_tag_id.to_i,
       )
+      flash[:success] = "案件の新規作成に成功しました。"
       redirect_to finish_proposition_path(@proposition)
     else
       @tag = Tag.new
@@ -103,6 +104,7 @@ class PropositionsController < ApplicationController
       # 全て揃っていることを確認してようやく案件カテゴリ、要望カテゴリを更新。
       @proposition.proposition_categories[0].update(tag_id: @proposition_category_tag_id)
       @proposition.request_categories[0].update(tag_id: @request_category_tag_id)
+      flash[:success] = "案件の更新に成功しました"
       redirect_to finish_proposition_path(@proposition)
     else
       @tag = Tag.new
@@ -113,7 +115,8 @@ class PropositionsController < ApplicationController
   def destroy
     proposition = Proposition.find(params[:id])
     if proposition.is_matched?
-      redirect_to request.referer, warning: "マッチングしている案件は削除できません。"
+      flash[:warning] = "マッチングしている案件は削除できません。"
+      redirect_to request.referer
     else
       # 削除すると関連するofferも消えるので、申請が来ていた案件のステータスを削除後に更新。
       # ここで取っておかないと、削除後はofferersが空になってしまう。to_aとしないと同じく消えてしまう。
@@ -124,7 +127,8 @@ class PropositionsController < ApplicationController
           offerer.auto_update_barter_status
         end
       end
-      redirect_to mypage_index_propositions_path, success: "案件の削除に成功しました。"
+      flash[:success] = "案件の削除に成功しました。"
+      redirect_to mypage_index_propositions_path
     end
   end
 
