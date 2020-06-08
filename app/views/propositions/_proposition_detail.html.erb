@@ -49,7 +49,7 @@
     <% end %>
 
     <%# 完成イメージ %>
-    <% if proposition.rendering_image_id %>
+    <% if proposition.rendering_image_id.present? %>
       <p class="card-text mb-3">
         完成イメージ
         <%= image_tag proposition.rendering_image_id.to_s, class: "w-100 h-auto" %>
@@ -82,7 +82,7 @@
         <% end %>
       <% else %>
         <%# 案件はマッチングしていなくて、自分が交換申請を出している場合 %>
-        <% if proposition.offering_to?%>
+        <% if proposition.offering_to? %>
           <%= link_to "交換申請を取り下げる",  proposition_offer_path(proposition.id, offering_proposition.offering_relationship.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
         <%# 案件はマッチングしていなくて、自分が交換申請を出していない場合 %>
         <% else %>
