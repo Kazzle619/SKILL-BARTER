@@ -2,9 +2,11 @@
   <div class="card-body px-2 pt-1 pb-2">
     <div class="row">
       <div class="col-md-12">
-        <div id="follow-<%= user.id %>" class="d-inline-block float-right">
-          <%= render 'follows/follow_button', user: user, follow: follow %>
-        </div>
+        <% if follow.present? %>
+          <div id="follow-<%= user.id %>" class="d-inline-block float-right">
+            <%= render 'follows/follow_button', user: user, follow: follow %>
+          </div>
+        <% end %>
       </div>
     </div>
     <h5 class="card-title">
