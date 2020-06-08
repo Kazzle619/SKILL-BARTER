@@ -1,11 +1,11 @@
 <%# propositions#offerでrenderされている場合について %>
 <%# attachmentがpropositionにしか設定されておらず、offerフォームに入れるとエラーが出るため、フォームを入れ子構造に %>
 <%# それぞれのformヘルパーにform: form_targetを付けて、offerフォームからはform_target: "new_proposition"値が送られるように。 %>
-<%= form_with(model: proposition, html: { id: "new_proposition", class: "needs-validation-proposition", novalidate: true }) do |form| %>
+<%= form_with(model: proposition, url: form_url, html: { class: "needs-validation-proposition", novalidate: true }) do |form| %>
   <div class="form-group row">
     <%= form.label :title, "案件タイトル", for: "validationCustom01", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.text_field :title, autofocus: true, id: "validationCustom01", class: "form-control", form: form_target, required: true %>
+      <%= form.text_field :title, autofocus: true, id: "validationCustom01", class: "form-control", required: true %>
     <div class="invalid-feedback">
       タイトルを入力してください。
     </div>
@@ -15,7 +15,7 @@
   <div class="form-group row">
     <%= form.label :introduction, "案件説明文", for: "validationCustom02", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.text_area :introduction, rows: 3, id: "validationCustom02", class: "form-control", form: form_target, required: true %>
+      <%= form.text_area :introduction, rows: 3, id: "validationCustom02", class: "form-control", required: true %>
     <div class="invalid-feedback">
       説明文を入力してください。
     </div>
@@ -25,21 +25,21 @@
   <div class="form-group row">
     <%= form.label :deadline, "締め切り", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.date_field :deadline, class: "form-control", form: form_target %>
+      <%= form.date_field :deadline, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :rendering_image, "完成イメージ画像", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
-      <%= form.file_field :rendering_image_id, class: "form-control", form: form_target, accept: "image/*" %>
+      <%= form.file_field :rendering_image_id, class: "form-control", accept: "image/*" %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :proposition_category_tag_id, "案件カテゴリタグ", for: "validationCustom03", class: "col-md-2 col-form-label" %>
     <div class="col-md-5">
-      <%= form.collection_select :proposition_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください" }, { id: "validationCustom03", class: "custom-select", form: form_target, required: true } %>
+      <%= form.collection_select :proposition_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください" }, { id: "validationCustom03", class: "custom-select", required: true } %>
     <div class="invalid-feedback">
       案件カテゴリタグを選択してください。
     </div>
@@ -52,7 +52,7 @@
   <div class="form-group row">
     <%= form.label :request_category_tag_id, "要望カテゴリタグ", for: "validationCustom04", class: "col-md-2 col-form-label" %>
     <div class="col-md-5">
-      <%= form.collection_select :request_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください" }, { id: "validationCustom04", class: "custom-select", form: form_target, required: true } %>
+      <%= form.collection_select :request_category_tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください" }, { id: "validationCustom04", class: "custom-select", required: true } %>
     <div class="invalid-feedback">
       要望カテゴリタグを選択してください。
     </div>
@@ -66,16 +66,16 @@
     <div class="col-md-9">
     </div>
     <div class="col-md-3">
-      <%= form.submit submit_value, class: "btn btn-primary btn-block", form: form_target %>
+      <%= form.submit submit_value, class: "btn btn-primary btn-block" %>
     </div>
   </div>
 <% end %>
 
 <%# これを置かないとtag_formのsubmitが効かない。上のform_withの中に置くとformタグが生成されないのでここに。 %>
 <%# また、案件カテゴリタグ用と要望カテゴリタグ用両方置いておかないと後に置いてある方の値しか飛ばしてくれない。。 %>
-<%= form_with(model: tag, url: tag_path, id: "new_proposition_category_tag") do |form| %>
+<%= form_with(model: Tag.new, url: tag_path, id: "new_proposition_category_tag") do |form| %>
 <% end %>
-<%= form_with(model: tag, url: tag_path, id: "new_request_category_tag") do |form| %>
+<%= form_with(model: Tag.new, url: tag_path, id: "new_request_category_tag") do |form| %>
 <% end %>
 
 <script>
