@@ -1,2 +1,31 @@
-<h1>Users#blocking</h1>
-<p>Find me in app/views/users/blocking.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/global_navigation_side_bar' %>
+    </div>
+    <div class="col-md-9">
+      <div class="row py-2 my-2">
+        <div class="col-md-9">
+          <h5><strong>ブロックユーザー一覧</strong></h5>
+        </div>
+        <div class="row">
+          <% @blocking.each do |blocking| %>
+            <div class="col-md-6 my-3">
+              <% block = Block.find_by(blocker_id: current_user, blocked_id: blocking.id) if user_signed_in? %>
+              <div id="block-<%= blocking.id %>">
+                <%= render 'blocks/block_button', user: blocking, block:block %>
+              </div>
+              <%= render 'users/skill_holder_card', user: blocking, follow: nil %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%# ページネーション %>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <%= paginate @blocking %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
