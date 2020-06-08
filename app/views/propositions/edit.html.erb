@@ -8,7 +8,7 @@
         <h4><strong>案件編集</strong></h4>
       </div>
       <div class="col-md-12 mt-4">
-        <%= render 'propositions/proposition_form', proposition: @proposition, form_target: "new_proposition", tag: @tag, submit_value: "編集完了" %>
+        <%= render 'propositions/proposition_form', proposition: @proposition, form_url: proposition_path(@proposition.id), submit_value: "編集完了" %>
       </div>
     </div>
   </div>
