@@ -49,7 +49,6 @@ class PropositionsController < ApplicationController
 
   def new
     @proposition = Proposition.new
-    @tag = Tag.new
   end
 
   def edit
@@ -59,7 +58,6 @@ class PropositionsController < ApplicationController
     request_category = @proposition.request_categories[0]
     @proposition.proposition_category_tag_id = proposition_category.tag_id
     @proposition.request_category_tag_id = request_category.tag_id
-    @tag = Tag.new
   end
 
   def show
@@ -137,8 +135,9 @@ class PropositionsController < ApplicationController
   end
 
   def offer
-    # パラメータが多く、他でrenderされることも多いのでapplication_controllerに以下のメソッドを定義。
-    instance_variables_for_propositions_offer
+    @new_proposition = Proposition.new
+    @propositions = Proposition.where(user_id: current_user.id, barter_status: "matching")
+    @offered_proposition = Proposition.find(params[:offered_id])
   end
 
   def search
