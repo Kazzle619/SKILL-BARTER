@@ -1,15 +1,25 @@
-<%= form_with(model: [proposition, comment]) do |f| %>
+<%= form_with(model: [proposition, comment], local: true) do |f| %>
   <div class="row">
-    <div class="col-md-2 d-flex align-items-center justify-content-center">
-      <%# 入力欄が枠外にはみ出ている。アイコンに後程変更予定 %>
-      <%= f.file_field :image_id %>
-    </div>
-    <div class="col-md-8">
-      <%= f.text_area :content, auto_focus: true, class: "w-100" %>
-    </div>
-    <div class="col-md-2 d-flex align-items-center">
-      <%# 画像、コメントどちらも空欄の時は投稿できないよう後程変更予定 %>
-      <%= f.submit "投稿", class: "btn btn-outline-info btn-block" %>
+    <div class="col-md-12">
+      <%# 画像投稿 %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span id="inputGroupFileAddon01" class="input-group-text">
+            <i class="far fa-image fa-lg"></i>
+          </span>
+        </div>
+        <div class="custom-file">
+          <%= f.file_field :image_id, id: "inputGroupFile01", class: "custom-file-input", accept: "image/*", "aria-describedby" => "inputGroupFileAddon01" %>
+          <%= f.label  :image_id, value: "ファイル選択...", for: "inputGroupFile01", class: "custom-file-label",  "data-browse" => "参照" %>
+        </div>
+      </div>
+      <%# コメント投稿 %>
+      <div class="input-group">
+        <%= f.text_field :content, class: "form-control" %>
+        <span class="input-group-btn">
+          <%= f.submit "投稿", class: "btn btn-primary"%>
+        </span>
+      </div>
     </div>
   </div>
 <% end %>
