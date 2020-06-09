@@ -26,6 +26,20 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def guest
+    guest = User.guest
+    sign_in guest
+    flash[:info] = 'ゲストユーザーとしてログインしました。'
+    redirect_to root_path
+  end
+
+  def chat_opponent
+    chat_opponent = User.chat_opponent
+    sign_in chat_opponent
+    flash[:info] = 'テストチャットユーザーとしてログインしました。'
+    redirect_to root_path
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

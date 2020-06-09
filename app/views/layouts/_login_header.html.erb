@@ -10,6 +10,16 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="Navbar">
       <ul class="navbar-nav">
+        <% if current_user == User.guest %>
+          <li class="nav-item active d-flex align-items-center">
+            <%= link_to "チャットページへ", proposition_path(100), class: "btn btn-warning" %>
+          </li>
+        <% end %>
+        <% if current_user == User.chat_opponent%>
+          <li class="nav-item active d-flex align-items-center">
+            <%= link_to "チャットページへ", proposition_path(1), class: "btn btn-warning" %>
+          </li>
+        <% end %>
         <li class="nav-item">
           <%= image_tag current_user.profile_image_id.to_s, height: 60, width: 60, class: "rounded-circle float-right inline-block", style: "object-fit: cover;" %>
         </li>
