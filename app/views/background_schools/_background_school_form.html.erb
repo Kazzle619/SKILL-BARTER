@@ -1,4 +1,4 @@
-<%= form_with(model: background_school, html: { class: "needs-validation-school", novalidate: true }) do |f| %>
+<%= form_with(model: background_school, html: { class: "needs-validation-school", novalidate: true }, local: true) do |f| %>
   <div class="form-group row align-items-center">
     <%= f.label :school_name, "学校名", for: "validationCustom01", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">

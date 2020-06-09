@@ -1,4 +1,4 @@
-<%= form_with(model: user_prefecture, html: { class: "needs-validation-prefecture", novalidate: true }) do |f| %>
+<%= form_with(model: user_prefecture, html: { class: "needs-validation-prefecture", novalidate: true }, local: true) do |f| %>
   <div class="form-group row align-items-center px-2">
     <div class="col-md-9 text-center">
       <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "選択してください"}, { id: "validationCustom01", class: "custom-select", required: true } %>
