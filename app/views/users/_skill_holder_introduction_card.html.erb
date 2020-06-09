@@ -1,8 +1,10 @@
 <div class="card">
   <div class="card-body px-2 py-3">
     <%# プロフィール画像 %>
-    <div class="card-title text-center">
-      <%= image_tag user.profile_image_id.to_s, height: 150, width: 150, class: "rounded-circle", style: "object-fit: cover;" %>
+    <div class="card-title text-center w-100">
+      <div class="square-box">
+        <%= image_tag user.profile_image_id.to_s, class: "rounded-circle" %>
+      </div>
     </div>
 
     <%# フォロー、ブロックボタン %>
