@@ -5,6 +5,7 @@ class OffersController < ApplicationController
 
   def create
     @offered_proposition = Proposition.find(params[:proposition_id])
+    # 既存の案件から申請した場合
     if params[:offering_proposition_id].present?
       offering_proposition = Proposition.find(offering_proposition_id.to_i)
       Offer.create!(
@@ -14,6 +15,8 @@ class OffersController < ApplicationController
       creating_room_and_update_barter_statuses(offering_proposition)
       flash[:success] = "申請に成功しました。"
       redirect_to proposition_path(@offered_proposition.id)
+
+      # 新規作成した案件から申請した場合
     else
       @new_proposition = Proposition.new(proposition_params)
       @new_proposition.user_id = current_user.id
