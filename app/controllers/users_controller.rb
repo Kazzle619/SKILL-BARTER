@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   before_action :authenticate_not_blocked, only: [:show]
 
   def top
-    @users = User.all.shuffle.first(3)
+    @users = User.where(user_status: "subscribing").shuffle.first(3)
     # @propositions = Proposition.all.shuffle.first(4)
     @search = Proposition.ransack(params[:q])
     @propositions = @search.result.includes(
       :proposition_category_tags,
       :request_category_tags,
-    ).shuffle.first(5)
+    ).joins(:user).where(users: { user_status: "subscribing" }).shuffle.first(5)
   end
 
   def index
