@@ -1,7 +1,7 @@
 <%# propositions#offerでrenderされている場合について %>
 <%# attachmentがpropositionにしか設定されておらず、offerフォームに入れるとエラーが出るため、フォームを入れ子構造に %>
 <%# それぞれのformヘルパーにform: form_targetを付けて、offerフォームからはform_target: "new_proposition"値が送られるように。 %>
-<%= form_with(model: proposition, url: form_url, html: { class: "needs-validation-proposition", novalidate: true }) do |form| %>
+<%= form_with(model: proposition, url: form_url, html: { class: "needs-validation-proposition", novalidate: true }, local: true) do |form| %>
   <div class="form-group row">
     <%= form.label :title, "案件タイトル", for: "validationCustom01", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
@@ -73,9 +73,9 @@
 
 <%# これを置かないとtag_formのsubmitが効かない。上のform_withの中に置くとformタグが生成されないのでここに。 %>
 <%# また、案件カテゴリタグ用と要望カテゴリタグ用両方置いておかないと後に置いてある方の値しか飛ばしてくれない。。 %>
-<%= form_with(model: Tag.new, url: tag_path, id: "new_proposition_category_tag") do |form| %>
+<%= form_with(model: Tag.new, url: tag_path, id: "new_proposition_category_tag", local: true) do |form| %>
 <% end %>
-<%= form_with(model: Tag.new, url: tag_path, id: "new_request_category_tag") do |form| %>
+<%= form_with(model: Tag.new, url: tag_path, id: "new_request_category_tag", local: true) do |form| %>
 <% end %>
 
 <script>

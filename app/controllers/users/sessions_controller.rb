@@ -11,7 +11,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     user = User.find_by(email: sign_in_params[:email])
-    if user.user_status == "unsubscribed"
+    if user.present? && user.user_status == "unsubscribed"
       # application_controllerのset_current_userにより自動的にログインしてしまっている様子なので、一度ログアウト処理を挟む。
       # 後程変更予定。
       sign_out user

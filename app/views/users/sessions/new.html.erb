@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <%= form_with(model: resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
     <div class="form-group row">
       <%= f.label :email, "Eメール", class: "col-md-2 col-form-label" %>
       <div class="col-md-10">

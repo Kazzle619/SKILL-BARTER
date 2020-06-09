@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <%= form_with(model: [proposition, review], html: { class: "needs-validation", novalidate: true }) do |f| %>
+  <%= form_with(model: [proposition, review], html: { class: "needs-validation", novalidate: true }, local: true) do |f| %>
     <%# レビューレート %>
     <div id="star" class="form-group ml-5">
       <%= f.hidden_field :rate, id: "review_star" %>
