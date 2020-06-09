@@ -74,4 +74,12 @@ class User < ApplicationRecord
   def blocked_by?(user)
     user.blocking.present? && user.blocking.include?(self)
   end
+
+  def self.guest
+    find_by(email: "example1@gmail.com")
+  end
+
+  def self.chat_opponent
+    find_by(email: "example20@gmail.com")
+  end
 end
