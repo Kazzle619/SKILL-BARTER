@@ -23,5 +23,8 @@ module SKILLBarter
     # form_withでidを付与しないようにするにはこれをfalseにしてくださいとrailsのgithubに書いてある。
     # https://github.com/rails/rails/commit/260d6f112a0ffdbe03e6f5051504cb441c1e94cd
     config.action_view.form_with_generates_ids = true
+
+    # 日時を日本時間に変更
+    config.time_zone = 'Tokyo'
   end
 end
