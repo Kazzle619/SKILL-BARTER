@@ -4,19 +4,12 @@ class PropositionsController < ApplicationController
   before_action :authenticate_not_blocked, only: [:show]
 
   def index
-    # 行が長すぎてrubocopで弾かれるので、2行で記述。必要なのは@propositions
-
-    # まだマッチしていない案件(交換ステータスが「マッチング中」か「交換申請中」)のみ表示。
-    # ORを使う場合はenumの文字列では検索できないようなので1(matching)と2(offering)で検索。
-    # line12からの@propositionsでなくてOK。しかしそもそも以下の記述だと狙ったものだけになっていない。後程変更予定。
-    # unmatched_propositions = Proposition.where("(barter_status = ?) OR (barter_status = ?)", 1, 2)
-    # @propositions = unmatched_propositions.page(params[:page]).per(8).reverse_order
-
     @search = Proposition.ransack(params[:q])
+    # 長すぎてrubocopで弾かれるのでuser_statusの条件は数字で。1→subscribing。
     @propositions = @search.result.includes(
       :proposition_category_tags,
       :request_category_tags,
-    ).page(params[:page]).per(8).reverse_order
+    ).joins(:user).where(users: { user_status: 1 }).page(params[:page]).per(8).reverse_order
   end
 
   def create
@@ -142,10 +135,11 @@ class PropositionsController < ApplicationController
 
   def search
     @search = Proposition.ransack(search_params)
+    # 長すぎてrubocopで弾かれるのでuser_statusの条件は数字で。1→subscribing。
     @propositions = @search.result.includes(
       :proposition_category_tags,
       :request_category_tags,
-    ).page(params[:page]).per(8).reverse_order
+    ).joins(:user).where(users: { user_status: 1 }).page(params[:page]).per(8).reverse_order
   end
 
   def finish
