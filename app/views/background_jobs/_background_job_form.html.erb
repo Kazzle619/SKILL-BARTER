@@ -1,4 +1,4 @@
-<%= form_with(model: background_job, html: { class: "needs-validation-job", novalidate: true }) do |f| %>
+<%= form_with(model: background_job, html: { class: "needs-validation-job", novalidate: true }, local: true) do |f| %>
   <div class="form-group row align-items-center">
     <%= f.label :company_name, "会社名", for: "validationCustom01", class: "col-md-2 col-form-label" %>
     <div class="col-md-10">
