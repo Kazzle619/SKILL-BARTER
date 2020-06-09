@@ -1,27 +1,27 @@
 <div class="row">
   <% if user_signed_in? && comment.user == current_user %>
-    <div class="col-md-3 my-1">
-    </div>
-    <div class="col-md-9 my-1">
+    <div class="col-md-10 my-1">
       <div class="inline-block float-right flex-column align-items-end">
-        <div class="mb-1 text-right">
-          <strong><%= comment.user.name %></strong>
+      <div class="inline-block float-left flex-column align-items-start">
+        <div class="mb-1">
           <%= image_tag comment.user.profile_image_id.to_s, height: 40, width: 40, class: "rounded-circle", style: "object-fit: cover;" %>
+          <strong><%= comment.user.name %></strong>
         </div>
-        <div class="bg-success rounded-lg text-white p-2 text-wrap">
+        <div class="bg-success rounded-lg p-2 text-wrap text-white">
           <%= comment.content %><br >
           <%= image_tag comment.image_id.to_s, class: "w-100 h-auto" if comment.image_id.present? %>
         </div>
-        <div class="text-left" style="font-size: 0.5em;">
+        <div class="text-right" style="font-size: 0.5em;">
           <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
         </div>
-        <div class="text-right">
-          <%= link_to "削除", proposition_comment_path(proposition.id, comment.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger btn-block" %>
-        </div>
+      </div>
       </div>
     </div>
+    <div class="col-md-2 my-1 d-flex align-items-end">
+      <%= link_to "削除", proposition_comment_path(proposition.id, comment.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger btn-block" %>
+    </div>
   <% else %>
-    <div class="col-md-9 my-1">
+    <div class="col-md-10 my-1">
       <div class="inline-block float-left flex-column align-items-start">
         <div class="mb-1">
           <%= image_tag comment.user.profile_image_id.to_s, height: 40, width: 40, class: "rounded-circle", style: "object-fit: cover;" %>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 my-1">
+    <div class="col-md-2 my-1">
     </div>
   <% end %>
 </div>
