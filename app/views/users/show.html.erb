@@ -71,7 +71,7 @@
           <h6><strong>職歴</strong></h6>
         </div>
 
-        <% @user.background_jobs.each do |background_job| %>
+        <% @user.background_jobs.order(:joining_date).each do |background_job| %>
           <div class="col-12 col-md-12">
             <%= render 'background_jobs/background_job_card', background_job: background_job %>
           </div>
@@ -84,7 +84,7 @@
           <h6><strong>学歴</strong></h6>
         </div>
 
-        <% @user.background_schools.each do |background_school| %>
+        <% @user.background_schools.order(:school_type).order(enrollment_status: :desc).each do |background_school| %>
           <div class="col-12 col-md-12">
             <%= render 'background_schools/background_school_card', background_school: background_school %>
           </div>
