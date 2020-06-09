@@ -48,9 +48,12 @@ class User < ApplicationRecord
   }
 
   with_options presence: true do
-    validates :name
-    validates :kana_name
     validates :user_status
+
+    with_options format: { with: /\A(.+?)\p{blank}+(.+)\z/ } do
+      validates :name
+      validates :kana_name
+    end
 
     with_options uniqueness: true do
       validates :phone_number, format: { with: /\A\d{10,11}\z/ }

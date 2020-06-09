@@ -6,14 +6,13 @@
   </div>
 
   <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }, local: true) do |f| %>
-
     <div class="form-group row">
       <%# nameカラム %>
       <%= f.label :name, "氏名", for: "validationCustom01", class: "col-md-2 col-form-label" %><br >
       <div class="col-md-4">
         <%= f.text_field :name, autofocus: true, placeholder: "姓と名の間に要スペース", id: "validationCustom01", class: "form-control", required: true %>
         <div class="invalid-feedback">
-          氏名を入力してください。
+          有効な氏名を入力してください。
         </div>
       </div>
       <%# kana_nameカラム %>
@@ -21,7 +20,7 @@
       <div class="col-md-4">
         <%= f.text_field :kana_name, placeholder: "姓と名の間に要スペース", id: "validationCustom02", class: "form-control", required: true %>
         <div class="invalid-feedback">
-          フリガナを入力してください。
+          有効なフリガナを入力してください。
         </div>
       </div>
     </div>
@@ -32,7 +31,7 @@
       <div class="col-md-10">
         <%= f.email_field :email, autocomplete: "email", id: "validationCustom03", class: "form-control", required: true %>
         <div class="invalid-feedback">
-          Eメールアドレスを入力してください。
+          有効なEメールアドレスを入力してください。
         </div>
       </div>
     </div>
@@ -43,7 +42,7 @@
       <div class="col-md-10">
         <%= f.text_field :phone_number, placeholder: "ハイフン無し", id: "validationCustom04", class: "form-control", required: true %>
         <div class="invalid-feedback">
-          電話番号を入力してください。
+          有効な電話番号を入力してください。
         </div>
       </div>
     </div>
