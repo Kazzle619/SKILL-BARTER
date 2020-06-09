@@ -12,6 +12,7 @@
     </div>
     <div class="text-left" style="font-size: 0.5em;">
       <%= chat_message.created_at.strftime("%Y/%m/%d %H:%M") %>
+      <%= link_to "削除", chat_message_path(chat_message.id), method: :delete, class: "text-secondary ml-2", "data-confirm" => "本当に削除しますか？"  %>
     </div>
   </div>
 </div>
