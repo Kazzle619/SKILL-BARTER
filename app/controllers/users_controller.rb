@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:top, :index, :show]
   before_action :authenticate_right_user, except: [:top, :mypage, :index, :show]
   before_action :authenticate_not_blocked, only: [:show]
+  before_action :check_guests, only: [:update, :destroy]
 
   def top
     @users = User.where(user_status: "subscribing").shuffle.first(3)
@@ -149,6 +150,13 @@ class UsersController < ApplicationController
     user = User.find(params[:id]) if params[:id].present?
     if user_signed_in? && current_user.blocked_by?(user)
       flash[:warning] = "あなたはブロックされています。"
+      redirect_to root_path
+    end
+  end
+
+  def check_guests
+    if user_signed_in? && ["guest@example.com", "guest2@example.com"].include?(current_user.email)
+      flash[:warning] = "ゲストユーザーは編集・退会できません。"
       redirect_to root_path
     end
   end
