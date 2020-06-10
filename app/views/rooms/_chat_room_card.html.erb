@@ -25,16 +25,18 @@
       <%# 何も表示しない。 %>
     <% elsif proposition.user == current_user || proposition.offering.user == current_user %>
       <div class="row">
-        <%# 画像投稿 %>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="far fa-image fa-lg"></i>
-            </span>
-          </div>
-          <div class="custom-file">
-            <%= file_field_tag "参照", id: "chat-image", class: "custom-file-input", accept: "image/*" %>
-            <label class="custom-file-label" for="chat-image" data-browse="参照">画像ファイル選択...</label>
+        <%# 画像投稿→実装が大変そうなので一度非表示に。 %>
+        <div hidden>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="far fa-image fa-lg"></i>
+              </span>
+            </div>
+            <div class="custom-file">
+              <%= file_field_tag "参照", id: "chat-image", class: "custom-file-input", accept: "image/*" %>
+              <label class="custom-file-label" for="chat-image" data-browse="参照">画像ファイル選択...</label>
+            </div>
           </div>
         </div>
         <%# コメント投稿 %>
