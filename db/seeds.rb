@@ -19,7 +19,24 @@ tags = ["Webアプリ作成", "Webデザイン", "コーチング", "Webサイ�
 end
 
 # users
-20.times do |n|
+# 基本的な確認用のゲストユーザー1とチャット機能確認用のゲストユーザー2を作る。
+# 後のサンプルデータ作成との兼ね合いからゲストユーザー2は20番目に作る。
+
+# ゲストユーザー1
+User.create!(
+  name: "ゲスト　ユーザー",
+  kana_name: "ゲスト　ユーザー",
+  birthday: Faker::Date.birthday(min_age: 18, max_age: 40),
+  phone_number: Faker::PhoneNumber.cell_phone.delete("-"),
+  introduction: "ゲストユーザーです。ゲストユーザーです。ゲストユーザーです。ゲストユーザーです。ゲストユーザーです。",
+  profile_image_id: File.open("./public/images/guest_user.jpeg"),
+  user_status: 1,
+  email: "guest@example.com",
+  password: "password",
+  password_confirmation: "password",
+)
+
+18.times do |n|
   # 姓、名を何番目から取ってくるのかランダムに設定
   first_name_random = rand(first_names.length)
   last_name_random = rand(last_names.length)
@@ -44,13 +61,28 @@ end
     birthday: Faker::Date.birthday(min_age: 18, max_age: 40),
     phone_number: Faker::PhoneNumber.cell_phone.delete("-"),
     introduction: "自己紹介です。自己紹介です。自己紹介です。自己紹介です。自己紹介です。",
-    profile_image_id: File.open("./public/images/user_#{gender}_#{rand(1..2)}.jpeg"),
+    profile_image_id: File.open("./public/images/user_#{gender}_#{rand(1..5)}.jpeg"),
     user_status: 1,
-    email: "example#{n + 1}@gmail.com",
+    email: "example#{n + 1}@example.com",
     password: "password",
     password_confirmation: "password",
   )
 end
+
+# ゲストユーザー2
+User.create!(
+  name: "チャット　テストユーザー",
+  kana_name: "チャット　テストユーザー",
+  birthday: Faker::Date.birthday(min_age: 18, max_age: 40),
+  phone_number: Faker::PhoneNumber.cell_phone.delete("-"),
+  introduction: "チャットテストユーザーです。チャットテストユーザーです。チャットテストユーザーです。チャットテストユーザーです。チャットテストユーザーです。",
+  profile_image_id: File.open("./public/images/guest_user2.jpeg"),
+  user_status: 1,
+  email: "guest2@example.com",
+  password: "password",
+  password_confirmation: "password",
+)
+
 
 # skill_categories
 User.all.each do |user|
@@ -166,7 +198,7 @@ User.all.each do |user|
       introduction: "説明です。" * rand(5..10),
       deadline: Faker::Date.forward(days: 60),
       barter_status: 1,
-      rendering_image_id: File.open("./public/images/proposition_image.jpeg"),
+      rendering_image_id: File.open("./public/images/proposition_image_#{rand(1..5)}.jpeg"),
     )
 
     # 案件のタイトルに使ったタグをそのままproposition_category_tagに使用
