@@ -18,11 +18,19 @@ RSpec.describe User, type: :model do
         test_user.name = ""
         is_expected.to eq false
       end
+      it '途中にスペースが含まれていること' do
+        test_user.name = Faker::Lorem.characters(number: 10)
+        is_expected.to eq false
+      end
     end
 
     context 'kana_nameカラム' do
       it '空欄でないこと' do
         test_user.kana_name = ""
+        is_expected.to eq false
+      end
+      it '途中にスペースが含まれていること' do
+        test_user.kana_name = Faker::Lorem.characters(number: 10)
         is_expected.to eq false
       end
     end
@@ -85,15 +93,19 @@ RSpec.describe User, type: :model do
         test_user.user_status = ""
         is_expected.to eq false
       end
-      # it 'デフォルト値が1' do
-      #   pending '書き方、どこに書くべきかが分からない。'
-      #   is_expected.to eq 1
-      # end
     end
 
     context 'emailカラム' do
+      # 重複のテストをするために、先に指定したEメールアドレスのデータを保存しておく。
+      let!(:another_user) { create(:user, email: "example0@example.com") }
+
       it '空欄でないこと' do
         test_user.email = ""
+        is_expected.to eq false
+      end
+      it 'DBに重複がないこと' do
+        # 既に保存してあるデータのEメールアドレスに変更
+        test_user.email = "example0@example.com"
         is_expected.to eq false
       end
     end
@@ -114,12 +126,6 @@ RSpec.describe User, type: :model do
   end
 
   describe 'アソシエーションのテスト' do
-    context 'UserPrefectureモデルとの関係' do
-      it '1:Nとなっている' do
-        expect(User.reflect_on_association(:user_prefectures).macro).to eq :has_many
-      end
-    end
-
     context 'BackgroundSchoolモデルとの関係' do
       it '1:Nとなっている' do
         expect(User.reflect_on_association(:background_schools).macro).to eq :has_many
@@ -132,23 +138,15 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'Followモデルとの関係' do
-      it '1:Nとなっている' do
-        pending 'アソシエーションを変更したので要修正'
-        expect(User.reflect_on_association(:follows).macro).to eq :has_many
-      end
-    end
-
-    context 'Blockモデルとの関係' do
-      it '1:Nとなっている' do
-        pending 'アソシエーションを変更したので要修正'
-        expect(User.reflect_on_association(:blocks).macro).to eq :has_many
-      end
-    end
-
     context 'Propositionモデルとの関係' do
       it '1:Nとなっている' do
         expect(User.reflect_on_association(:propositions).macro).to eq :has_many
+      end
+    end
+
+    context 'Reviewedモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:revieweds).macro).to eq :has_many
       end
     end
 
@@ -176,9 +174,81 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context 'Reviewモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:reviews).macro).to eq :has_many
+      end
+    end
+
+    context 'UserPrefectureモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:user_prefectures).macro).to eq :has_many
+      end
+    end
+
+    context 'dealable_prefectureモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:dealable_prefectures).macro).to eq :has_many
+      end
+    end
+
     context 'SkillCategoryモデルとの関係' do
       it '1:Nとなっている' do
         expect(User.reflect_on_association(:skill_categories).macro).to eq :has_many
+      end
+    end
+
+    context 'SkillCategoryTagモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:skill_category_tags).macro).to eq :has_many
+      end
+    end
+
+    context 'FollowingRelationshipモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:following_relationship).macro).to eq :has_many
+      end
+    end
+
+    context 'FollowedRelationshipモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:followed_relationship).macro).to eq :has_many
+      end
+    end
+
+    context 'Followingモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:following).macro).to eq :has_many
+      end
+    end
+
+    context 'Followersモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:followers).macro).to eq :has_many
+      end
+    end
+
+    context 'BlockingRelationshipモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:blocking_relationship).macro).to eq :has_many
+      end
+    end
+
+    context 'BlockedRelationshipモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:blocked_relationship).macro).to eq :has_many
+      end
+    end
+
+    context 'Blockingモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:blocking).macro).to eq :has_many
+      end
+    end
+
+    context 'Blockersモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(User.reflect_on_association(:blockers).macro).to eq :has_many
       end
     end
   end
