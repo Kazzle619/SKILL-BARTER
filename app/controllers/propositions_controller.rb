@@ -2,6 +2,7 @@ class PropositionsController < ApplicationController
   before_action :authenticate_user!, except: [:search, :index, :show]
   before_action :authenticate_right_user, only: [:finish, :match, :edit, :update, :destroy]
   before_action :authenticate_not_blocked, only: [:show]
+  before_action :check_proposition_for_chat, only: [:destroy]
 
   def index
     @search = Proposition.ransack(params[:q])
@@ -193,6 +194,15 @@ class PropositionsController < ApplicationController
     proposition = Proposition.find(params[:id]) if params[:id].present?
     if user_signed_in? && current_user.blocked_by?(proposition.user)
       redirect_to request.referer, warning: "あなたはブロックされています。"
+    end
+  end
+
+  def check_proposition_for_chat
+    proposition = Proposition.find(params[:id])
+    # チャットテスト用案件の場合はリダイレクト
+    if [1, 20].include?(proposition.id)
+      flash[:warning] = "チャットテスト用の案件は削除できません。"
+      redirect_to root_path
     end
   end
 end

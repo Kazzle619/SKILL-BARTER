@@ -79,10 +79,10 @@ class User < ApplicationRecord
   end
 
   def self.guest
-    find_by(email: "example1@gmail.com")
+    find_by(email: "guest@example.com")
   end
 
   def self.chat_opponent
-    find_by(email: "example20@gmail.com")
+    find_by(email: "guest2@example.com")
   end
 end
