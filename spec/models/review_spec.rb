@@ -34,6 +34,23 @@ RSpec.describe Review, type: :model do
         is_expected.to eq false
       end
     end
+
+    context 'rateカラム' do
+      it '空欄でないこと' do
+        test_review.rate = ""
+        is_expected.to eq false
+      end
+
+      it '1未満でないこと' do
+        test_review.rate = 0
+        is_expected.to eq false
+      end
+
+      it '5より大きくないこと' do
+        test_review.rate = 6
+        is_expected.to eq false
+      end
+    end
   end
 
   describe 'アソシエーションのテスト' do
@@ -44,7 +61,7 @@ RSpec.describe Review, type: :model do
     end
 
     context 'Propositionモデルとの関係' do
-      it 'N:1となっている' do
+      it '1:1となっている' do
         expect(Review.reflect_on_association(:proposition).macro).to eq :belongs_to
       end
     end

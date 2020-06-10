@@ -67,13 +67,6 @@ RSpec.describe Proposition, type: :model do
       end
     end
 
-    context 'Offerモデルとの関係' do
-      it '1:Nとなっている' do
-        pending 'アソシエーションを変更したので要修正'
-        expect(Proposition.reflect_on_association(:offers).macro).to eq :has_many
-      end
-    end
-
     context 'Commentモデルとの関係' do
       it '1:Nとなっている' do
         expect(Proposition.reflect_on_association(:comments).macro).to eq :has_many
@@ -86,9 +79,15 @@ RSpec.describe Proposition, type: :model do
       end
     end
 
-    context 'Reviewモデルとの関係' do
+    context 'PropositionRoomモデルとの関係' do
       it '1:Nとなっている' do
-        expect(Proposition.reflect_on_association(:reviews).macro).to eq :has_many
+        expect(Proposition.reflect_on_association(:proposition_rooms).macro).to eq :has_many
+      end
+    end
+
+    context 'Reviewモデルとの関係' do
+      it '1:1となっている' do
+        expect(Proposition.reflect_on_association(:review).macro).to eq :has_one
       end
     end
 
@@ -98,21 +97,45 @@ RSpec.describe Proposition, type: :model do
       end
     end
 
+    context 'PropositionCategoryTagモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(Proposition.reflect_on_association(:proposition_category_tags).macro).to eq :has_many
+      end
+    end
+
     context 'RequestCategoryモデルとの関係' do
       it '1:Nとなっている' do
         expect(Proposition.reflect_on_association(:request_categories).macro).to eq :has_many
       end
     end
 
-    context 'PropositionRoomモデルとの関係' do
+    context 'RequestCategoryTagモデルとの関係' do
       it '1:Nとなっている' do
-        expect(Proposition.reflect_on_association(:proposition_rooms).macro).to eq :has_many
+        expect(Proposition.reflect_on_association(:request_category_tags).macro).to eq :has_many
       end
     end
 
-    context 'ChatMessageモデルとの関係' do
+    context 'OfferingRelationshipモデルとの関係' do
       it '1:Nとなっている' do
-        expect(Proposition.reflect_on_association(:chat_messages).macro).to eq :has_many
+        expect(Proposition.reflect_on_association(:offering_relationship).macro).to eq :has_one
+      end
+    end
+
+    context 'OfferedRelationshipモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(Proposition.reflect_on_association(:offered_relationships).macro).to eq :has_many
+      end
+    end
+
+    context 'Offeringモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(Proposition.reflect_on_association(:offering).macro).to eq :has_one
+      end
+    end
+
+    context 'Offererモデルとの関係' do
+      it '1:Nとなっている' do
+        expect(Proposition.reflect_on_association(:offerers).macro).to eq :has_many
       end
     end
   end
