@@ -6,9 +6,9 @@
   </div>
 
   <div class="row">
-    <label class="mt-3 mb-5"><input type="radio" name="offerFrom" onclick="offerChange();" checked="checked" />案件を新規に作成して申請する</label>
-    <label class="ml-5 mt-3 mb-5"><input type="radio" name="offerFrom" onclick="offerChange();" />既存の案件から申請する</label>
-    <div id="new-proposition-form-box" class="col-md-12">
+    <label class="my-4"><input type="radio" name="offerFrom" onclick="offerChange();" checked="checked" />案件を新規に作成して申請する</label>
+    <label class="ml-5 my-4"><input type="radio" name="offerFrom" onclick="offerChange();" />既存の案件から申請する</label>
+    <div id="new-proposition-form-box" class="col-md-12 rounded bg-white py-3">
       <%= render 'propositions/proposition_form', proposition: @new_proposition, form_url: proposition_offers_path(@offered_proposition.id), submit_value: "申請" %>
     </div>
     <div id="existing-proposition-form-box" class="col-md-12">
