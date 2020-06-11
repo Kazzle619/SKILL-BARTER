@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light rounded-bottom fixed-top py-0">
+<nav class="navbar navbar-expand-xl bg-white rounded-bottom fixed-top py-0">
   <div class="container">
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag 'skill_barter_logo.jpg', width: 70, height: 70 %>
@@ -11,13 +11,13 @@
     <div class="collapse navbar-collapse justify-content-end" id="Navbar">
       <ul class="navbar-nav">
         <% if current_user == User.guest %>
-          <li class="nav-item active d-flex align-items-center">
+          <li class="nav-item active d-flex align-items-center mr-3">
             <%= link_to "チャットページへ", proposition_path(100), class: "btn btn-warning" %>
           </li>
         <% end %>
         <% if current_user == User.chat_opponent%>
-          <li class="nav-item active d-flex align-items-center">
-            <%= link_to "チャットページへ", proposition_path(1), class: "btn btn-warning" %>
+          <li class="nav-item active d-flex align-items-center mr-3">
+            <%= link_to "チャットページへ", proposition_path(1), class: "btn btn-info" %>
           </li>
         <% end %>
         <li class="nav-item">

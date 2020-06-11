@@ -1,57 +1,41 @@
 <%# 必要なインスタンス %>
 <%# proposition:カードで表示したい案件、favorite:自分がこの案件にしているイイね、 %>
-<div class="card" style="background-color: rgba(102, 204, 255, 0.3);">
+<div class="card border border-white">
   <div class="card-body px-3 py-2">
     <p class="card-title">
-      <%# 案件カテゴリタグ %>
+      <%# 案件カテゴリ %>
       <% proposition.proposition_categories.each do |proposition_category| %>
         <%= render 'tags/tag_badge', tag: proposition_category.tag %>
       <% end %>
-
-      <%# イイねボタン %>
-      <span id="favorite-<%= proposition.id %>" class="float-right">
-        <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
-        <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
-      </span>
-    </p>
-
-    <%# 要望カテゴリタグ %>
-    <p class="card-title">
-      <% proposition.request_categories.each do |request_category| %>
-        <%= render 'tags/request_category_tag_badge', tag: request_category.tag %>
+      <%# ストックボタン %>
+      <% if not proposition.bartered? %>
+        <span id="favorite-<%= proposition.id %>" class="float-right">
+          <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
+          <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
+        </span>
       <% end %>
     </p>
 
     <%# 案件情報 %>
     <%= link_to proposition_path(proposition.id) do %>
-      <h5 class="card-title"><%= proposition.title %></h5>
-      <p class="card-text mb-0"><%= proposition.introduction %></p>
+      <h5 class="card-title"><strong><%= proposition.title %></strong></h5>
+      <p class="card-text"><%= proposition.introduction %></p>
     <% end %>
 
       <%# 案件オーナー情報 %>
-      <p class="card-text mb-0">
-        <%= link_to proposition.user.name, user_path(proposition.user.id) %>
+      <p class="card-title d-flex align-items-center mt-2">
         <%= link_to user_path(proposition.user.id) do %>
-          <%= image_tag proposition.user.profile_image_id.to_s, height: 50, width: 50, class: "rounded-circle", style: "object-fit: cover;" %>
+          <%= image_tag proposition.user.profile_image_id.to_s, height: 30, width: 30, class: "rounded-circle", style: "object-fit: cover;" %>
         <% end %>
-        <%# レビューレート、レビュー数 %>
-        <% if proposition.user.revieweds != [] %>
-          <span id="proposition-star-rate-<%= proposition.id %>"></span>
-          <span class="text-secondary">(<%= proposition.user.revieweds.size %>)</span>
-        <% end %>
-
-        <% rate_average = round_up_by_half(proposition.user.revieweds.map(&:rate).sum(0.0) / proposition.user.revieweds.size) if proposition.user.revieweds != [] %>
-        <script>
-          $('#proposition-star-rate-<%= proposition.id %>').raty({
-            size    : 36,
-            starOff : '<%= asset_path('star-off.png') %>',
-            starOn  : '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            half    : true,
-            readOnly: true,
-            score   : <%= round_up_by_half(proposition.user.rate_average) %>,
-          });
-        </script>
+        <%= link_to proposition.user.name, user_path(proposition.user.id), class: "h6 ml-2 pt-2" %>
       </p>
+
+    <%# 要望カテゴリタグ %>
+    <p class="card-title d-flex align-items-center">
+      <span class="mr-1">交換希望スキル：</span>
+      <% proposition.request_categories.each do |request_category| %>
+        <%= render 'tags/request_category_tag_badge', tag: request_category.tag %>
+      <% end %>
+    </p>
   </div>
 </div>

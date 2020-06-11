@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
-    <h1>案件詳細</h1>
+    <div class="col-md-12">
+      <h4><strong>案件詳細</strong></h4>
+    </div>
   </div>
 
   <div class="row">
@@ -8,10 +10,11 @@
       <%= render 'propositions/proposition_folder', proposition: @proposition, offering_proposition: @offering_proposition, review: @review, favorite: @favorite, chat_messages: @chat_messages, room: @room %>
 
       <div class="col-md-12">
+        <hr>
         <%# コメントリスト %>
-        <strong>コメント</strong>
         <% @comments.each do |comment| %>
           <%= render 'comments/proposition_comments', comment: comment, proposition: @proposition %>
+          <hr>
         <% end %>
       </div>
 

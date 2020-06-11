@@ -3,7 +3,7 @@
     <div class="col-md-9 text-center">
       <%= f.collection_select :tag_id, Tag.all.order(name: "ASC"), :id, :name, { include_blank: "選択してください"}, { id: "validationCustom01", class: "custom-select", required: true } %>
       <div class="invalid-feedback">
-        追加したいスキルカテゴリタグを選択してください。
+        追加したいスキルカテゴリを選択してください。
       </div>
     </div>
     <div class="col-md-3">

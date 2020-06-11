@@ -3,12 +3,14 @@
     <div class="col-md-3">
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
-    <div class="col-md-9">
-      <div class="col-md-12">
-        <h4><strong>新規実績作成</strong></h4>
-      </div>
-      <div class="col-md-12 mt-4">
-        <%= render 'achievements/achievement_form', achievement: @achievement, tag: @tag, submit_value: "新規作成" %>
+    <div class="col-md-9 rounded bg-white">
+      <div class="row my-2">
+        <div class="col-md-12 py-2">
+          <h4><strong>新規実績作成</strong></h4>
+        </div>
+        <div class="col-md-12 mt-4">
+          <%= render 'achievements/achievement_form', achievement: @achievement, tag: @tag, submit_value: "新規作成" %>
+        </div>
       </div>
     </div>
   </div>

@@ -1,52 +1,62 @@
 
 <div class="card-deck">
   <%# 案件数カード %>
-  <div class="card bg-light">
-    <p class="card-text py-1 pl-2">
-      <strong>案件数: </strong>
-      <span class="badge badge-pill badge-success">
-        <%= active_propositions.size %>
-      </span>
-    </p>
+  <div class="card bg-white border border-white">
+    <%= link_to mypage_index_propositions_path do %>
+      <p class="card-text py-1 pl-2">
+        <strong>案件数: </strong>
+        <span class="badge badge-pill badge-success">
+          <%= active_propositions.size %>
+        </span>
+      </p>
+    <% end %>
   </div>
 
   <%# 完了数カード %>
-  <div class="card bg-light">
-    <p class="card-text py-1 pl-2">
-      <strong>完了数: </strong>
-      <span class="badge badge-pill badge-success">
-        <%= bartered_propositions.size %>
-      </span>
-    </p>
+  <div class="card bg-white border border-white">
+    <%= link_to mypage_index_propositions_path do %>
+      <p class="card-text py-1 pl-2">
+        <strong>完了数: </strong>
+        <span class="badge badge-pill badge-success">
+          <%= bartered_propositions.size %>
+        </span>
+      </p>
+    <% end %>
   </div>
 
-  <%# イイね数カード %>
-  <div class="card bg-light">
-    <p class="card-text py-1 pl-2">
-      <strong>イイね数: </strong>
-      <span class="badge badge-pill badge-success">
-        <%= likes %>
-      </span>
-    </p>
+  <%# ストック数カード %>
+  <div class="card bg-white border border-white">
+    <%= link_to favorites_user_path(current_user.id) do %>
+      <p class="card-text py-1 pl-2">
+        <strong>ストック数: </strong>
+        <span class="badge badge-pill badge-success">
+          <%= likes %>
+        </span>
+      </p>
+    <% end %>
   </div>
 
   <%# フォロワー数カード %>
-  <div class="card bg-light">
-    <p class="card-text py-1 pl-2">
-      <strong>フォロワー数: </strong>
-      <span class="badge badge-pill badge-success">
-        <%= current_user.followers.size %>
-      </span>
-    </p>
+  <div class="card bg-white border border-white">
+    <%= link_to followers_user_path(current_user.id) do %>
+      <p class="card-text py-1 pl-2">
+        <strong>フォロワー数: </strong>
+        <span class="badge badge-pill badge-success">
+          <%= current_user.followers.size %>
+        </span>
+      </p>
+    <% end %>
   </div>
 
   <%# フォロー数カード %>
-  <div class="card bg-light">
-    <p class="card-text py-1 pl-2">
-      <strong>フォロー数: </strong>
-      <span class="badge badge-pill badge-success">
-        <%= current_user.following.size %>
-      </span>
-    </p>
+  <div class="card bg-white border border-white">
+    <%= link_to following_user_path(current_user.id) do %>
+      <p class="card-text py-1 pl-2">
+        <strong>フォロー数: </strong>
+        <span class="badge badge-pill badge-success">
+          <%= current_user.following.size %>
+        </span>
+      </p>
+    <% end %>
   </div>
 </div>

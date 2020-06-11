@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:top, :index, :show]
-  before_action :authenticate_right_user, except: [:top, :mypage, :index, :show]
+  before_action :authenticate_right_user, except: [:top, :mypage, :index, :show, :search]
   before_action :authenticate_not_blocked, only: [:show]
   before_action :check_guests, only: [:update, :destroy]
 
@@ -105,7 +105,13 @@ class UsersController < ApplicationController
   end
 
   def favorites
-    @propositions = current_user.favorites.map(&:proposition)
+    all_propositions = current_user.favorites.map(&:proposition)
+    @propositions = []
+    all_propositions.each do |proposition|
+      if !proposition.is_bartering?
+        @propositions.append(proposition)
+      end
+    end
   end
 
   def followers
