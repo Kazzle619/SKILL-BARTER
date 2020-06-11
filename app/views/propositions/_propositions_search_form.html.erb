@@ -1,10 +1,10 @@
-<div class="col-md-12 rounded-lg shadow sticky-top" style="padding: 5.5rem 1rem;">
-  <h6><strong>案件検索フォーム</strong></h6>
+<div class="col-md-12 rounded-lg bg-white sticky-top py-3" style="top: 100px;">
+  <h6 class="mb-4"><strong>案件検索フォーム</strong></h6>
 
   <%= search_form_for(search, url: search_propositions_path) do |f| %>
     <div class="form-group row">
       <div class="col-md-12">
-        <%= f.search_field :title_or_introduction_cont, placeholder: "タイトルまたは説明文で探す。", class: "form-control" %>
+        <%= f.search_field :title_or_introduction_cont, placeholder: "タイトル or 説明文を検索", class: "form-control" %>
       </div>
     </div>
 
@@ -18,19 +18,19 @@
     <div class="form-group row">
       <%= f.label :barter_status_lteq, "ステータス", class: "col-md-12 col-form-label" %>
       <div class="col-md-12">
-        <%= f.select :barter_status_lteq, { 交換完了したものも含めて全て: 5, マッチング中: 2 }, {}, { class: "custom-select" } %>
+        <%= f.select :barter_status_lteq, { "全て(交換完了済み含む)": 5, マッチング中: 2 }, {}, { class: "custom-select" } %>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-md-12">
-        <%= f.collection_select :proposition_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "案件カテゴリタグで探す"}, {class: "custom-select"} %>
+        <%= f.collection_select :proposition_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "案件カテゴリで探す"}, {class: "custom-select"} %>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-md-12">
-        <%= f.collection_select :request_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "要望カテゴリタグで探す"}, {class: "custom-select"} %>
+        <%= f.collection_select :request_category_tags_name_cont, Tag.all.order(name: "ASC"), :name, :name, { include_blank: "要望カテゴリで探す"}, {class: "custom-select"} %>
       </div>
     </div>
 

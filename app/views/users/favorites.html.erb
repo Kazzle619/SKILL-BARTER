@@ -4,10 +4,22 @@
     <div class="col-md-3">
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 rounded bg-white px-4">
       <div class="row my-3">
         <div class="col-md-12">
-          <h5><strong><%= current_user.name %>さんのお気に入り案件一覧</strong></h5>
+          <h5><strong><%= current_user.name %>さんのストック案件</strong></h5>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-5 mt-4 d-flex align-items-center">
+              <h6><strong>ストック案件</strong></h6>
+            </div>
+            <div class="col-md-2 mt-4">
+            </div>
+            <div class="col-md-5 mt-4 d-flex align-items-center">
+              <h6><strong>関連する自分の案件</strong></h6>
+            </div>
+          </div>
         </div>
         <% @propositions.each do |proposition| %>
           <div class="col-md-12 mt-2 bg-light rounded-lg my-2">

@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-9">
       <%# ユーザー編集フォーム %>
-      <div class="row bg-light py-2 my-2">
+      <div class="row bg-white py-2 my-4">
         <div class="col-md-9">
           <h5><strong>プロフィール</strong></h5>
         </div>
@@ -19,7 +19,7 @@
       </div>
 
       <%# スキルカテゴリータグ編集フォーム %>
-      <div class="row rounded bg-light py-2 my-2">
+      <div class="row rounded bg-white py-2 my-4">
         <div class="col-md-12">
           <h5><strong>スキルカテゴリー</strong></h5>
         </div>
@@ -36,7 +36,7 @@
       </div>
 
       <%# 活動都道府県編集フォーム %>
-      <div class="row rounded bg-light py-2 my-2">
+      <div class="row rounded bg-white py-2 my-4">
         <div class="col-md-12">
           <h5><strong>活動都道府県</strong></h5>
         </div>
@@ -53,14 +53,14 @@
       </div>
 
       <%# 職歴編集フォーム %>
-      <div class="row rounded bg-light py-2 my-2">
+      <div class="row rounded bg-white py-2 my-4">
         <div class="col-md-12">
           <h5><strong>職歴</strong></h5>
         </div>
 
         <div class="col-md-12">
           <div class="row align-items-center">
-            <% @user.background_jobs.order(:joining_date).each do |background_job| %>
+            <% @user.background_jobs.order(joining_date: :desc).each do |background_job| %>
               <div class="col-10 col-md-10">
                 <%= render 'background_jobs/background_job_card', background_job: background_job %>
               </div>
@@ -81,14 +81,14 @@
       </div>
 
       <%# 学歴編集フォーム %>
-      <div class="row rounded bg-light py-2 my-2">
+      <div class="row rounded bg-white py-2 my-4">
         <div class="col-md-12">
           <h5><strong>学歴</strong></h5>
         </div>
 
         <div class="col-md-12">
           <div class="row align-items-center">
-            <% @user.background_schools.order(:school_type).order(enrollment_status: :desc).each do |background_school| %>
+            <% @user.background_schools.order(school_type: :desc).order(:enrollment_status).each do |background_school| %>
               <div class="col-10 col-md-10">
                 <%= render 'background_schools/background_school_card', background_school: background_school %>
               </div>

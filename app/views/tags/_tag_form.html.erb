@@ -2,7 +2,7 @@
 <%# proposition_formに入れ子にしてあるので、new_tagとフォームidを指定。 %>
   <div class="form-group row">
     <div class="col-md-8">
-      <%= text_field_tag :name, "", placeholder: "新しいタグはこちらから追加", class: "form-control", form: tag_form_target %>
+      <%= text_field_tag :name, "", placeholder: "新規タグ追加", class: "form-control", form: tag_form_target %>
     </div>
     <div class="col-md-4">
       <%= submit_tag "追加", class: "btn btn-outline-primary btn-block", name: category, form: tag_form_target %>
