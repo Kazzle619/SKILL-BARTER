@@ -57,7 +57,7 @@ class Proposition < ApplicationRecord
 
   # 案件(self)と自分(current_user)の案件がマッチしているかを判定する。
   def matched_with?
-    matched? && offering.user == User.current
+    is_matched? && offering.user == User.current
   end
 
   # 案件(self)がレビューされているかどうかを判定する。

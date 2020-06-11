@@ -4,10 +4,10 @@
 
       <%# ユーザープロフィール画像 %>
       <div class="row">
-        <div class="col-md-12 p-4">
+        <div class="col-md-12 p-4 text-center">
           <%# 画像が大きく表示されてしまう。後程変更予定。 %>
           <%# できれば映像に後程変更予定。 %>
-          <%= image_tag @user.profile_image_id.to_s, class: "img-fluid" %>
+          <%= image_tag @user.profile_image_id.to_s, class: "w-75"%>
         </div>
       </div>
 
@@ -27,17 +27,16 @@
       </div>
 
       <%# 案件一覧(まだマッチングしていない案件) %>
-      <div class="row">
+      <div class="row my-5">
         <div class="col-md-12">
-          <h5><strong>案件</strong></h5>
+          <h5><strong>募集中の案件</strong></h5>
         </div>
 
           <div class="row">
             <% @propositions.each do |proposition| %>
               <div class="col-6 col-md-3 mb-3">
                 <%= link_to proposition_path(proposition.id) do %>
-                  <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
-                  <%= render 'propositions/proposition_simple_card', proposition: proposition, favorite: favorite %>
+                  <%= render 'propositions/proposition_simple_card', proposition: proposition %>
                 <% end %>
               </div>
             <% end %>
@@ -47,18 +46,24 @@
       <%# 仕事の履歴(スキル交換済み案件一覧) %>
       <div class="row">
         <div class="col-md-12">
-          <h5><strong>仕事の履歴</strong></h5>
+          <h5><strong>過去に交換したスキル実績</strong></h5>
           <% @bartered_propositions.each do |proposition| %>
-            <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
-            <% room = proposition.room %>
-            <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review, favorite: favorite, room: room, chat_messages: ChatMessage.where(room_id: room.id) if room.present? %>
+            <div class="row my-5">
+              <div class="col-md-12">
+                <h6>交換完了日：<%= proposition.updated_at.strftime("%Y年%m月%d日") %></h6>
+                <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
+                <% room = proposition.room %>
+                <%= render 'propositions/proposition_folder', proposition: proposition, offering_proposition: proposition.my_offering_proposition, review: proposition.review, favorite: favorite, room: room, chat_messages: ChatMessage.where(room_id: room.id) if room.present? %>
+              </div>
+            </div>
           <% end %>
         </div>
       </div>
     </div>
 
-    <div class="col-3 col-md-3">
-      <%# ユーザー紹介サイドバー %>
+    <%# サイドバー %>
+    <div class="col-3 col-md-3 pl-4">
+      <%# ユーザー紹介 %>
       <div class="row pt-3">
         <div class="col-12 col-md-12 px-0">
           <%= render 'users/skill_holder_introduction_card', user: @user, follow: @follow, block: @block %>
@@ -66,12 +71,12 @@
       </div>
 
       <%# 職歴 %>
-      <div class="row rounded bg-light py-2 my-2">
+      <div class="row rounded bg-white py-2 my-3">
         <div class="col-md-12">
           <h6><strong>職歴</strong></h6>
         </div>
 
-        <% @user.background_jobs.order(:joining_date).each do |background_job| %>
+        <% @user.background_jobs.order(joining_date: :desc).each do |background_job| %>
           <div class="col-12 col-md-12">
             <%= render 'background_jobs/background_job_card', background_job: background_job %>
           </div>
@@ -79,12 +84,12 @@
       </div>
 
       <%# 学歴 %>
-      <div class="row rounded bg-light py-2">
+      <div class="row rounded bg-white py-2">
         <div class="col-md-12">
           <h6><strong>学歴</strong></h6>
         </div>
 
-        <% @user.background_schools.order(:school_type).order(enrollment_status: :desc).each do |background_school| %>
+        <% @user.background_schools.order(school_type: :desc).order(:enrollment_status).each do |background_school| %>
           <div class="col-12 col-md-12">
             <%= render 'background_schools/background_school_card', background_school: background_school %>
           </div>

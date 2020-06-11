@@ -1,4 +1,4 @@
-<div class="card h-100" style="background-color: rgba(102, 204, 255, 0.5);">
+<div class="card h-100 border border-white">
   <div class="card-body px-2 pt-1 pb-2">
     <div class="row">
       <div class="col-md-12">
@@ -14,31 +14,19 @@
         <% end %>
       </div>
     </div>
-    <h5 class="card-title">
-      <%= link_to user_path(user.id) do %>
-        <%= image_tag user.profile_image_id.to_s, height: 50, width: 50, class: "rounded-circle", style: "object-fit: cover;" %>
-        <%= user.name %><br >
+    <%= link_to user_path(user.id) do %>
+      <h5 class="card-title">
+          <%= image_tag user.profile_image_id.to_s, height: 60, width: 60, class: "rounded-circle", style: "object-fit: cover;" %>
+          <span class="h4 pl-3"><%= user.name %></span><br >
+      </h5>
+      <%# レビューレート、レビュー数 %>
+      <% if user.revieweds != [] %>
+        <div class="card-title">
+          <span id="user-star-rate-<%= user.id %>"></span><span class="text-secondary">(<%= user.revieweds.size %>)</span>
+        </div>
       <% end %>
-    </h5>
-    <%# レビューレート、レビュー数 %>
-    <% if user.revieweds != [] %>
-      <div class="card-title">
-        <span id="user-star-rate-<%= user.id %>"></span><span class="text-secondary">(<%= user.revieweds.size %>)</span>
-      </div>
+      <p class="card-text"><%= user.introduction %></p>
     <% end %>
-
-    <script>
-      $('#user-star-rate-<%= user.id %>').raty({
-        size    : 36,
-        starOff : '<%= asset_path('star-off.png') %>',
-        starOn  : '<%= asset_path('star-on.png') %>',
-        starHalf: '<%= asset_path('star-half.png') %>',
-        half    : true,
-        readOnly: true,
-        score   : <%= round_up_by_half(user.revieweds.map(&:rate).sum(0.0) / user.revieweds.size) if user.revieweds != [] %>,
-      });
-    </script>
-    <p class="card-text"><%= user.introduction %></p>
     <p class="card-text mb-0">
       <% user.skill_categories.each do |skill_category| %>
         <%= render 'tags/tag_badge', tag: skill_category.tag %>
@@ -46,3 +34,16 @@
     </p>
   </div>
 </div>
+
+
+<script>
+  $('#user-star-rate-<%= user.id %>').raty({
+    size    : 36,
+    starOff : '<%= asset_path('star-off.png') %>',
+    starOn  : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    half    : true,
+    readOnly: true,
+    score   : <%= round_up_by_half(user.revieweds.map(&:rate).sum(0.0) / user.revieweds.size) if user.revieweds != [] %>,
+  });
+</script>
