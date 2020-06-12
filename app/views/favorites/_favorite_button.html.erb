@@ -1,5 +1,5 @@
 <% if not user_signed_in? %>
-  <i class="fas fa-folder-minus fa-lg" style="color: #AF971A;"></i><span class="h5" style="color: #AF971A;"> <%= proposition.favorites.size %></span>
+  <i class="fas fa-folder fa-lg" style="color: #C0C0C0;"></i><span class="h5" style="color: #C0C0C0;"> <%= proposition.favorites.size %></span>
 <% elsif favorite.present? %>
   <%= link_to proposition_favorite_path(proposition.id, favorite.id ), method: :delete, remote: true do %>
     <i class="fas fa-folder-minus fa-lg" style="color: #AF971A;"></i><span class="h5" style="color: #AF971A;"> <%= proposition.favorites.size %></span>
