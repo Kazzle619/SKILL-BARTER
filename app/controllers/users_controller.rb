@@ -11,7 +11,10 @@ class UsersController < ApplicationController
     @propositions = @search.result.includes(
       :proposition_category_tags,
       :request_category_tags,
-    ).joins(:user).where(users: { user_status: "subscribing" }).shuffle.first(5)
+    ).joins(:user).where(
+      barter_status: 1..2,
+      users: { user_status: "subscribing" },
+    ).shuffle.first(5)
   end
 
   def index
