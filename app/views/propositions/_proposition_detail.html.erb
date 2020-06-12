@@ -1,5 +1,13 @@
 <div class="card bg-white border border-white">
-  <div class="card-body px-2 py-3">
+  <div class="card-body py-2 px-3">
+    <p class="card-title">
+      <%# 交換ステータス %>
+      <%= render 'propositions/barter_status_badge', proposition: proposition %>
+      <%# マッチングしている場合はマッチング相手を表示 %>
+      <% if proposition.is_matched? %>
+        <%= link_to proposition.offering.title, proposition_path(proposition.offering), class: "text-secondary" %>
+      <% end %>
+    </p>
     <%# 案件カテゴリタグ %>
     <p class="card-title">
       <% proposition.proposition_categories.each do |proposition_category| %>
@@ -11,8 +19,6 @@
           <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
         </span>
       <% end %>
-      <%# 交換ステータス %>
-      <%= render 'propositions/barter_status_badge', proposition: proposition %>
     </p>
     <%# 案件タイトル %>
     <h4 class="card-title">
@@ -37,7 +43,7 @@
     </div>
 
     <%# 案件説明文 %>
-    <p class="card-text"><%= proposition.introduction %></p>
+    <p class="card-title"><%= proposition.introduction %></p>
 
     <%# 納期。交換完了申請後は表示しない %>
     <% if proposition.deadline && !proposition.is_bartering? %>
@@ -54,38 +60,14 @@
       </p>
     <% end %>
 
-    <%# 既にスキル交換申請済みの場合は申請している自分の案件名を表示 %>
-    <% if proposition.offering_to? %>
-      <p class="card-text">
-        <span class="bg-success text-light p-1">スキル交換申請中</span>
-        案件名：　
-        <%= offering_proposition.title %>
-        <%= offering_proposition.created_at.strftime("%Y/%m/%d %H:%M作成")%>
-      </p>
-    <% end %>
-
-    <%# 条件の入れ子は好ましくないが、どうしてもここは入れ子以外では表現できなかった。後程変更予定。 %>
-    <div class="actions text-center card-text mb-3">
-      <%# ログインしていない場合は何も表示しない。 %>
-      <% if not user_signed_in? %>
+    <div class="actions text-center col-md-10 offset-md-1 mb-3">
       <%# 自分の案件には案件編集ページ %>
-      <% elsif proposition.user == current_user %>
+      <% if user_signed_in? && proposition.user == current_user %>
         <%= link_to "編集する", edit_proposition_path(proposition.id), class: "btn btn-success btn-block" %>
         <%= link_to "削除する", proposition_path(proposition.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
-      <% elsif proposition.is_matched? %>
-        <%# 案件がマッチング済みで、マッチングしているのも自分 %>
-        <% if proposition.matched_with? %>
-          <%= link_to "交換申請を取り下げる",  proposition_offer_path(proposition.id, offering_proposition.offering_relationship.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
-        <%# 案件がマッチング済みだが、マッチングしているのは他人である場合は何も表示しない %>
-        <% end %>
-      <% else %>
-        <%# 案件はマッチングしていなくて、自分が交換申請を出している場合 %>
-        <% if proposition.offering_to? %>
-          <%= link_to "交換申請を取り下げる",  proposition_offer_path(proposition.id, offering_proposition.offering_relationship.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
-        <%# 案件はマッチングしていなくて、自分が交換申請を出していない場合 %>
-        <% else %>
-          <%= link_to "スキル交換申請", offer_propositions_path(offered_id: proposition.id), class: "btn btn-info btn-block"%>
-        <% end %>
+      <%# 自分が申請を出していない案件なら申請ボタン %>
+      <% elsif user_signed_in? && (not proposition.offering_to?) %>
+        <%= link_to "スキル交換申請", offer_propositions_path(offered_id: proposition.id), class: "btn btn-info btn-block"%>
       <% end %>
     </div>
 
