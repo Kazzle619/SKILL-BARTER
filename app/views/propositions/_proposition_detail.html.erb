@@ -5,12 +5,14 @@
       <% proposition.proposition_categories.each do |proposition_category| %>
         <%= render 'tags/tag_badge', tag: proposition_category.tag %>
       <% end %>
-      <%# ストックボタン %>
+      <%# ストックボタン。交換が完了したものには表示しない。 %>
       <% if not proposition.bartered? %>
         <span id="favorite-<%= proposition.id %>" class="float-right">
           <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>
         </span>
       <% end %>
+      <%# 交換ステータス %>
+      <%= render 'propositions/barter_status_badge', proposition: proposition %>
     </p>
     <%# 案件タイトル %>
     <h4 class="card-title">
