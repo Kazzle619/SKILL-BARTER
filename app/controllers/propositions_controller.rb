@@ -10,7 +10,10 @@ class PropositionsController < ApplicationController
     @propositions = @search.result.includes(
       :proposition_category_tags,
       :request_category_tags,
-    ).joins(:user).where(users: { user_status: 1 }).page(params[:page]).per(8).reverse_order
+    ).joins(:user).where(
+      barter_status: 1..2,
+      users: { user_status: 1 },
+    ).page(params[:page]).per(8).reverse_order
   end
 
   def create
