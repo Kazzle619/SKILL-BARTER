@@ -36,7 +36,9 @@
                 <%# 自分が申請を出している相手がいればそれが一番上 %>
                 <% if proposition.offering %>
                   <div class="col-md-12 my-2 p-0">
-                    <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: proposition.offering %>
+                    <p class="mb-1">
+                      <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: proposition.offering %>
+                    </p>
                     <%= render 'propositions/proposition_card', proposition: proposition.offering %>
                   </div>
                 <% end %>
@@ -44,8 +46,10 @@
                   <%# 申請相手は上記で表示しているので、ここには表示させたくない。 %>
                   <% if not (proposition.offering.present? && proposition.offering == offering_proposition) %>
                     <div class="col-md-12 my-2 p-0">
-                      <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
-                      <%= render 'propositions/proposition_card', proposition: offering_proposition %>
+                      <p class="mb-1">
+                        <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
+                        <%= render 'propositions/proposition_card', proposition: offering_proposition %>
+                      </p>
                     </div>
                   <% end %>
                 <% end %>
