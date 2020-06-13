@@ -3,7 +3,7 @@
 登録者同士でスキルを物々交換できるアプリです。<br>
 インフラにAWSの各種サービスを活用しています。
 
-<img width="45%" alt="top_page" src="https://user-images.githubusercontent.com/55101031/84561517-1b18f780-ad88-11ea-8bd4-1c6aa06c65a4.png"> <img width="45%" alt="proposition_detail" src="https://user-images.githubusercontent.com/55101031/84561521-1e13e800-ad88-11ea-8208-c008de6ca07f.png">
+<img width="48%" alt="top_page" src="https://user-images.githubusercontent.com/55101031/84561517-1b18f780-ad88-11ea-8bd4-1c6aa06c65a4.png"> <img width="48%" alt="proposition_detail" src="https://user-images.githubusercontent.com/55101031/84561521-1e13e800-ad88-11ea-8208-c008de6ca07f.png">
 
 ## テーマを選んだ理由
 **1. 自分自身の経験から金銭を介さずスキルを借りられる場が欲しかった。**
