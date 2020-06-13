@@ -65,8 +65,8 @@
       <% if user_signed_in? && proposition.user == current_user %>
         <%= link_to "編集する", edit_proposition_path(proposition.id), class: "btn btn-success btn-block" %>
         <%= link_to "削除する", proposition_path(proposition.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
-      <%# 自分が申請を出していない案件なら申請ボタン %>
-      <% elsif user_signed_in? && (not proposition.offering_to?) %>
+      <%# 未マッチング状態で自分が申請を出していない案件なら申請ボタン %>
+      <% elsif user_signed_in? && (not proposition.is_matched?) && (not proposition.offering_to?) %>
         <%= link_to "スキル交換申請", offer_propositions_path(offered_id: proposition.id), class: "btn btn-info btn-block"%>
       <% end %>
     </div>
