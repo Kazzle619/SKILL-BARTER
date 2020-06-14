@@ -153,15 +153,18 @@ class PropositionsController < ApplicationController
   end
 
   def match
-    my_proposition = Proposition.find(params[:id])
+    # mp = my_proposition。長すぎてrubocopに弾かれるので短縮。
+    mp = Proposition.find(params[:id])
     # wc = wishing_category。長すぎてrubocopに弾かれるので短縮。
-    wc = my_proposition.request_categories[0].tag_id
+    wc = mp.request_categories[0].tag_id
     # wp = wishing_proposition。長すぎてrubocopに弾かれるので短縮。
     wp = Proposition.joins(:proposition_categories).where(proposition_categories: { tag_id: wc })
     @best_match_propositions = []
     @half_match_propositions = []
     wp.each do |proposition|
-      if proposition.request_categories[0].tag_id == my_proposition.proposition_categories[0].tag_id
+      if proposition.user_id == current_user.id
+        next
+      elsif proposition.request_categories[0].tag_id == mp.proposition_categories[0].tag_id
         @best_match_propositions.append(proposition)
       else
         @half_match_propositions.append(proposition)
