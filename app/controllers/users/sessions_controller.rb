@@ -15,7 +15,8 @@ class Users::SessionsController < Devise::SessionsController
       # application_controllerのset_current_userにより自動的にログインしてしまっている様子なので、一度ログアウト処理を挟む。
       # 後程変更予定。
       sign_out user
-      redirect_to root_path, danger: "退会済みのユーザーです。"
+      flash[:danger] = "退会済みのユーザーです。"
+      redirect_to root_path
     else
       super
     end
