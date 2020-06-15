@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   let(:user) { create(:user) }
 
-  describe 'GET #top' do
+  describe "GET #top" do
     context "未ログインの場合" do
       it "リクエストが成功すること" do
         get root_path
@@ -20,7 +20,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #index' do
+  describe "GET #index" do
     context "未ログインの場合" do
       it "リクエストが成功すること" do
         get users_path
@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #mypage' do
+  describe "GET #mypage" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         get mypage_users_path
@@ -56,7 +56,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #edit' do
+  describe "GET #edit" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         get edit_user_path user.id
@@ -73,17 +73,17 @@ RSpec.describe "Users", type: :request do
     end
 
     context "他のユーザーの場合" do
-      let(:user2) { create(:user) }
+      let(:other_user) { create(:user) }
 
       it "トップページへリダイレクトすること" do
-        sign_in user2
+        sign_in other_user
         get edit_user_path user.id
         expect(response).to redirect_to root_path
       end
     end
   end
 
-  describe 'GET #show' do
+  describe "GET #show" do
     context "未ログインの場合" do
       it "リクエストが成功すること" do
         get user_path user.id
@@ -100,18 +100,18 @@ RSpec.describe "Users", type: :request do
     end
 
     context "ブロックされている場合" do
-      let(:user2) { create(:user) }
-      let!(:block) { Block.create!(blocker_id: user.id, blocked_id: user2.id) }
+      let(:blocked_user) { create(:user) }
+      let!(:block) { Block.create!(blocker_id: user.id, blocked_id: blocked_user.id) }
 
       it "リクエストが成功すること" do
-        sign_in user2
+        sign_in blocked_user
         get user_path user.id
         expect(response).to redirect_to root_path
       end
     end
   end
 
-  describe 'POST #update' do
+  describe "PATCH #update" do
     let(:user_params) { { name: "test user" } }
 
     context "未ログインの場合" do
@@ -125,15 +125,15 @@ RSpec.describe "Users", type: :request do
       it "更新が成功すること" do
         sign_in user
         patch user_path user.id, user: user_params
-        expect(assigns(:user)).to eq user
+        expect(user.reload.name).to eq "test user"
       end
     end
 
     context "他のユーザーの場合" do
-      let(:user2) { create(:user) }
+      let(:other_user) { create(:user) }
 
       it "トップページへリダイレクトすること" do
-        sign_in user2
+        sign_in other_user
         patch user_path user.id, user: user_params
         expect(response).to redirect_to root_path
       end
@@ -150,7 +150,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'DELETE #destroy' do
+  describe "DELETE #destroy" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         delete user_path user.id
@@ -165,7 +165,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "ログアウトすること" do
-        pending 'user_signed_in?が使えず、ログアウトしていることのテストの書き方が分からない。'
+        pending "user_signed_in?が使えず、ログアウトしていることのテストの書き方が分からない。"
         expect(user_signed_in?).to eq false
       end
       it "トップページへリダイレクトすること" do
@@ -177,10 +177,10 @@ RSpec.describe "Users", type: :request do
     end
 
     context "他のユーザーの場合" do
-      let(:user2) { create(:user) }
+      let(:other_user) { create(:user) }
 
       it "トップページへリダイレクトすること" do
-        sign_in user2
+        sign_in other_user
         delete user_path user.id
         expect(response).to redirect_to root_path
       end
@@ -197,7 +197,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #blocking' do
+  describe "GET #blocking" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         get blocking_user_path user.id
@@ -214,7 +214,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #favorites' do
+  describe "GET #favorites" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         get favorites_user_path user.id
@@ -231,7 +231,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #followers' do
+  describe "GET #followers" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         get followers_user_path user.id
@@ -248,7 +248,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #following' do
+  describe "GET #following" do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
         get following_user_path user.id
@@ -265,7 +265,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe 'GET #search' do
+  describe "GET #search" do
     let(:search_params) { { name_cont: Faker::Lorem.characters(number: 5) } }
 
     context "未ログインの場合" do
