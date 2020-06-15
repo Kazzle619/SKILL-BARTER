@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:top, :index, :show]
+  before_action :authenticate_user!, except: [:top, :index, :show, :search]
   before_action :authenticate_right_user, except: [:top, :mypage, :index, :show, :search]
   before_action :authenticate_not_blocked, only: [:show]
   before_action :check_guests, only: [:update, :destroy]
@@ -92,9 +92,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    if user.update(user_status: "unsubscribed")
-      sign_out user
+    # rspecのために@を付与
+    @user = User.find(params[:id])
+    if @user.update(user_status: "unsubscribed")
+      sign_out @user
       flash[:success] = "退会処理が完了しました。ご利用いただきありがとうございました。"
       redirect_to root_path
     else
@@ -164,9 +165,10 @@ class UsersController < ApplicationController
   end
 
   def check_guests
+    user = current_user if user_signed_in?
     if user_signed_in? && ["guest@example.com", "guest2@example.com"].include?(current_user.email)
       flash[:warning] = "ゲストユーザーは編集・退会できません。"
-      redirect_to root_path
+      redirect_to edit_user_path(user.id)
     end
   end
 end
