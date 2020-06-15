@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
+  let(:user) { create(:user) }
+
   describe 'GET #top' do
     context "未ログインの場合" do
       it "リクエストが成功すること" do
@@ -10,8 +12,6 @@ RSpec.describe "Users", type: :request do
     end
 
     context "ログインしている場合" do
-      let(:user) { create(:user) }
-
       it "リクエストが成功すること" do
         sign_in user
         get root_path
@@ -29,8 +29,6 @@ RSpec.describe "Users", type: :request do
     end
 
     context "ログインしている場合" do
-      let(:user) { create(:user) }
-
       it "リクエストが成功すること" do
         sign_in user
         get users_path
@@ -61,14 +59,12 @@ RSpec.describe "Users", type: :request do
   describe 'GET #edit' do
     context "未ログインの場合" do
       it "ログインページへリダイレクトすること" do
-        get edit_user_path 1
+        get edit_user_path user.id
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context "本人の場合" do
-      let(:user) { create(:user) }
-
       it "リクエストが成功すること" do
         sign_in user
         get edit_user_path user.id
@@ -77,7 +73,6 @@ RSpec.describe "Users", type: :request do
     end
 
     context "他のユーザーの場合" do
-      let(:user) { create(:user) }
       let(:user2) { create(:user) }
 
       it "トップページへリダイレクトすること" do
@@ -89,8 +84,6 @@ RSpec.describe "Users", type: :request do
   end
 
   describe 'GET #show' do
-    let(:user) { create(:user) }
-
     context "未ログインの場合" do
       it "リクエストが成功すること" do
         get user_path user.id
@@ -108,12 +101,185 @@ RSpec.describe "Users", type: :request do
 
     context "ブロックされている場合" do
       let(:user2) { create(:user) }
-      let(:block) { Block.create!(blocker_id: user.id, blocked_id: user2.id) }
+      let!(:block) { Block.create!(blocker_id: user.id, blocked_id: user2.id) }
 
       it "リクエストが成功すること" do
         sign_in user2
         get user_path user.id
         expect(response).to redirect_to root_path
+      end
+    end
+  end
+
+  describe 'POST #update' do
+    let(:user_params) { { name: "test user" } }
+
+    context "未ログインの場合" do
+      it "ログインページへリダイレクトすること" do
+        patch user_path user.id, user: user_params
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "ログインしている場合" do
+      it "更新が成功すること" do
+        sign_in user
+        patch user_path user.id, user: user_params
+        expect(assigns(:user)).to eq user
+      end
+    end
+
+    context "他のユーザーの場合" do
+      let(:user2) { create(:user) }
+
+      it "トップページへリダイレクトすること" do
+        sign_in user2
+        patch user_path user.id, user: user_params
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "ゲストユーザーの場合" do
+      let(:guest) { create(:guest) }
+
+      it "トップページへリダイレクトすること" do
+        sign_in guest
+        patch user_path guest.id, guest: user_params
+        expect(response).to redirect_to edit_user_path guest.id
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context "未ログインの場合" do
+      it "ログインページへリダイレクトすること" do
+        delete user_path user.id
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "本人の場合" do
+      before do
+        sign_in user
+        delete user_path user.id
+      end
+
+      it "ログアウトすること" do
+        pending 'user_signed_in?が使えず、ログアウトしていることのテストの書き方が分からない。'
+        expect(user_signed_in?).to eq false
+      end
+      it "トップページへリダイレクトすること" do
+        expect(response).to redirect_to root_path
+      end
+      it "ステータスが「退会済み」になること" do
+        expect(assigns(:user).user_status).to eq "unsubscribed"
+      end
+    end
+
+    context "他のユーザーの場合" do
+      let(:user2) { create(:user) }
+
+      it "トップページへリダイレクトすること" do
+        sign_in user2
+        delete user_path user.id
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "ゲストユーザーの場合" do
+      let(:guest) { create(:guest) }
+
+      it "トップページへリダイレクトすること" do
+        sign_in guest
+        delete user_path guest.id
+        expect(response).to redirect_to edit_user_path guest.id
+      end
+    end
+  end
+
+  describe 'GET #blocking' do
+    context "未ログインの場合" do
+      it "ログインページへリダイレクトすること" do
+        get blocking_user_path user.id
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "本人の場合" do
+      it "リクエストが成功すること" do
+        sign_in user
+        get blocking_user_path user.id
+        expect(response).to have_http_status "200"
+      end
+    end
+  end
+
+  describe 'GET #favorites' do
+    context "未ログインの場合" do
+      it "ログインページへリダイレクトすること" do
+        get favorites_user_path user.id
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "本人の場合" do
+      it "リクエストが成功すること" do
+        sign_in user
+        get favorites_user_path user.id
+        expect(response).to have_http_status "200"
+      end
+    end
+  end
+
+  describe 'GET #followers' do
+    context "未ログインの場合" do
+      it "ログインページへリダイレクトすること" do
+        get followers_user_path user.id
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "本人の場合" do
+      it "リクエストが成功すること" do
+        sign_in user
+        get followers_user_path user.id
+        expect(response).to have_http_status "200"
+      end
+    end
+  end
+
+  describe 'GET #following' do
+    context "未ログインの場合" do
+      it "ログインページへリダイレクトすること" do
+        get following_user_path user.id
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "本人の場合" do
+      it "リクエストが成功すること" do
+        sign_in user
+        get following_user_path user.id
+        expect(response).to have_http_status "200"
+      end
+    end
+  end
+
+  describe 'GET #search' do
+    let(:search_params) { { name_cont: Faker::Lorem.characters(number: 5) } }
+
+    context "未ログインの場合" do
+      it "リクエストが成功すること" do
+        get search_users_path, params: { q: search_params }
+        expect(response).to have_http_status "200"
+      end
+    end
+
+    context "ログインしている場合" do
+      it "リクエストが成功すること" do
+        sign_in user
+        get search_users_path, params: { q: search_params }
+        expect(response).to have_http_status "200"
       end
     end
   end
