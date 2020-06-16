@@ -28,7 +28,7 @@ RSpec.describe "BackgroundSchools", type: :request do
         post background_schools_path, params: { background_school: @background_school_params }
         expect(response).to have_http_status "302"
       end
-      it "活動都道府県の登録が成功すること" do
+      it "学歴項目の登録が成功すること" do
         expect do
           post background_schools_path, params: { background_school: @background_school_params }
         end.to change(BackgroundSchool, :count).by(1)
@@ -66,7 +66,7 @@ RSpec.describe "BackgroundSchools", type: :request do
         delete background_school_path @background_school.id
         expect(response.status).to eq 302
       end
-      it "活動都道府県が削除されること" do
+      it "学歴項目が削除されること" do
         expect do
           delete background_school_path @background_school.id
         end.to change(user.background_schools, :count).by(-1)
