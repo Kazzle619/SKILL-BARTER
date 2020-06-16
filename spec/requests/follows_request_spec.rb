@@ -6,7 +6,7 @@ RSpec.describe "Follows", type: :request do
 
   describe "POST #create" do
     context "未ログインの場合" do
-      it "ログインページへリダイレクトすること" do
+      it "ログインが必要な旨のエラーが出ること" do
         post user_follows_path(followed.id), xhr: true
         # 非同期通信の場合、リダイレクトはされずエラーが出る。
         expect(response.status).to eq 401
@@ -34,7 +34,7 @@ RSpec.describe "Follows", type: :request do
     let!(:follow) { Follow.create(follower_id: follower.id, followed_id: followed.id) }
 
     context "未ログインの場合" do
-      it "ログインページへリダイレクトすること" do
+      it "ログインが必要な旨のエラーが出ること" do
         delete user_follow_path(followed.id, follow.id), xhr: true
         # 非同期通信の場合、リダイレクトはされずエラーが出る。
         expect(response.status).to eq 401
