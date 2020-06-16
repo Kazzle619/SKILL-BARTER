@@ -41,21 +41,35 @@ RSpec.describe "Propositions", type: :request do
         user_id: user.id,
         title: Faker::Lorem.characters(number: 5),
         introduction: Faker::Lorem.characters(number: 5),
+        proposition_category_tag_id: tag.id,
+        request_category_tag_id: tag.id,
       }
     end
 
     context "未ログインの場合" do
-      it "ログインへリダイレクトすること" do
+      it "ログインページへリダイレクトすること" do
         post propositions_path
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     context "ログインしている場合" do
-      it "リクエストが成功すること" do
+      before do
         sign_in user
+      end
+
+      it "リクエストが成功すること" do
         post propositions_path, params: { proposition: @proposition_params }
-        expect(response).to have_http_status "200"
+        expect(response).to have_http_status "302"
+      end
+      it "案件の登録が成功すること" do
+        expect do
+          post propositions_path, params: { proposition: @proposition_params }
+        end.to change(Proposition, :count).by(1)
+      end
+      it "完了ページへリダイレクトすること" do
+        post propositions_path, params: { proposition: @proposition_params }
+        expect(response).to redirect_to finish_proposition_path Proposition.last.id
       end
     end
   end
@@ -174,9 +188,9 @@ RSpec.describe "Propositions", type: :request do
   describe "DELETE #destroy" do
     before do
       # p → proposition。rubocopに192行目が弾かれるので短縮。
-      @p = FactoryBot.build(:proposition)
-      @p.user_id = user.id
-      @p.save!
+      @proposition = FactoryBot.build(:proposition)
+      @proposition.user_id = user.id
+      @proposition.save!
     end
 
     context "未ログインの場合" do
@@ -189,7 +203,9 @@ RSpec.describe "Propositions", type: :request do
     context "案件のオーナーの場合" do
       it "案件が正常に削除されること" do
         sign_in user
-        expect { delete proposition_path @p.id }.to change(user.propositions, :count).by(-1)
+        expect do
+          delete proposition_path @proposition.id
+        end.to change(user.propositions, :count).by(-1)
       end
     end
 

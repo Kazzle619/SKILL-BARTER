@@ -122,10 +122,21 @@ RSpec.describe "Users", type: :request do
     end
 
     context "ログインしている場合" do
-      it "更新が成功すること" do
+      before do
         sign_in user
+      end
+
+      it "リクエストが成功すること" do
+        patch user_path user.id, user: user_params
+        expect(response.status).to eq 302
+      end
+      it "更新が成功すること" do
         patch user_path user.id, user: user_params
         expect(user.reload.name).to eq "test user"
+      end
+      it "ユーザー編集ページへリダイレクトすること" do
+        patch user_path user.id, user: user_params
+        expect(response).to redirect_to edit_user_path user.id
       end
     end
 
