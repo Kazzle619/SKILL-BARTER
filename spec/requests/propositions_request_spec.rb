@@ -187,7 +187,6 @@ RSpec.describe "Propositions", type: :request do
 
   describe "DELETE #destroy" do
     before do
-      # p → proposition。rubocopに192行目が弾かれるので短縮。
       @proposition = FactoryBot.build(:proposition)
       @proposition.user_id = user.id
       @proposition.save!
