@@ -136,4 +136,24 @@ class Proposition < ApplicationRecord
       Room.find(room_id)
     end
   end
+
+  def create_room_and_update_barter_statuses
+    auto_update_barter_status
+    offering.auto_update_barter_status
+    # マッチングしたらRoom, PropositionRoomを新規作成。
+    # 以前一度マッチングしていればpropositon.roomが存在するはずで、その場合は新たには作成しないように。
+    if matched? && room.blank?
+      room = Room.create!
+      # この案件とルームを関連付ける。
+      PropositionRoom.create!(
+        proposition_id: id,
+        room_id: room.id,
+      )
+      # マッチング相手の案件とルームを関連付ける。
+      PropositionRoom.create!(
+        proposition_id: offering.id,
+        room_id: room.id,
+      )
+    end
+  end
 end
