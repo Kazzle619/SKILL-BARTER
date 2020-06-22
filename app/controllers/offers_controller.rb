@@ -12,11 +12,11 @@ class OffersController < ApplicationController
         offering_id: offering_proposition.id,
         offered_id: @offered_proposition.id,
       )
-      creating_room_and_update_barter_statuses(offering_proposition)
+      offering_proposition.create_room_and_update_barter_statuses
       flash[:success] = "申請に成功しました。"
       redirect_to proposition_path(@offered_proposition.id)
 
-      # 新規作成した案件から申請した場合
+    # 新規作成した案件から申請した場合
     else
       @new_proposition = Proposition.new(proposition_params)
       @new_proposition.user_id = current_user.id
@@ -41,7 +41,7 @@ class OffersController < ApplicationController
           offering_id: @new_proposition.id,
           offered_id: @offered_proposition.id,
         )
-        creating_room_and_update_barter_statuses(@new_proposition)
+        @new_proposition.create_room_and_update_barter_statuses
         flash[:success] = "案件の新規作成と申請に成功しました。"
         redirect_to proposition_path(@offered_proposition.id)
       else
@@ -53,13 +53,12 @@ class OffersController < ApplicationController
 
   def destroy
     offer = Offer.find(params[:id])
-    # リダイレクト、値の更新用にoffering, offeredそれぞれの案件インスタンスを取っておく。(どちらも値が変わる可能性がある)
+    # リダイレクト、ステータスの更新用にoffering, offeredそれぞれの案件インスタンスを取っておく。(どちらもステータスが変わる可能性がある)
     offered_proposition = offer.offered
     offering_proposition = offer.offering
 
     offer.destroy!
 
-    # 状況に合わせて案件の交換ステータスを自動更新
     offered_proposition.auto_update_barter_status
     offering_proposition.auto_update_barter_status
 
@@ -75,26 +74,6 @@ class OffersController < ApplicationController
 
   def offering_proposition_id
     params.require(:offering_proposition_id)
-  end
-
-  def creating_room_and_update_barter_statuses(offering_proposition)
-    offering_proposition.auto_update_barter_status
-    offering_proposition.offering.auto_update_barter_status
-    # マッチングしたらRoom, PropositionRoomを新規作成。
-    # 以前一度マッチングしていればpropositon.roomが存在するはずで、その場合は新たには作成しないように。
-    if offering_proposition.matched? && offering_proposition.room.blank?
-      room = Room.create!
-      # この案件とルームを関連付ける。
-      PropositionRoom.create!(
-        proposition_id: offering_proposition.id,
-        room_id: room.id,
-      )
-      # マッチング相手の案件とルームを関連付ける。
-      PropositionRoom.create!(
-        proposition_id: offering_proposition.offering.id,
-        room_id: room.id,
-      )
-    end
   end
 
   def authenticate_right_user_for_create
