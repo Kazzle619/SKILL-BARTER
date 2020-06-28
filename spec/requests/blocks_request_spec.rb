@@ -15,19 +15,15 @@ RSpec.describe "Blocks", type: :request do
     context "ログインしている場合" do
       before do
         sign_in blocker
-        # 以下の書き方ではCannot redirect to nil!のエラー文が出る。
-        # allow(request).to receive(:referer).and_return('/test')
       end
 
       it "リクエストが成功すること" do
-        pending "request.refererのテストの書き方が分からない。"
-        post user_blocks_path(blocked.id)
+        post user_blocks_path(blocked.id), headers: { referer: '/test' }
         expect(response).to redirect_to('/test')
       end
       it "ブロック関係の作成に成功すること" do
-        pending "request.refererのテストの書き方が分からない。"
         expect do
-          post user_blocks_path(blocked.id)
+          post user_blocks_path(blocked.id), headers: { referer: '/test' }
         end.to change(Block, :count).by(1)
       end
     end
