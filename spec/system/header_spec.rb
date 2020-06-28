@@ -10,8 +10,7 @@ RSpec.describe "Header", type: :system do
 
     context "ヘッダーの表示を確認" do
       it "ロゴが表示される" do
-        pending "表示されているはずだが、何故が存在しないと言われる。"
-        expect(page).to have_selector("img[src$='skill_barter_logo']")
+        expect(page).to have_selector("img[src*='skill_barter_logo']")
       end
       it "ロゴがトップページへのリンクになっている" do
         click_on "skill_barter_logo"
@@ -31,7 +30,7 @@ RSpec.describe "Header", type: :system do
   describe "ログインしている場合" do
     before do
       visit new_user_session_path
-      fill_in "user[email]", with: user.name
+      fill_in "user[email]", with: user.email
       fill_in "user[password]", with: user.password
       within ".actions" do
         click_on "ログイン"
@@ -40,8 +39,7 @@ RSpec.describe "Header", type: :system do
 
     context "ヘッダーの表示を確認" do
       it "ロゴが表示される" do
-        pending "表示されているはずだが、何故が存在しないと言われる。"
-        expect(page).to have_selector("img[src$='skill_barter_logo']")
+        expect(page).to have_selector("img[src*='skill_barter_logo']")
       end
       it "ロゴがトップページへのリンクになっている" do
         click_on "skill_barter_logo"
