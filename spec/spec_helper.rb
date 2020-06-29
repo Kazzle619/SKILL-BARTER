@@ -14,8 +14,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'capybara/rspec'
+require 'simplecov'
 
 RSpec.configure do |config|
+  ENV['RAILS_ENV'] = 'test'
   config.before(:each, type: :system) do
     # driven_by :selenium_chrome_headless
     driven_by :rack_test
@@ -97,4 +99,11 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+
+  if ENV['CIRCLE_ARTIFACTS']
+    dir = File.join(ENV['CIRCLE_ARTIFACTS'], 'coverage')
+    SimpleCov.coverage_dir(dir)
+  end
+
+  SimpleCov.start
 end
