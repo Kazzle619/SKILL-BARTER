@@ -22,10 +22,9 @@ RSpec.describe "ChatMessages", type: :request do
 
     context "ログインしている場合" do
       it "チャットメッセージが正常に削除されること" do
-        pending "request.refererのテストの書き方が分からない。"
         sign_in user
         expect do
-          delete chat_message_path(@chat_message.id)
+          delete chat_message_path(@chat_message.id), headers: { referer: '/test' }
         end.to change(user.chat_messages, :count).by(-1)
       end
     end

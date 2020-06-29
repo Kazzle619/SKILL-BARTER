@@ -138,14 +138,10 @@ RSpec.describe "Propositions", type: :request do
       let(:blocked_user) { create(:user) }
       let!(:block) { Block.create(blocker_id: user.id, blocked_id: blocked_user.id) }
 
-      # 上手く効かずCannot redirect to nil!とエラー文が出ている。
-      # before { allow(request).to receive(:referer).and_return('/') }
-
       it "以前のページへリダイレクトすること" do
-        pending "request.refererのテストの書き方が分からない。"
         sign_in blocked_user
-        get proposition_path proposition.id
-        expect(response).to redirect_to root_path
+        get proposition_path(proposition.id), headers: { referer: '/test' }
+        expect(response).to redirect_to('/test')
       end
     end
   end
