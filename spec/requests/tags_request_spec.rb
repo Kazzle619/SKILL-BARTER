@@ -14,11 +14,10 @@ RSpec.describe "Tags", type: :request do
     context "ログインしている場合" do
       let(:user) { create(:user) }
 
-      it "案件の登録が成功すること" do
-        pending "request.refererのテストの書き方が分からない。"
+      it "タグの登録が成功すること" do
         sign_in user
         expect do
-          post tag_path, params: tag_params
+          post tag_path, params: tag_params, headers: { referer: '/test' }
         end.to change(Tag, :count).by(1)
       end
     end
