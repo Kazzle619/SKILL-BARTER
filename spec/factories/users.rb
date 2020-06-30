@@ -6,7 +6,7 @@ FactoryBot.define do
     phone_number { Faker::PhoneNumber.cell_phone.delete("-") }
     introduction { Faker::Lorem.characters(number: 30) }
     profile_image_id { Faker::Lorem.characters(number: 30) }
-    user_status { rand(1..2) }
+    user_status { 1 }
     email { Faker::Internet.email }
     password { 'password' }
     password_confirmation { 'password' }
