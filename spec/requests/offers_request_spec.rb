@@ -55,23 +55,23 @@ RSpec.describe "Offers", type: :request do
     end
 
     context "ログインしており既存の案件で申請する場合" do
-      let(:offering_proposition_id) { offering.id }
+      let(:offering_id) { offering.id }
 
       before do
         sign_in user
       end
 
       it "リクエストが成功すること" do
-        post proposition_offers_path(offered.id), params: { offering_id: offering_proposition_id }
+        post proposition_offers_path(offered.id), params: { offering_proposition_id: offering_id }
         expect(response).to have_http_status "302"
       end
       it "申請の登録が成功すること" do
         expect do
-          post proposition_offers_path(offered.id), params: { offering_id: offering_proposition_id }
+          post proposition_offers_path(offered.id), params: { offering_proposition_id: offering_id }
         end.to change(Offer, :count).by(1)
       end
       it "案件詳細ページへリダイレクトすること" do
-        post proposition_offers_path(offered.id), params: { offering_id: offering_proposition_id }
+        post proposition_offers_path(offered.id), params: { offering_proposition_id: offering_id }
         expect(response).to redirect_to proposition_path(offered.id)
       end
     end
