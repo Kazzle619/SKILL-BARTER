@@ -2,7 +2,7 @@
 lock "~> 3.14.0"
 
 set :application, "SKILL-BARTER"
-set :repo_url, "git@github.com:utkazu/SKILL-BARTER.git"
+set :repo_url, "git@github.com:ASamuraiS619/SKILL-BARTER.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
