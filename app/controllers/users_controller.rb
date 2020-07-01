@@ -29,19 +29,34 @@ class UsersController < ApplicationController
 
   # 要リファクタリング
   def mypage
-    # offers_to_me_on_today = Offer.joins(
-    #   "LEFT OUTER JOIN propositions ON offers.offered_id = propositions.id
-    #    LEFT OUTER JOIN users ON propositions.user_id = users.id"
-    # ).where(propositions: { users: { id: current_user.id } }, created_at: Time.zone.now.all_day)
-    # @propositions = offers_to_me_on_today.map(&:offering)
-    offers_today = Offer.where(created_at: Time.zone.now.all_day)
-    offering_propositions_today = offers_today.map { |offer| offer.offering }
-    @propositions_offering_to_me_today = []
-    offering_propositions_today.each do |proposition|
-      if proposition.offering.user == current_user
-        @propositions_offering_to_me_today.append proposition
-      end
-    end
+    # 今日、自分に申請を出した案件一覧を取得したい。
+    # Active Recordでの取得方法が分からないのでSQLで直接取得する。
+
+    query = <<-EOS
+    SELECT offering.*
+    FROM   offers
+    JOIN   propositions offering
+    ON     offers.offering_id = offering.id
+    JOIN   propositions offered
+    ON     offers.offered_id = offered.id
+    WHERE  offers.created_at >= '#{Time.current.beginning_of_day.strftime("%Y-%m-%d %H:%M:%S")}'
+    AND    offers.created_at < '#{(Time.current.beginning_of_day + 1.day).strftime("%Y-%m-%d %H:%M:%S")}'
+    AND    offered.user_id = #{current_user.id}
+    ;
+    EOS
+
+    @propositions_offering_to_me_today = Proposition.find_by_sql(query)
+
+    # もし生SQL文が良くないということであれば以下のコードでも取得できるが、複雑になってしまっているので使いたくない。
+
+    # offers_today = Offer.where(created_at: Time.zone.now.all_day)
+    # offering_propositions_today = offers_today.map { |offer| offer.offering }
+    # @propositions_offering_to_me_today = []
+    # offering_propositions_today.each do |proposition|
+    #   if proposition.offering.user_id == current_user.id
+    #     @propositions_offering_to_me_today.append proposition
+    #   end
+    # end
 
     # 長すぎてrubocopに弾かれるのでbarter_statusの判定は数字で。(5: bartered)
     @active_propositions = Proposition.where(user_id: current_user.id).where.not(barter_status: 5)
