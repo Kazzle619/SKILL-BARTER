@@ -16,6 +16,14 @@
 require 'capybara/rspec'
 require 'simplecov'
 
+SimpleCov.start do
+  add_filter '/spec/'
+  add_filter do |source_file|
+    source_file.lines.count < 5
+  end
+end
+
+
 RSpec.configure do |config|
   ENV['RAILS_ENV'] = 'test'
   config.before(:each, type: :system) do
@@ -105,5 +113,4 @@ RSpec.configure do |config|
     SimpleCov.coverage_dir(dir)
   end
 
-  SimpleCov.start
 end
