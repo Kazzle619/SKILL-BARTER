@@ -23,6 +23,9 @@
 - RSpec
 - Bootstrap, jQuery
 
+### AWS構成図
+![SKILL BARTER AWS構成図](https://user-images.githubusercontent.com/55101031/86557897-9f7b2680-bf92-11ea-8db2-cce27de71d39.png)
+
 ### gem
 詳細設計書をご参照ください。
 
