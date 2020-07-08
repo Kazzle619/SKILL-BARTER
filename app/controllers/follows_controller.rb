@@ -29,13 +29,13 @@ class FollowsController < ApplicationController
     follow.destroy!
   end
 
-  private
+  # private
 
-  def authenticate_right_user
-    follow = Follow.find(params[:id]) if params[:id].present?
-    if user_signed_in? && follow.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user
+  #   follow = Follow.find(params[:id]) if params[:id].present?
+  #   if user_signed_in? && follow.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end

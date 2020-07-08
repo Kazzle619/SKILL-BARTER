@@ -76,23 +76,23 @@ class OffersController < ApplicationController
     params.require(:offering_proposition_id)
   end
 
-  def authenticate_right_user_for_create
-    # 既存の案件から申請する場合、申請する案件のオーナーでなければredirect。新規作成はredirectしない。
-    if offering_proposition_id.present?
-      offering_proposition = proposition.find(offering_proposition_id)
-    end
-    if user_signed_in? && offering_proposition.present? && offering_proposition.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user_for_create
+  #   # 既存の案件から申請する場合、申請する案件のオーナーでなければredirect。新規作成はredirectしない。
+  #   if offering_proposition_id.present?
+  #     offering_proposition = proposition.find(offering_proposition_id)
+  #   end
+  # if user_signed_in? && offering_proposition.present? && offering_proposition.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 
-  def authenticate_right_user_for_destroy
-    offer = Offer.find(params[:id]) if params[:id].present?
-    # 申請を出している側の案件のオーナーでなければredirect。
-    if user_signed_in? && offer.offering.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user_for_destroy
+  #   offer = Offer.find(params[:id]) if params[:id].present?
+  #   # 申請を出している側の案件のオーナーでなければredirect。
+  #   if user_signed_in? && offer.offering.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end

@@ -38,13 +38,13 @@ class BlocksController < ApplicationController
     block.destroy!
   end
 
-  private
+  # private
 
-  def authenticate_right_user
-    block = Block.find(params[:id]) if params[:id].present?
-    if user_signed_in? && block.blocker != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user
+  #   block = Block.find(params[:id]) if params[:id].present?
+  #   if user_signed_in? && block.blocker != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end
