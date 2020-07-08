@@ -32,11 +32,11 @@ class BackgroundSchoolsController < ApplicationController
     params.require(:background_school).permit!
   end
 
-  def authenticate_right_user
-    background_school = BackgroundSchool.find(params[:id]) if params[:id].present?
-    if user_signed_in? && background_school.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user
+  #   background_school = BackgroundSchool.find(params[:id]) if params[:id].present?
+  #   if user_signed_in? && background_school.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end
