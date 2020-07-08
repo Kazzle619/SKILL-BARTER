@@ -23,7 +23,6 @@ SimpleCov.start do
   end
 end
 
-
 RSpec.configure do |config|
   ENV['RAILS_ENV'] = 'test'
   config.before(:each, type: :system) do
@@ -112,5 +111,4 @@ RSpec.configure do |config|
     dir = File.join(ENV['CIRCLE_ARTIFACTS'], 'coverage')
     SimpleCov.coverage_dir(dir)
   end
-
 end
