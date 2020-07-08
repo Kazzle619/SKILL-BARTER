@@ -56,11 +56,11 @@ class BackgroundJobsController < ApplicationController
     params.require(:background_job).permit!
   end
 
-  def authentticate_right_user
-    background_job = BackgroundJob.find(params[:id]) if params[:id].present?
-    if user_signed_in? && background_job.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authentticate_right_user
+  #   background_job = BackgroundJob.find(params[:id]) if params[:id].present?
+  #   if user_signed_in? && background_job.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end

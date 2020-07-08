@@ -32,11 +32,11 @@ class SkillCategoriesController < ApplicationController
     params.require(:skill_category).permit(:tag_id)
   end
 
-  def authenticate_right_user
-    skill_category = SkillCategory.find(params[:id]) if params[:id].present?
-    if user_signed_in? && skill_category.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user
+  #   skill_category = SkillCategory.find(params[:id]) if params[:id].present?
+  #   if user_signed_in? && skill_category.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end

@@ -32,11 +32,11 @@ class UserPrefecturesController < ApplicationController
     params.require(:user_prefecture).permit(:prefecture_id)
   end
 
-  def authenticate_right_user
-    user_prefecture = UserPrefecture.find(params[:id]) if params[:id].present?
-    if user_signed_in? && user_prefecture.user != current_user
-      flash[:warning] = "適切なユーザーではありません。"
-      redirect_to root_path
-    end
-  end
+  # def authenticate_right_user
+  #   user_prefecture = UserPrefecture.find(params[:id]) if params[:id].present?
+  #   if user_signed_in? && user_prefecture.user != current_user
+  #     flash[:warning] = "適切なユーザーではありません。"
+  #     redirect_to root_path
+  #   end
+  # end
 end
