@@ -151,7 +151,7 @@ RSpec.describe "Users", type: :request do
     end
 
     context "ゲストユーザーの場合" do
-      let(:guest) { create(:guest) }
+      let(:guest) { create(:user, :guest) }
 
       it "トップページへリダイレクトすること" do
         sign_in guest
@@ -198,7 +198,7 @@ RSpec.describe "Users", type: :request do
     end
 
     context "ゲストユーザーの場合" do
-      let(:guest) { create(:guest) }
+      let(:guest) { create(:user, :guest) }
 
       it "トップページへリダイレクトすること" do
         sign_in guest
