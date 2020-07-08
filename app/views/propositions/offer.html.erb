@@ -13,7 +13,7 @@
     </div>
     <div id="existing-proposition-form-box" class="col-md-12">
       <% @propositions.each do |proposition| %>
-        <div class="col-md-12 bg-light rounded p-2 mt-2">
+        <div class="col-md-12 bg-light rounded p-2 mt-2 existing-proposition-<%= proposition.id %>">
           <%= render 'layouts/matching_relation_info', my_proposition: proposition, opponent_proposition: @offered_proposition %>
           <%= render 'propositions/proposition_simple_card', proposition: proposition, favorite: Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) %>
           <div class="row">
