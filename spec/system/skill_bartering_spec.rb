@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "SkillExchanges", type: :system do
+RSpec.describe "SkillBartering", type: :system do
   let!(:guest) { guest_proposition.user }
   let!(:chat_opponent) { chat_opponent_proposition.user }
   let!(:guest_proposition) { create(:proposition, :with_guest) }
