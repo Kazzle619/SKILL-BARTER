@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 text-white top-eye-catching d-flex align-items-center">
-      <h1>SKILL-BARTERへようこそ</h1>
+    <div class="col-md-12">
+      <div class='top-eye-catching-wrapper'>
+        <div class="top-eye-catching text-white d-flex align-items-center">
+          <h1>SKILL-BARTER<span class='h2'>へようこそ</span></h1>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -11,7 +15,7 @@
       <h5><strong>新着スキルホルダー</strong></h5>
     </div>
     <% @users.each do |user| %>
-      <div class="col-md-4">
+      <div class="col-12 col-md-4 my-2">
         <% follow = Follow.find_by(follower_id: current_user.id, followed_id: user.id) if user_signed_in? %>
         <%= render 'users/skill_holder_card', user: user, follow: follow %>
       </div>
@@ -23,7 +27,7 @@
 
   <%# 新着案件 %>
   <div class="row mb-4">
-    <div class="col-md-9">
+    <div class="col-12 col-md-9">
       <div class="col-md-12">
         <h5><strong>新着案件</strong></h5>
       </div>
@@ -38,7 +42,7 @@
     </div>
 
     <%# 案件検索フォーム %>
-    <div class="col-md-3" style="padding-top: 44px;">
+    <div class="col-12 col-md-3" style="padding-top: 44px;">
       <%= render 'propositions/propositions_search_form', search: @search %>
     </div>
   </div>
