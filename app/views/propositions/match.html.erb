@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 order-1 order-md-0">
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 order-0 order-md-1">
       <% if @best_match_propositions.present? %>
         <div class="col-md-12">
           <h5><strong>ベストマッチ</strong></h5>
