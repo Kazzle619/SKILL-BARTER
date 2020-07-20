@@ -1,15 +1,15 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-3">
+  <div class="row px-2">
+    <div class="col-md-3 order-1 order-md-0">
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 order-0 order-md-1">
       <%# ユーザー編集フォーム %>
       <div class="row bg-white py-2 my-4">
         <div class="col-md-9">
           <h5><strong>プロフィール</strong></h5>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 order-1 order-md-0 mt-2">
           <%= link_to "退会する", user_path(current_user.id), method: :delete, class: "btn btn-outline-danger btn-block", "data-confirm" => "本当に退会しますか？" %>
         </div>
 
@@ -61,10 +61,10 @@
         <div class="col-md-12">
           <div class="row align-items-center">
             <% @user.background_jobs.order(joining_date: :desc).each do |background_job| %>
-              <div class="col-10 col-md-10">
+              <div class="col-8 col-md-10">
                 <%= render 'background_jobs/background_job_card', background_job: background_job %>
               </div>
-              <div class="col-2 col-md-2 align-items-center">
+              <div class="col-4 col-md-2 align-items-center">
                 <%= link_to "削除", background_job_path(background_job.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
               </div>
             <% end %>
@@ -89,10 +89,10 @@
         <div class="col-md-12">
           <div class="row align-items-center">
             <% @user.background_schools.order(school_type: :desc).order(:enrollment_status).each do |background_school| %>
-              <div class="col-10 col-md-10">
+              <div class="col-8 col-md-10">
                 <%= render 'background_schools/background_school_card', background_school: background_school %>
               </div>
-              <div class="col-2 col-md-2 align-items-center">
+              <div class="col-4 col-md-2 align-items-center">
                 <%= link_to "削除", background_school_path(background_school.id), method: :delete, class: "btn btn-outline-danger btn-block" %>
               </div>
             <% end %>

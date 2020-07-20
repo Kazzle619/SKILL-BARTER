@@ -1,31 +1,31 @@
 <div class="card col-md-12 rounded border border-white">
   <div class="row">
     <div class="col-md-12">
-      <h2>レビュー</h2>
+      <h3>レビュー</h3>
     </div>
   </div>
 
   <%= form_with(model: [proposition, review], html: { class: "needs-validation", novalidate: true }, local: true) do |f| %>
-    <%# レビューレート %>
-    <div id="star" class="form-group ml-5">
-      <%= f.hidden_field :rate, id: "review_star" %>
-    </div>
-
-    <script>
-      $('#star').raty({
-        size     :  36,
-        starOff  :  '<%= asset_path('star-off.png') %>',
-        starOn   :  '<%= asset_path('star-on.png') %>',
-        starHalf :  '<%= asset_path('star-half.png') %>',
-        scoreName:  'review[rate]',
-        score: <%= review.rate %>,
-        half     :  true,
-      });
-    </script>
-
-    <%# レビューコメント %>
     <div class="form-group row">
       <div class="col-md-10 offset-md-1">
+        <%# レビューレート %>
+        <div id="star" class="form-group">
+          <%= f.hidden_field :rate, id: "review_star" %>
+        </div>
+
+        <script>
+          $('#star').raty({
+            size     :  36,
+            starOff  :  '<%= asset_path('star-off.png') %>',
+            starOn   :  '<%= asset_path('star-on.png') %>',
+            starHalf :  '<%= asset_path('star-half.png') %>',
+            scoreName:  'review[rate]',
+            score: <%= review.rate %>,
+            half     :  true,
+          });
+        </script>
+
+        <%# レビューコメント %>
         <%= f.text_area :comment, rows: 8, autofocus: true, id: "validationCustom01", class: "form-control", required: true %>
         <div class="invalid-feedback">
           レビューレート、レビューコメントともに入力してください。

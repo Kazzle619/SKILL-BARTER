@@ -1,15 +1,15 @@
 <%# マッチング関係を矢印でも示すよう後程変更予定。 %>
 <div class="container">
-  <div class="row">
-    <div class="col-md-3">
+  <div class="row px-2">
+    <div class="col-md-3 order-1 order-md-0">
       <%= render 'layouts/global_navigation_side_bar' %>
     </div>
-    <div class="col-md-9 rounded bg-white px-4">
+    <div class="col-md-9 rounded bg-white px-4 order-0 order-md-1 mb-2">
       <div class="row my-3">
         <div class="col-md-12">
           <h5><strong><%= current_user.name %>さんの案件一覧</strong></h5>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 d-none">
           <div class="row">
             <div class="col-md-5 mt-4 d-flex align-items-center">
               <h6><strong>自分の案件</strong></h6>
@@ -23,12 +23,15 @@
         </div>
         <% @propositions.each do |proposition| %>
           <div class="col-md-12 bg-light rounded-lg my-2">
-            <div class="row">
+            <div class="row px-1">
               <%# 自分の案件一覧 %>
-              <div class="col-md-5 my-2">
+              <div class="col-md-5 my-2 py-1 rounded border border-secondary">
                 <%= render 'propositions/proposition_detail', proposition: proposition, favorite: Favorite.find_by(user_id: current_user.id, proposition: proposition.id) %>
               </div>
               <div class="col-md-2">
+                <% if proposition.offering.present? or proposition.offerers.present? %>
+                  <h6 class="d-md-none"><strong>関連する案件</strong></h6>
+                <% end %>
               </div>
 
               <%# 自分の案件それぞれと関連する案件一覧 %>
