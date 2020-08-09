@@ -26,18 +26,11 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 });
 
 document.addEventListener('DOMContentLoaded', function(){
-  const $message = document.getElementById('chat-message');
-  const $image = document.getElementById('chat-image');
-  const $button = document.getElementById('chat-button');
-  const $user = document.getElementById('chat-user-id');
-  const $room = document.getElementById('chat-room-id');
-  $button.addEventListener('click', function(){
-    const message = $message.value;
-    const image = $image.files[0];
-    const user = $user.textContent;
-    const room = $room.textContent;
-    App.room.speak(message, image, user, room);
-    $message.value = '';
-    $image.value = '';
+  document.getElementById('chat-button').addEventListener('click', function(){
+    const message = document.getElementById('chat-message');
+    const image = document.getElementById('chat-image');
+    App.room.speak(message.value, image.files[0], document.getElementById('chat-user-id').textContent, document.getElementById('chat-room-id').textContent);
+    message.value = '';
+    image.value = '';
   })
 });

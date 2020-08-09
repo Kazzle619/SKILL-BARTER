@@ -1,0 +1,29 @@
+  <div class="row">
+    <h4><strong><%= heading %></strong></h4>
+  </div>
+
+  <%# スキルホルダー一覧 %>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <% users.each do |user| %>
+          <div class="col-md-6 my-3">
+            <% follow = Follow.find_by(follower_id: current_user.id, followed_id: user.id) if user_signed_in? %>
+            <%= render 'users/skill_holder_card', user: user, follow: follow %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%# スキルホルダー検索フォーム %>
+    <div class="col-md-3" style="padding-top: 16px;">
+      <%= render 'users/skill_holders_search_form', search: search %>
+    </div>
+  </div><br >
+
+  <%# ページネーション %>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <%= paginate users %>
+    </div>
+  </div>
