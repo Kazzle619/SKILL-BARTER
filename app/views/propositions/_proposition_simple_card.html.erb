@@ -6,7 +6,7 @@
         <%= render 'tags/tag_badge', tag: proposition_category.tag %>
       <% end %>
       <%# ストックボタン %>
-      <% if not proposition.bartered? %>
+      <% if !proposition.bartered? %>
         <span id="favorite-<%= proposition.id %>" class="float-right">
           <% favorite = Favorite.find_by(user_id: current_user.id, proposition_id: proposition.id) if user_signed_in? %>
           <%= render 'favorites/favorite_button', favorite: favorite, proposition: proposition %>

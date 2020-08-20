@@ -21,7 +21,7 @@
     </div>
 
     <%# 当事者にのみチャットフォームを表示。 %>
-    <% if (not user_signed_in?) || (not proposition.is_matched?) %>
+    <% if (!user_signed_in?) || (!proposition.is_matched?) %>
       <%# 何も表示しない。 %>
     <% elsif proposition.user == current_user || proposition.offering.user == current_user %>
       <div class="row">

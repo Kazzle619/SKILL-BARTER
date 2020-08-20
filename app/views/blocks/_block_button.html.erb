@@ -1,4 +1,4 @@
-<% if not user_signed_in? %>
+<% if !user_signed_in? %>
   <%# 何も表示しない。 %>
 <% elsif block.present? %>
   <%= link_to user_block_path(user.id, block.id), method: :delete, remote: true, "data-confirm" => "ブロックを解除しますか？" do %>
