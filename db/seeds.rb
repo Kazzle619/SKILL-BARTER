@@ -302,7 +302,7 @@ end
 # 既に相手方で作っていたら作らないようにdone_idsを使って制御。
 done_ids = []
 Proposition.where('barter_status >= ?', 3).each do |proposition|
-  if not done_ids.include?(proposition.offering.id)
+  if !done_ids.include?(proposition.offering.id)
     room = Room.create!
     PropositionRoom.create!(
       proposition_id: proposition.id,

@@ -18,7 +18,7 @@
                 <%= my_proposition.created_at.strftime("%Y/%m/%d %H:%M作成")%>
               <% end %>
             </p>
-            <% if (not @proposition.is_reviewed?) && @proposition.offering_to? %>
+            <% if (!@proposition.is_reviewed?) && @proposition.offering_to? %>
               <%= link_to "交換申請を取り下げる",  proposition_offer_path(@proposition.id, my_proposition.offering_relationship.id), method: :delete, class: "btn btn-danger p-1" %>
             <% else %>
             <% end %>
