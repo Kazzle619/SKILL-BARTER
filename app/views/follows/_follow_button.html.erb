@@ -1,4 +1,4 @@
-<% if not user_signed_in? %>
+<% if !user_signed_in? %>
   <%# 何も表示しない。 %>
 <% elsif follow.present? %>
   <%= link_to user_follow_path(user.id, follow.id), method: :delete, remote: true do %>

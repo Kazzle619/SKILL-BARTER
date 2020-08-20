@@ -47,7 +47,7 @@
                 <% end %>
                 <% proposition.offerers.each do |offering_proposition| %>
                   <%# 申請相手は上記で表示しているので、ここには表示させたくない。 %>
-                  <% if not (proposition.offering.present? && proposition.offering == offering_proposition) %>
+                  <% if !(proposition.offering.present? && proposition.offering == offering_proposition) %>
                     <div class="col-md-12 my-2 p-0">
                       <p class="mb-1">
                         <%= render 'layouts/matching_relation_info.html.erb', my_proposition: proposition, opponent_proposition: offering_proposition %>
