@@ -9,6 +9,7 @@ class FavoritesController < ApplicationController
       proposition_id: params[:proposition_id],
     )
     @favorite.save!
+    render 'favorite', locals: { proposition: @proposition, favorite: @favorite }
   end
 
   def destroy
@@ -18,6 +19,7 @@ class FavoritesController < ApplicationController
       proposition_id: @proposition.id
     )
     favorite.destroy!
+    render 'favorite', locals: { proposition: @proposition, favorite: @favorite }
   end
 
   # private
