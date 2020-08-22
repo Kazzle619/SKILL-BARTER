@@ -17,6 +17,7 @@ class FollowsController < ApplicationController
         followed_id: @user.id,
       )
       @follow.save!
+      render 'follow', locals: { user: @user, follow: @follow }
     end
   end
 
@@ -27,6 +28,7 @@ class FollowsController < ApplicationController
       followed_id: @user.id,
     )
     follow.destroy!
+    render 'follow', locals: { user: @user, follow: @follow }
   end
 
   # private
